@@ -118,5 +118,137 @@ const rateCard = [
         price: "360.00", 
         desc: "Agglutination test used for the diagnosis of Enteric (Typhoid) fever.",
         params: "S. Typhi O, S. Typhi H, S. Paratyphi AH, S. Paratyphi BH"
+    },
+    { 
+        name: "1p/19q Co-Deletion, Tissue", 
+        price: "13,515.00", 
+        desc: "Molecular genetic study used for the diagnostic classification of brain tumors.",
+        params: "Chromosome 1p deletion, Chromosome 19q deletion, Fluorescence in situ hybridization (FISH)"
+    },
+    { 
+        name: "ANA Screening by EIA, Serum", 
+        price: "990.00", 
+        desc: "Screening test for autoimmune disorders like SLE.",
+        params: "Antinuclear Antibodies"
+    },
+    { 
+        name: "Absolute Eosinophil Count", 
+        price: "240.00", 
+        desc: "Test to determine the absolute number of eosinophils in blood, often used for allergies.",
+        params: "Eosinophil count, AEC"
+    },
+    { 
+        name: "Amylase, Serum", 
+        price: "600.00", 
+        desc: "Measures the amount of amylase in blood to check for pancreas health.",
+        params: "Serum Amylase"
+    },
+    { 
+        name: "Bone Marrow Aspiration", 
+        price: "3,675.00", 
+        desc: "Specialized procedure to analyze the production of blood cells in the marrow.",
+        params: "Cellularity, M:E ratio, Erythropoiesis, Myelopoiesis, Megakaryocytes"
+    },
+    { 
+        name: "Calcium, Serum", 
+        price: "270.00", 
+        desc: "Measures blood calcium levels, important for bones, heart, and nerves.",
+        params: "Total Calcium"
+    },
+    { 
+        name: "CEA (Carcino Embryonic Antigen)", 
+        price: "1,350.00", 
+        desc: "Tumor marker often used to monitor treatment in cancer patients.",
+        params: "Serum CEA"
+    },
+    { 
+        name: "Chloride, Serum", 
+        price: "155.00", 
+        desc: "Electrolyte test to check for acid-base balance and hydration.",
+        params: "Serum Chloride"
+    },
+    { 
+        name: "Creatinine, Serum", 
+        price: "150.00", 
+        desc: "Key indicator of kidney health and filtration function.",
+        params: "Serum Creatinine, eGFR"
+    },
+    { 
+        name: "D Dimer - Quantitative", 
+        price: "1,520.00", 
+        desc: "Used to rule out the presence of serious blood clots (thrombosis).",
+        params: "D-Dimer, FDP"
+    },
+    { 
+        name: "Ferritin, Serum", 
+        price: "1,000.00", 
+        desc: "Measures the amount of stored iron in the body.",
+        params: "Serum Ferritin"
+    },
+    { 
+        name: "Folic Acid, Serum", 
+        price: "1,450.00", 
+        desc: "Measures Vitamin B9 levels, essential for DNA synthesis and RBC health.",
+        params: "Serum Folate"
+    },
+    { 
+        name: "FSH (Follicle Stimulating Hormone)", 
+        price: "630.00", 
+        desc: "Hormone test used to evaluate reproductive health and pituitary function.",
+        params: "Serum FSH"
+    },
+    { 
+        name: "LH (Luteinizing Hormone)", 
+        price: "650.00", 
+        desc: "Hormone test related to ovulation and testosterone production.",
+        params: "Serum LH"
+    },
+    { 
+        name: "Prolactin, Serum", 
+        price: "660.00", 
+        desc: "Measures prolactin levels, often used to investigate menstrual or fertility issues.",
+        params: "Serum Prolactin"
+    },
+    { 
+        name: "Testosterone Total, Serum", 
+        price: "750.00", 
+        desc: "Measures total testosterone levels in the blood.",
+        params: "Total Testosterone"
+    },
+    { 
+        name: "CA 125, Serum", 
+        price: "1,450.00", 
+        desc: "Tumor marker used to monitor ovarian cancer.",
+        params: "Cancer Antigen 125"
+    },
+    { 
+        name: "AFP (Alpha Feto Protein)", 
+        price: "1,020.00", 
+        desc: "Marker used in prenatal screening and for certain types of cancer.",
+        params: "Serum AFP"
+    },
+    { 
+        name: "Sodium, Serum", 
+        price: "190.00", 
+        desc: "Electrolyte test to monitor fluid balance and nerve/muscle function.",
+        params: "Serum Sodium"
+    },
+    { 
+        name: "Stool Routine Examination", 
+        price: "270.00", 
+        desc: "Diagnostic test for digestive issues, parasites, and infections.",
+        params: "Color, Consistency, Pus cells, RBCs, Ova, Cysts, Occult Blood"
+    },
+    { 
+        name: "Urea, Serum", 
+        price: "160.00", 
+        desc: "Measures the amount of urea nitrogen in blood, a waste product of protein metabolism.",
+        params: "Serum Urea, BUN"
+    },
+    { 
+        name: "VDRL (RPR), Serum", 
+        price: "300.00", 
+        desc: "Screening test for syphilis.",
+        params: "Rapid Plasma Reagin"
     }
 ];
