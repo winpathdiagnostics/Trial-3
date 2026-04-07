@@ -60,7 +60,6 @@
 
         .view-hidden { display: none; }
 
-        /* Custom UI Console */
         #ui-console {
             position: fixed;
             bottom: 20px;
@@ -82,16 +81,14 @@
 </head>
 <body class="text-gray-800 antialiased selection:bg-brand-cyan selection:text-white">
 
-    <!-- Diagnostic UI Console -->
     <div id="ui-console">
         <div class="flex justify-between items-center mb-2 border-b border-slate-700 pb-1">
             <span class="font-bold text-slate-400">WINPATH CONSOLE</span>
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span id="status-dot" class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
         </div>
-        <div id="console-output">Initializing system...</div>
+        <div id="console-output">System initialized...</div>
     </div>
 
-    <!-- Header Navigation -->
     <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -114,7 +111,6 @@
     </header>
 
     <div id="main-content">
-        <!-- Home Page -->
         <div id="home-view">
             <main class="relative z-10 w-full pt-20">
                 <section id="home" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -124,16 +120,16 @@
                                 <span class="w-2.5 h-2.5 rounded-full brand-gradient-bg animate-pulse"></span>
                                 Clinical Excellence
                             </div>
-                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-gray-900 leading-tight">
+                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-gray-900 leading-tight text-balance">
                                 Precision <br>
                                 <span class="brand-gradient-text drop-shadow-sm">Diagnostics.</span>
                             </h1>
                             <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                                Experience medical excellence from home. Search our comprehensive rate card for over 1,000+ clinical and specialized genetic tests.
+                                Access world-class laboratory services from home. Search our comprehensive rate card for clinical and specialized genetic testing.
                             </p>
                             <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                                 <button onclick="switchView('packages-page')" class="w-full sm:w-auto px-8 py-3.5 brand-gradient-bg text-white font-bold rounded-lg hover:shadow-[0_8px_25px_rgba(39,187,212,0.4)] transition-all transform hover:-translate-y-1">
-                                    Search Tests & Rates
+                                    Search 100+ Tests
                                 </button>
                                 <button class="w-full sm:w-auto px-8 py-3.5 bg-white text-brand-blue font-bold rounded-lg border-2 border-brand-blue/20 hover:border-brand-blue hover:bg-gray-50 transition-colors">
                                     Book Home Visit
@@ -151,15 +147,13 @@
             </main>
         </div>
 
-        <!-- Search Engine Page -->
         <div id="packages-page-view" class="view-hidden pt-28 pb-20 bg-gray-50 min-h-screen">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12 text-center">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Winpath <span class="brand-gradient-text">Rate Card</span></h1>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Instant keyword search for clinical tests and health packages.</p>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Winpath <span class="brand-gradient-text">Rate Card Search</span></h1>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Instant keyword search for over 100 clinical tests. Try keywords like "Sugar", "Anemia", "Vitamin", or "Renal".</p>
                 </div>
 
-                <!-- Search Interface -->
                 <div class="max-w-3xl mx-auto mb-12">
                     <div class="relative group">
                         <div class="absolute -inset-1 brand-gradient-bg rounded-2xl blur opacity-25 group-focus-within:opacity-50 transition duration-300"></div>
@@ -167,7 +161,7 @@
                             <div class="pl-4 text-brand-blue">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
-                            <input type="text" id="test-search" placeholder="Search parameters (e.g. PBS, Hb, Sugar, Urea...)" 
+                            <input type="text" id="test-search" placeholder="Search by test, parameter or package name..." 
                                 class="w-full px-4 py-4 text-lg focus:outline-none rounded-xl"
                                 oninput="filterTests()">
                             <div id="search-clear" class="pr-4 text-gray-400 cursor-pointer hidden" onclick="clearSearch()">
@@ -182,19 +176,17 @@
 
                 <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-                <!-- Empty Result State -->
                 <div id="no-results" class="view-hidden text-center py-20">
                     <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900">No matching tests found</h3>
-                    <p class="text-gray-500">Please refine your search terms.</p>
+                    <p class="text-gray-500">Please refine your search terms or contact us for a custom quote.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Website Footer -->
     <footer class="bg-brand-dark py-12 border-t-[6px] border-brand-cyan relative z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
             <div class="mb-6 inline-block cursor-pointer" onclick="switchView('home')">
@@ -210,90 +202,113 @@
         </div>
     </footer>
 
-    <!-- EXTERNAL DATA SOURCE: CALLING ratecard.js -->
+    <!-- EXTERNAL RATE CARD DATA SOURCE -->
     <script src="ratecard.js"></script>
 
     <script>
-        const logOutput = document.getElementById('console-output');
-        function sysLog(msg) {
+        // System Console Logger
+        const consoleOut = document.getElementById('console-output');
+        function sysLog(msg, color = '#22c55e') {
             const time = new Date().toLocaleTimeString();
-            logOutput.innerHTML += `<div>[${time}] ${msg}</div>`;
-            logOutput.scrollTop = logOutput.scrollHeight;
-            console.log(msg);
+            consoleOut.innerHTML += `<div style="color: ${color}">[${time}] ${msg}</div>`;
+            consoleOut.scrollTop = consoleOut.scrollHeight;
         }
 
+        /**
+         * Navigation Logic
+         */
         function switchView(viewId, sectionId) {
             const hView = document.getElementById('home-view');
             const pView = document.getElementById('packages-page-view');
+            
             if (viewId === 'home') {
                 hView.classList.remove('view-hidden');
                 pView.classList.add('view-hidden');
                 if (sectionId) document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
                 else window.scrollTo(0, 0);
-                sysLog("Navigation: Switched to Home.");
             } else {
                 hView.classList.add('view-hidden');
                 pView.classList.remove('view-hidden');
                 window.scrollTo(0, 0);
-                sysLog("Navigation: Switched to Rate Card.");
-                filterTests();
+                filterTests(); // Trigger initial render of featured tests
             }
         }
 
+        /**
+         * Rendering Logic
+         */
         function renderTests(tests, isFeatured) {
             const container = document.getElementById('test-results');
+            const noResults = document.getElementById('no-results');
             const countDisplay = document.getElementById('test-count');
             const titleDisplay = document.getElementById('results-title');
             
             container.innerHTML = '';
             countDisplay.innerText = tests.length;
-            titleDisplay.innerText = isFeatured ? "Featured Tests" : "Search Results";
+            titleDisplay.innerText = isFeatured ? "Popular Tests" : "Search Results";
 
-            tests.forEach(test => {
-                const card = document.createElement('div');
-                card.className = "test-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full";
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-3">
-                        <h4 class="text-md font-bold text-gray-900 leading-tight">${test.name}</h4>
-                        <span class="text-lg font-extrabold brand-gradient-text shrink-0 ml-4">₹${test.price}</span>
-                    </div>
-                    <p class="text-xs text-gray-500 italic mb-4 line-clamp-2">${test.desc}</p>
-                    <div class="bg-gray-50 p-3 rounded-lg mb-4 flex-grow text-[11px] text-gray-700">
-                        <span class="font-bold text-brand-blue uppercase block mb-1">Parameters:</span> ${test.params}
-                    </div>
-                    <div class="flex items-center justify-between mt-auto">
-                        <span class="text-[9px] font-bold text-brand-green uppercase">Available</span>
-                        <button class="text-xs font-bold brand-gradient-text hover:underline">Book Test +</button>
-                    </div>`;
-                container.appendChild(card);
-            });
+            if (tests.length === 0) {
+                noResults.classList.remove('view-hidden');
+            } else {
+                noResults.classList.add('view-hidden');
+                tests.forEach(test => {
+                    const card = document.createElement('div');
+                    card.className = "test-card bg-white p-6 rounded-2xl shadow-sm flex flex-col h-full";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="text-md font-bold text-gray-900 leading-tight">${test.name}</h4>
+                            <span class="text-lg font-extrabold brand-gradient-text shrink-0 ml-4">₹${test.price}</span>
+                        </div>
+                        <p class="text-xs text-gray-500 italic mb-4 line-clamp-2">${test.desc}</p>
+                        <div class="bg-gray-50 p-3 rounded-lg mb-4 flex-grow text-[11px] text-gray-700">
+                            <span class="font-bold text-brand-blue uppercase block mb-1">Coverage:</span> ${test.params}
+                        </div>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-[9px] font-bold text-brand-green uppercase tracking-wider">Bookable</span>
+                            <button class="text-xs font-bold brand-gradient-text hover:underline group flex items-center gap-1">
+                                View Details 
+                                <svg class="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>`;
+                    container.appendChild(card);
+                });
+            }
         }
 
+        /**
+         * Smart Keyword Search Logic
+         */
         function filterTests() {
-            // Guard clause to ensure rateCard is loaded from external file
-            if (typeof rateCard === 'undefined' || !Array.isArray(rateCard)) {
-                sysLog("Error: rateCard.js not loaded or invalid.");
+            if (typeof rateCard === 'undefined') {
+                sysLog("Error: rateCard.js failed to load or is invalid.", "#ef4444");
                 return;
             }
 
-            const query = document.getElementById('test-search').value.trim().toLowerCase();
+            const searchInput = document.getElementById('test-search');
+            const query = searchInput.value.trim().toLowerCase();
             const clearBtn = document.getElementById('search-clear');
+            
             clearBtn.classList.toggle('hidden', query === '');
 
             if (query === '') {
-                renderTests(rateCard.slice(0, 6), true);
+                // When empty, show first 9 popular tests
+                renderTests(rateCard.slice(0, 9), true);
                 return;
             }
 
-            const keywords = query.split(/\s+/);
-            const filtered = rateCard.filter(t => {
-                const searchSubject = `${t.name} ${t.params} ${t.desc}`.toLowerCase();
+            // Split search query into individual keywords
+            const keywords = query.split(/\s+/).filter(k => k.length > 0);
+
+            const filtered = rateCard.filter(test => {
+                const searchSubject = `${test.name} ${test.params} ${test.desc}`.toLowerCase();
+                // Match if ALL keywords are found anywhere in the test data
                 return keywords.every(kw => searchSubject.includes(kw));
             });
             
             renderTests(filtered, false);
             document.getElementById('no-results').classList.toggle('view-hidden', filtered.length > 0);
-            sysLog(`Search: Query "${query}" matched ${filtered.length} tests.`);
+            
+            if (filtered.length > 0) sysLog(`Found ${filtered.length} matches for "${query}"`);
         }
 
         function clearSearch() {
@@ -301,12 +316,13 @@
             filterTests();
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            sysLog("Winpath Diagnostics Online.");
+        // Initialize on load
+        window.addEventListener('load', () => {
+            sysLog("Winpath Diagnostic Database Initializing...");
             if (typeof rateCard !== 'undefined') {
-                sysLog("Database: " + rateCard.length + " tests identified.");
+                sysLog(`Success: ${rateCard.length} tests loaded.`, '#27BBD4');
             } else {
-                sysLog("Waiting for external rateCard data...");
+                sysLog("Waiting for external rateCard.js data...", "#f97316");
             }
         });
     </script>
