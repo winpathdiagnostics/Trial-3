@@ -1,4 +1,4 @@
-const rateCard = [
+const ratecard = [
             // Hematology & Basic Screens
             { name: "Peripheral Smear Examination (PBS)", price: "350.00", desc: "Detailed microscopic analysis of blood cells for morphology.", params: "RBC morphology, WBC differential, Platelet estimate" },
             { name: "CBC Haemogram (Complete Blood Count)", price: "400.00", desc: "Primary diagnostic tool for general health screening.", params: "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, RDW, Neutrophils, Lymphocytes" },
