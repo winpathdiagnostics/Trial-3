@@ -23087,3 +23087,5 @@ const ratecard = [
     params: "Specimen: Serum; Method: Serological/immunoassay testing"
   },
 ];
+
+module.exports = ratecard;
