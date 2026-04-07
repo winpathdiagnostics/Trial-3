@@ -210,29 +210,10 @@
         </div>
     </footer>
 
-    <script>
-        /** * INTEGRATED DATASET (Embedded for Preview)
-         * Copy this array to your 'ratecard.js' for GitHub deployment
-         */
-        const rateCard = [
-            { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells for morphology.", params: "RBC morphology, WBC differential, Platelet estimate, Parasites" },
-            { name: "CBC Haemogram, EDTA Blood", price: "400.00", desc: "Complete profiling of blood cells for general health screening.", params: "Hemoglobin (Hb), Total WBC Count, RBC Count, Platelet Count, PCV, MCV, MCH, MCHC, RDW, Neutrophils, Lymphocytes, Monocytes, Eosinophils, Basophils" },
-            { name: "Thyroid Profile (T3, T4, TSH)", price: "600.00", desc: "Assessment of thyroid gland function.", params: "Total T3, Total T4, TSH" },
-            { name: "Lipid Profile - Maxi", price: "1,450.00", desc: "Cholesterol screening for cardiovascular risk.", params: "Total Cholesterol, Triglycerides, HDL, LDL, VLDL, Ratios" },
-            { name: "Liver Function Test (LFT) - Maxi", price: "1,610.00", desc: "Measures enzymes to evaluate liver health.", params: "SGOT, SGPT, Bilirubin Total, Direct & Indirect Bilirubin, Albumin, ALP, GGTP" },
-            { name: "Renal Function Test (RFT) - Maxi", price: "1,150.00", desc: "Assessment of kidney filtration and waste levels.", params: "Urea, Creatinine, Uric Acid, Calcium, Phosphorus, Electrolytes" },
-            { name: "Glucose Fasting, Fluoride Plasma", price: "80.00", desc: "Primary blood sugar test for diabetes detection.", params: "Fasting Blood Sugar (FBS), Plasma Glucose" },
-            { name: "HbA1c - Glycated Haemoglobin", price: "700.00", desc: "Average blood sugar levels over 3 months.", params: "Glycosylated Hb, eAG" },
-            { name: "Vitamin D Total - 25 Hydroxy (OH)", price: "1,780.00", desc: "Measures Vitamin D stores for bone and immune health.", params: "25-OH Vitamin D Total" },
-            { name: "Vitamin B12 (Cyanocobalamin)", price: "1,350.00", desc: "Hormone essential for nerve and RBC production.", params: "Serum Vitamin B12" },
-            { name: "Iron Studies, Serum", price: "810.00", desc: "Evaluates iron transport and storage.", params: "Iron, TIBC, UIBC, % Saturation" },
-            { name: "D Dimer - Quantitative", price: "1,520.00", desc: "Detects presence of blood clots.", params: "Quantitative D-Dimer" },
-            { name: "CRP (C Reactive Protein), Serum", price: "520.00", desc: "Marker for inflammation or infection.", params: "Quantitative CRP" },
-            { name: "HIV-DUO (IVth Generation test)", price: "760.00", desc: "Highly sensitive early detection for HIV.", params: "HIV 1/2 Antibody, p24 Antigen" },
-            { name: "1p/19q Co-Deletion, Tissue", price: "13,515.00", desc: "Genetic test for brain tumor diagnostics.", params: "Chromosome 1p deletion, Chromosome 19q deletion" },
-            { name: "Urine Routine Examination (Automated)", price: "180.00", desc: "Comprehensive chemical and physical urine analysis.", params: "Color, pH, Specific Gravity, Protein, Glucose, Ketone, Pus cells, RBCs" }
-        ];
+    <!-- EXTERNAL DATA SOURCE: CALLING ratecard.js -->
+    <script src="ratecard.js"></script>
 
+    <script>
         const logOutput = document.getElementById('console-output');
         function sysLog(msg) {
             const time = new Date().toLocaleTimeString();
@@ -270,7 +251,7 @@
 
             tests.forEach(test => {
                 const card = document.createElement('div');
-                card.className = "test-card bg-white p-6 rounded-2xl shadow-sm flex flex-col h-full";
+                card.className = "test-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full";
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
                         <h4 class="text-md font-bold text-gray-900 leading-tight">${test.name}</h4>
@@ -289,6 +270,12 @@
         }
 
         function filterTests() {
+            // Guard clause to ensure rateCard is loaded from external file
+            if (typeof rateCard === 'undefined' || !Array.isArray(rateCard)) {
+                sysLog("Error: rateCard.js not loaded or invalid.");
+                return;
+            }
+
             const query = document.getElementById('test-search').value.trim().toLowerCase();
             const clearBtn = document.getElementById('search-clear');
             clearBtn.classList.toggle('hidden', query === '');
@@ -316,7 +303,11 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             sysLog("Winpath Diagnostics Online.");
-            sysLog("Database: " + rateCard.length + " tests identified.");
+            if (typeof rateCard !== 'undefined') {
+                sysLog("Database: " + rateCard.length + " tests identified.");
+            } else {
+                sysLog("Waiting for external rateCard data...");
+            }
         });
     </script>
 </body>
