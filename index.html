@@ -10,6 +10,10 @@
     
     <!-- Tailwind CSS for UI styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Firebase SDK for Functional Auth -->
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth-compat.js"></script>
     
     <script>
         tailwind.config = {
@@ -28,17 +32,16 @@
                     },
                     animation: {
                         'float': 'float 3s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
                         },
-                        glow: {
-                            'from': { 'box-shadow': '0 0 5px rgba(39, 187, 212, 0.2)' },
-                            'to': { 'box-shadow': '0 0 20px rgba(39, 187, 212, 0.6)' }
+                        'pulse-slow': {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.6' },
                         }
                     }
                 }
@@ -83,14 +86,28 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         .dropdown-shadow {
             box-shadow: 0 20px 50px -12px rgba(11, 19, 29, 0.15);
+        }
+
+        .specialty-pill {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .specialty-pill:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 15px 30px -10px rgba(44, 94, 180, 0.15);
         }
 
         input:focus {
@@ -117,20 +134,20 @@
     <div id="cart-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[80] shadow-2xl translate-x-full cart-slide flex flex-col">
         <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
             <div>
-                <h2 class="text-xl font-extrabold text-gray-900 uppercase tracking-tight">Your Cart</h2>
-                <p id="cart-count-label" class="text-[10px] text-gray-400 font-black uppercase tracking-widest">0 tests selected</p>
+                <h2 class="text-xl font-extrabold text-gray-900 uppercase tracking-tight text-left">Your Cart</h2>
+                <p id="cart-count-label" class="text-[10px] text-gray-400 font-black uppercase tracking-widest text-left">0 tests selected</p>
             </div>
             <button onclick="toggleCart(false)" class="p-2 text-gray-400 hover:text-brand-blue hover:bg-white rounded-lg transition-all shadow-sm">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         
-        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4">
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 text-left">
             <div id="cart-empty" class="text-center py-20">
                 <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </div>
-                <p class="text-gray-400 font-medium tracking-tight">Your cart is currently empty.</p>
+                <p class="text-gray-400 font-medium tracking-tight text-center">Your cart is currently empty.</p>
                 <button onclick="toggleCart(false)" class="mt-4 text-brand-blue font-bold text-sm hover:underline">Browse Rate Card</button>
             </div>
         </div>
@@ -164,41 +181,23 @@
 
                 <!-- Profile Section -->
                 <div class="relative h-full flex items-center" id="user-header-container">
-                    <!-- Guest View -->
                     <button id="guest-header" onclick="switchView('auth')" class="flex items-center gap-2 bg-brand-blue/5 px-5 py-2.5 rounded-xl border border-brand-blue/10 hover:bg-brand-blue/10 transition-all group">
                         <div class="w-2 h-2 rounded-full bg-brand-blue group-hover:animate-ping"></div>
                         <span class="text-[10px] font-black uppercase tracking-widest text-brand-blue">Sign In</span>
                     </button>
 
-                    <!-- Authenticated View (Initial alphabet icon) -->
                     <div id="user-header" class="view-hidden relative group cursor-pointer h-full flex items-center" onclick="toggleProfileDropdown()">
-                        <div class="w-10 h-10 rounded-xl brand-gradient-bg flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform" id="user-initial">
-                            U
-                        </div>
-                        
-                        <!-- Dropdown Menu -->
+                        <div class="w-10 h-10 rounded-xl brand-gradient-bg flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform" id="user-initial">U</div>
                         <div id="profile-dropdown" class="view-hidden absolute top-20 right-0 w-64 bg-white rounded-2xl border border-gray-100 dropdown-shadow py-3 z-[90]">
                             <div class="px-5 py-3 border-b border-gray-50 mb-2">
-                                <p class="text-[9px] font-black uppercase tracking-widest text-gray-400">Signed in as</p>
-                                <p id="user-display-email" class="text-xs font-bold text-gray-900 truncate mt-0.5">user@example.com</p>
+                                <p class="text-[9px] font-black uppercase tracking-widest text-gray-400 text-left">Signed in as</p>
+                                <p id="user-display-email" class="text-xs font-bold text-gray-900 truncate mt-0.5 text-left">user@example.com</p>
                             </div>
-                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2"/></svg>
-                                Profile
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-width="2"/></svg>
-                                Addresses
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2"/></svg>
-                                Family Members
-                            </a>
+                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">Profile</a>
+                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">Addresses</a>
+                            <a href="#" class="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-brand-blue transition-all">Family Members</a>
                             <div class="h-px bg-gray-50 my-2 mx-5"></div>
-                            <button onclick="handleLogout()" class="w-full text-left flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:bg-red-50 transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-width="2"/></svg>
-                                Logout
-                            </button>
+                            <button onclick="handleLogout()" class="w-full text-left flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:bg-red-50 transition-all text-left">Logout</button>
                         </div>
                     </div>
                 </div>
@@ -218,63 +217,113 @@
                                 <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg animate-pulse"></span>
                                 Diagnostic Mastery
                             </div>
-                            
                             <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 leading-[1.05]">
                                 Precision Diagnostics,<br>
                                 <span class="brand-gradient-text tracking-tighter">Accurate Results.</span>
                             </h1>
-
-                            <div class="text-3xl md:text-4xl font-extrabold text-brand-blue/90 mb-8 tracking-tight italic">
-                                Exceptional Care.
-                            </div>
-
+                            <div class="text-3xl md:text-4xl font-extrabold text-brand-blue/90 mb-8 tracking-tight italic">Exceptional Care.</div>
                             <div class="mb-12">
                                 <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed font-medium max-w-2xl text-balance">
-                                    Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests at <span class="brand-gradient-text font-black tracking-tighter">Winpath.</span>
+                                    Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests at <span class="brand-gradient-text font-black tracking-tighter uppercase">Winpath.</span>
                                 </p>
                                 <div class="flex items-center justify-center lg:justify-start gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
                                     <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg"></span>
                                     Strictly Adhering to <span class="text-brand-blue">ISO 15189:2022</span> Standards
                                 </div>
                             </div>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 text-left">
-                                <div class="flex items-center gap-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-default">
-                                    <div class="w-14 h-14 rounded-2xl brand-gradient-bg flex items-center justify-center text-white shrink-0 animate-float shadow-lg shadow-cyan-500/20">
-                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest leading-none mb-1">24-Hour Results</h4>
-                                        <p class="text-xs text-gray-500 font-medium">Digital reports delivered in a day.</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center gap-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-default">
-                                    <div class="w-14 h-14 rounded-2xl bg-gray-900 flex items-center justify-center text-brand-cyan shrink-0 animate-float [animation-delay:0.5s] shadow-lg shadow-black/10">
-                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest leading-none mb-1">Home Collection</h4>
-                                        <p class="text-xs text-gray-500 font-medium">Professional phlebotomy at your door.</p>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
-                                <button onclick="switchView('packages-page')" class="px-12 py-6 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:-translate-y-1 active:scale-95">
-                                    Search Rate Card
-                                </button>
-                                <button onclick="const el = document.getElementById('health-packages'); if(el) el.scrollIntoView({behavior: 'smooth'})" class="px-12 py-6 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue hover:shadow-xl transition-all active:scale-95">
-                                    View Packages
-                                </button>
+                                <button onclick="switchView('packages-page')" class="px-12 py-6 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:-translate-y-1 active:scale-95">Search Rate Card</button>
+                                <button onclick="const el = document.getElementById('health-packages'); if(el) el.scrollIntoView({behavior: 'smooth'})" class="px-12 py-6 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue hover:shadow-xl transition-all active:scale-95">View Packages</button>
                             </div>
                         </div>
-
                         <div class="flex-1 relative w-full group">
                             <div class="absolute -inset-10 brand-gradient-bg rounded-full opacity-5 blur-[120px] animate-pulse-slow"></div>
-                            <div class="relative">
-                                <div class="absolute -inset-1.5 brand-gradient-bg rounded-[3rem] blur opacity-30 group-hover:opacity-50 transition duration-700"></div>
-                                <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/Gemini_Generated_Image_6y9d06y9d06y9d06.png" class="relative rounded-[3rem] shadow-2xl w-full h-auto object-cover border-[12px] border-white transform transition-transform duration-1000 group-hover:scale-[1.02]">
+                            <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/Gemini_Generated_Image_6y9d06y9d06y9d06.png" class="relative rounded-[3rem] shadow-2xl w-full h-auto object-cover border-[12px] border-white transform transition-transform duration-1000 group-hover:scale-[1.02]">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Diagnostic Specialties Section -->
+                <section id="diagnostic-range" class="py-24 bg-white relative overflow-hidden">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+                        <div class="mb-16">
+                            <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-6">
+                                <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                                Laboratory Expertise
+                            </div>
+                            <h2 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter">Diagnostic <span class="brand-gradient-text italic">Specialties.</span></h2>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Hematology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Biochemistry</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Immunology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Microbiology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-none">Clinical Pathology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-none">Histopathology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-none">Cytopathology</h4>
+                            </div>
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-none">Molecular Diagnostics</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Health Check Up Packages Section -->
+                <section id="health-packages" class="py-24 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10 text-left">
+                        <div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20">
+                            <div class="max-w-3xl">
+                                <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-8">
+                                    <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                                    Preventive Screening
+                                </div>
+                                <h2 class="text-5xl md:text-7xl font-black text-gray-900 mb-10 leading-[0.9] tracking-tighter">Health <span class="brand-gradient-text italic">Packages.</span></h2>
+                                <p class="text-2xl text-gray-500 font-light leading-relaxed mb-10 tracking-tight">
+                                    Comprehensive clinical assessments designed for preventive health monitoring. Each package is processed in our state-of-the-art <span class="text-brand-blue font-bold">ISO 15189:2022 standards compliance laboratory in Bengaluru.</span>
+                                </p>
+                                <div class="flex items-start gap-8 p-10 glass-card rounded-[3rem] border-l-8 border-brand-cyan shadow-2xl relative overflow-hidden group">
+                                    <div class="mt-1 text-brand-cyan shrink-0"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                                    <p class="text-xl text-gray-800 font-medium italic leading-relaxed tracking-tight">"Individual test packages are recommended by your doctor at the best possible price, helping avoid unnecessary tests and ensuring focused diagnostics."</p>
+                                </div>
+                            </div>
+                            <button onclick="switchView('packages-page')" class="group flex items-center gap-6 bg-white px-10 py-5 rounded-[2rem] border border-gray-200 shadow-2xl hover:border-brand-cyan hover:shadow-cyan-500/10 transition-all shrink-0">
+                                <span class="text-sm font-black text-gray-900 uppercase tracking-widest">Explore Full Menu</span>
+                                <div class="w-12 h-12 rounded-2xl brand-gradient-bg flex items-center justify-center text-white shadow-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer" onclick="switchView('packages-page')">
+                                <div class="w-20 h-20 rounded-3xl bg-brand-cyan/10 flex items-center justify-center text-brand-cyan mb-10 group-hover:scale-110 transition-transform duration-500"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">TruHeart Gold</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Cardiovascular risk profiling including Advanced Lipid and Homocysteine levels.</p>
+                                <div class="flex items-center justify-between"><span class="text-4xl font-black brand-gradient-text tracking-tighter">₹2,499</span><div class="w-14 h-14 rounded-full bg-brand-cyan/5 text-brand-cyan flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></div></div>
+                            </div>
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer ring-[12px] ring-brand-blue/5 scale-105 z-20" onclick="switchView('packages-page')">
+                                <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[9px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-2xl">Elite Selection</div>
+                                <div class="w-20 h-20 rounded-3xl bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-10 group-hover:scale-110 transition-transform duration-500"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">Master Checkup</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Our signature senior screen covering 60+ parameters across all biological systems.</p>
+                                <div class="flex items-center justify-between"><span class="text-4xl font-black brand-gradient-text tracking-tighter">₹4,500</span><div class="w-14 h-14 rounded-full bg-brand-blue/5 text-brand-blue flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></div></div>
+                            </div>
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer" onclick="switchView('packages-page')">
+                                <div class="w-20 h-20 rounded-3xl bg-brand-green/10 flex items-center justify-center text-brand-green mb-10 group-hover:scale-110 transition-transform duration-500"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.183.394l-1.15.908a2 2 0 00-.72 1.912l.15 1.052a2 2 0 00.513 1.023l.915.914a2 2 0 001.415.586h10.35a2 2 0 001.415-.586l.914-.914a2 2 0 00.513-1.023l.15-1.052a2 2 0 00-.72-1.912l-1.15-.908z"></path></svg></div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">Fever Profile</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Rapid identification of infectious origins including Typhoid and Malaria markers.</p>
+                                <div class="flex items-center justify-between"><span class="text-4xl font-black brand-gradient-text tracking-tighter">₹1,800</span><div class="w-14 h-14 rounded-full bg-brand-green/5 text-brand-green flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></div></div>
                             </div>
                         </div>
                     </div>
@@ -282,155 +331,143 @@
             </main>
         </div>
 
-        <!-- Auth View (Secure Access) -->
+        <!-- Auth View -->
         <div id="auth-view" class="view-hidden pt-28 pb-20 bg-gray-50 min-h-screen">
             <div class="max-w-md mx-auto px-6">
                 <div class="text-center mb-10">
-                    <div class="w-20 h-20 brand-gradient-bg rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-xl shadow-cyan-500/20">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                    </div>
+                    <div class="w-20 h-20 brand-gradient-bg rounded-3xl flex items-center justify-center text-white mx-auto mb-6 shadow-xl shadow-cyan-500/20"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg></div>
                     <h1 id="auth-title" class="text-3xl font-black text-gray-900 tracking-tight">Secure Access</h1>
                     <p id="auth-subtitle" class="text-gray-500 mt-2">Sign in to complete your diagnostic booking</p>
                 </div>
-
                 <div class="bg-white rounded-[2.5rem] shadow-2xl p-8 border border-gray-100 relative overflow-hidden">
-                    <!-- Tabs -->
                     <div class="flex bg-gray-100 p-1 rounded-2xl mb-8" id="auth-tabs">
                         <button id="tab-email" onclick="switchAuthMode('email')" class="flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white text-gray-900 shadow-sm transition-all">Email</button>
                         <button id="tab-mobile" onclick="switchAuthMode('mobile')" class="flex-1 py-3 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-600 transition-all">Mobile</button>
                     </div>
-
-                    <!-- Email Sign In Form -->
                     <div id="form-email" class="space-y-6">
-                        <div id="signin-group">
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Email Address</label>
-                                    <input type="email" id="email-input" placeholder="name@example.com" class="w-full mt-2 px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white transition-all outline-none font-medium">
-                                </div>
-                                <div id="pass-field">
-                                    <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Password</label>
-                                    <input type="password" placeholder="••••••••" class="w-full mt-2 px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white transition-all outline-none font-medium">
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-end mt-3">
-                                <button onclick="switchAuthMode('forgot')" class="text-[10px] font-black uppercase tracking-widest text-brand-blue hover:underline">Forgot Password?</button>
-                            </div>
-
-                            <button onclick="simulateAuth('Email User')" class="w-full mt-8 brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all active:scale-95">Sign In</button>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 text-left block">Email Address</label>
+                            <input type="email" id="email-input-field" placeholder="name@example.com" class="w-full mt-2 px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white outline-none font-medium">
                         </div>
-
-                        <div class="relative py-4">
-                            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-100"></div></div>
-                            <div class="relative flex justify-center text-[10px] uppercase tracking-widest font-black"><span class="bg-white px-4 text-gray-300">Fast Access</span></div>
+                        <div id="pass-field">
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 text-left block">Password</label>
+                            <input type="password" placeholder="••••••••" class="w-full mt-2 px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white outline-none font-medium">
                         </div>
-
-                        <!-- Google Login Button -->
-                        <button onclick="simulateAuth('Google Account', 'G')" class="w-full flex items-center justify-center gap-3 py-4 bg-white border border-gray-200 rounded-2xl hover:bg-gray-50 transition-all active:scale-95 group">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.33 0 3.327 2.682 1.345 6.6l3.921 3.165z"/><path fill="#34A853" d="M12 24c3.055 0 5.864-1.018 8-2.727l-4.109-3.327C14.782 18.782 13.473 19.091 12 19.091c-2.882 0-5.327-1.927-6.209-4.527l-4.136 3.191C3.627 21.318 7.527 24 12 24z"/><path fill="#4285F4" d="M23.491 12.273c0-.818-.082-1.609-.218-2.373H12v4.582h6.436c-.273 1.455-1.082 2.691-2.318 3.518L20.218 21.273C22.618 19.073 24 15.818 24 12.273z"/><path fill="#FBBC05" d="M5.791 14.564a7.036 7.036 0 0 1-.382-2.291c0-.8.136-1.573.382-2.291L1.873 6.818A11.933 11.933 0 0 0 0 12c0 1.918.455 3.736 1.255 5.345l4.536-3.781z"/></svg>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-gray-900">Sign in with Google</span>
-                        </button>
+                        <button onclick="handleEmailAuth()" class="w-full mt-8 brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-95 text-center">Sign In</button>
+                        <button onclick="handleGoogleLogin()" class="w-full flex items-center justify-center gap-3 py-4 bg-white border border-gray-200 rounded-2xl hover:bg-gray-50 active:scale-95 group"><svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.33 0 3.327 2.682 1.345 6.6l3.921 3.165z"/><path fill="#34A853" d="M12 24c3.055 0 5.864-1.018 8-2.727l-4.109-3.327C14.782 18.782 13.473 19.091 12 19.091c-2.882 0-5.327-1.927-6.209-4.527l-4.136 3.191C3.627 21.318 7.527 24 12 24z"/><path fill="#4285F4" d="M23.491 12.273c0-.818-.082-1.609-.218-2.373H12v4.582h6.436c-.273 1.455-1.082 2.691-2.318 3.518L20.218 21.273C22.618 19.073 24 15.818 24 12.273z"/><path fill="#FBBC05" d="M5.791 14.564a7.036 7.036 0 0 1-.382-2.291c0-.8.136-1.573.382-2.291L1.873 6.818A11.933 11.933 0 0 0 0 12c0 1.918.455 3.736 1.255 5.345l4.536-3.781z"/></svg><span class="text-[10px] font-black uppercase tracking-widest text-gray-900">Sign in with Gmail</span></button>
                     </div>
-
-                    <!-- Mobile Login Form -->
+                    <!-- Other forms handled by switchAuthMode -->
                     <div id="form-mobile" class="view-hidden space-y-8">
                         <div>
-                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Mobile Number</label>
-                            <div class="flex gap-3 mt-2">
-                                <div class="px-4 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500">+91</div>
-                                <input type="tel" id="mobile-input" placeholder="98765 43210" class="w-full px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white transition-all outline-none font-medium tracking-widest">
-                            </div>
+                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 text-left block">Mobile Number</label>
+                            <div class="flex gap-3 mt-2"><div class="px-4 py-4 bg-gray-100 rounded-2xl font-bold text-gray-500">+91</div><input type="tel" id="mobile-input-field" placeholder="98765 43210" class="w-full px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white outline-none font-medium tracking-widest"></div>
                         </div>
-                        <button onclick="switchAuthMode('otp-verify')" class="w-full brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all active:scale-95">Send OTP</button>
+                        <button onclick="handleMobileAuth()" class="w-full brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl active:scale-95">Send OTP</button>
                     </div>
-
-                    <!-- OTP Verify View -->
-                    <div id="form-otp-verify" class="view-hidden space-y-8">
-                        <div class="text-center">
-                            <p class="text-sm text-gray-500 font-medium italic">Please enter the 4-digit code sent to your device</p>
-                        </div>
-                        <div class="flex justify-center gap-3">
-                            <input type="text" maxlength="1" class="w-12 h-14 text-center bg-gray-50 rounded-xl font-bold text-xl focus:bg-white border-2 border-brand-cyan transition-all outline-none">
-                            <input type="text" maxlength="1" class="w-12 h-14 text-center bg-gray-50 rounded-xl font-bold text-xl focus:bg-white border-2 border-transparent transition-all outline-none">
-                            <input type="text" maxlength="1" class="w-12 h-14 text-center bg-gray-50 rounded-xl font-bold text-xl focus:bg-white border-2 border-transparent transition-all outline-none">
-                            <input type="text" maxlength="1" class="w-12 h-14 text-center bg-gray-50 rounded-xl font-bold text-xl focus:bg-white border-2 border-transparent transition-all outline-none">
-                        </div>
-                        <button onclick="simulateAuth('Verified Patient', 'V')" class="w-full brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all active:scale-95">Verify & Access</button>
-                        <div class="text-center">
-                            <button class="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-brand-blue">Resend OTP in 30s</button>
-                        </div>
-                    </div>
-
-                    <!-- Forgot Password Form -->
-                    <div id="form-forgot" class="view-hidden space-y-8">
-                        <div>
-                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Registered Email</label>
-                            <input type="email" placeholder="name@example.com" class="w-full mt-2 px-6 py-4 bg-gray-50 border-transparent rounded-2xl focus:bg-white transition-all outline-none font-medium">
-                        </div>
-                        <button class="w-full brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all active:scale-95">Send Reset Link</button>
-                        <button onclick="switchAuthMode('email')" class="w-full text-[10px] font-black uppercase tracking-widest text-brand-blue">Back to Sign In</button>
-                    </div>
-
-                    <div id="signup-toggle" class="mt-8 text-center">
-                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">
-                            Don't have an account? 
-                            <button id="auth-action-btn" onclick="toggleSignup(true)" class="text-brand-blue hover:underline ml-1">Create Account</button>
-                        </p>
-                    </div>
+                    <div id="signup-toggle" class="mt-8 text-center text-[10px] font-black uppercase tracking-widest text-gray-400">Don't have an account? <button onclick="toggleSignup(true)" class="text-brand-blue hover:underline ml-1">Create Account</button></div>
                 </div>
             </div>
         </div>
 
-        <!-- Search & Test View -->
+        <!-- Search View -->
         <div id="packages-page-view" class="view-hidden pt-28 pb-20 bg-gray-50 min-h-screen">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase leading-none text-balance">The <span class="brand-gradient-text italic">Menu.</span></h1>
-                    <p class="text-gray-400 max-w-xl mx-auto text-sm font-bold uppercase tracking-widest leading-loose">Search over 100+ clinical markers with a few keystrokes.</p>
+                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase leading-none">The <span class="brand-gradient-text italic">Menu.</span></h1>
+                    <p class="text-gray-400 max-w-xl mx-auto text-sm font-bold uppercase tracking-widest leading-loose text-center">Search over 100+ clinical markers with a few keystrokes.</p>
                 </div>
-
-                <!-- Smart Search Bar -->
                 <div class="max-w-2xl mx-auto mb-20">
                     <div class="relative group">
                         <div class="absolute -inset-1 brand-gradient-bg rounded-[2rem] blur opacity-20 group-focus-within:opacity-50 transition duration-300"></div>
-                        <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-3 border border-gray-50">
-                            <div class="pl-6 text-brand-blue">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </div>
-                            <input type="text" id="test-search" placeholder="Type here (e.g. PBS, CBC, Liver, Cardiac...)" 
-                                class="w-full px-6 py-5 text-xl focus:outline-none rounded-2xl bg-transparent font-semibold tracking-tight"
-                                oninput="filterTests()">
-                            <button id="search-clear" class="pr-6 text-gray-300 hover:text-gray-500 hidden transition-colors" onclick="clearSearch()">
-                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                            </button>
+                        <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-3 border border-gray-100">
+                            <div class="pl-6 text-brand-blue"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
+                            <input type="text" id="test-search" placeholder="Type here (e.g. PBS, CBC, Liver...)" class="w-full px-6 py-5 text-xl focus:outline-none rounded-2xl bg-transparent font-semibold tracking-tight" oninput="filterTests()">
+                            <button id="search-clear" class="pr-6 text-gray-300 hover:text-gray-500 hidden transition-colors" onclick="clearSearch()"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg></button>
                         </div>
                     </div>
-                    <div class="mt-8 flex justify-between items-center px-6">
-                        <span id="results-title" class="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em]">Ready for Pickup</span>
-                        <span id="test-count" class="text-[10px] font-black text-brand-blue bg-brand-blue/5 px-4 py-1.5 rounded-full border border-brand-blue/10 uppercase tracking-widest">0 Matches</span>
-                    </div>
+                    <div class="mt-8 flex justify-between items-center px-6"><span id="results-title" class="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em]">Ready for Pickup</span><span id="test-count" class="text-[10px] font-black text-brand-blue bg-brand-blue/5 px-4 py-1.5 rounded-full border border-brand-blue/10 uppercase tracking-widest">0 Matches</span></div>
                 </div>
-
-                <!-- Result Grid -->
                 <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-brand-dark py-24">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mx-auto mb-10 grayscale brightness-200 opacity-60">
-            <p class="text-brand-cyan font-black tracking-[0.5em] uppercase text-[9px] mb-12 opacity-50">Scientific Integrity • Clinical Excellence</p>
-            <div class="h-px w-48 brand-gradient-bg mx-auto mb-12 opacity-10"></div>
-            <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Winpath Diagnostics. <br class="md:hidden"> Accredited Excellence. Bengaluru.</p>
+    <!-- REFINED COMPREHENSIVE FOOTER -->
+    <footer class="bg-brand-dark py-24 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start mb-20">
+                <!-- Branding Block -->
+                <div class="text-center lg:text-left">
+                    <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mx-auto lg:mx-0 mb-8 grayscale brightness-200">
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm mx-auto lg:mx-0">
+                        A state-of-the-art diagnostic facility in Bengaluru committed to providing world-class medical precision and exceptional patient care since 2012.
+                    </p>
+                    <div class="flex gap-4 justify-center lg:justify-start">
+                        <div class="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center text-gray-400 hover:text-brand-cyan transition-colors cursor-pointer border border-gray-700">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center text-gray-400 hover:text-brand-cyan transition-colors cursor-pointer border border-gray-700">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.012 3.823.06 1.062.049 1.745.218 2.227.405.638.248 1.092.545 1.57.147.147 1.025.147.248.638.405.482.187 1.165.356 2.227.405 1.039.048 1.393.06 3.823.06zm0 1.8c2.4 0 2.718.01 3.664.053.874.041 1.348.187 1.664.31.419.163.717.358.1032.673.315.315.51.613.673 1.032.123.316.27.79.31 1.664.043.946.053 1.264.053 3.664z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="grid grid-cols-2 gap-12 text-left">
+                    <div>
+                        <h4 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Navigation</h4>
+                        <ul class="space-y-4 text-gray-500 text-sm font-bold">
+                            <li><a href="#" onclick="switchView('home')" class="hover:text-brand-cyan transition-colors">Home</a></li>
+                            <li><a href="#" onclick="switchView('packages-page')" class="hover:text-brand-cyan transition-colors">Test Menu</a></li>
+                            <li><a href="#" class="hover:text-brand-cyan transition-colors">About Winpath</a></li>
+                            <li><a href="#" class="hover:text-brand-cyan transition-colors">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Support</h4>
+                        <ul class="space-y-4 text-gray-500 text-sm font-bold">
+                            <li><a href="#" class="hover:text-brand-cyan transition-colors">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-brand-cyan transition-colors">Terms of Use</a></li>
+                            <li><a href="#" class="hover:text-brand-cyan transition-colors">Home Collection</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accreditation & Quality -->
+                <div class="text-center lg:text-left bg-gray-900/50 p-8 rounded-[2rem] border border-gray-800">
+                    <h4 class="text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-6">Accredited Excellence</h4>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-6 font-medium">
+                        Processing over 2500+ samples daily under strict <span class="text-white">ISO 15189:2022</span> quality control protocols.
+                    </p>
+                    <div class="flex items-center gap-4 justify-center lg:justify-start">
+                        <div class="px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg text-[10px] font-black text-brand-blue uppercase tracking-widest italic">
+                            Accuracy First
+                        </div>
+                        <div class="px-4 py-2 bg-brand-green/10 border border-brand-green/20 rounded-lg text-[10px] font-black text-brand-green uppercase tracking-widest italic">
+                            24H Results
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-12 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em] text-center md:text-left">
+                    © 2026 Winpath Diagnostics Private Limited. <br class="md:hidden"> Bengaluru, Karnataka.
+                </p>
+                <div class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
+                    <span class="text-gray-600 text-[9px] font-black uppercase tracking-widest">System Operational</span>
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
         // AUTH STATE
         let currentUser = null;
+        let cart = [];
+        let isSignupMode = false;
 
         const rateCard = [
             { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells.", params: "RBC morphology, WBC differential, Platelets" },
@@ -441,13 +478,11 @@
             { name: "Renal Function Test (RFT) - Maxi", price: "1,150.00", desc: "Efficiency of kidneys and electrolytes.", params: "Urea, Creatinine, Uric Acid, Sodium" }
         ];
 
-        let cart = [];
-
         function switchView(viewId, sectionId) {
             const views = ['home-view', 'packages-page-view', 'auth-view'];
             views.forEach(v => document.getElementById(v).classList.add('view-hidden'));
-            
-            const target = document.getElementById(viewId + (viewId.includes('-') ? '' : '-view'));
+            const targetId = viewId.includes('-view') ? viewId : viewId + '-view';
+            const target = document.getElementById(targetId);
             if (target) {
                 target.classList.remove('view-hidden');
                 if (sectionId) document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -456,67 +491,22 @@
             if (viewId === 'packages-page') filterTests();
         }
 
-        /**
-         * Auth UI Logic
-         */
-        function switchAuthMode(mode) {
-            const forms = ['form-email', 'form-mobile', 'form-otp-verify', 'form-forgot'];
-            forms.forEach(f => document.getElementById(f).classList.add('view-hidden'));
-            
-            document.getElementById('auth-tabs').classList.toggle('view-hidden', ['otp-verify', 'forgot'].includes(mode));
-
-            const tabs = ['tab-email', 'tab-mobile'];
-            tabs.forEach(t => document.getElementById(t).classList.replace('bg-white', 'bg-transparent'));
-            tabs.forEach(t => document.getElementById(t).classList.replace('text-gray-900', 'text-gray-400'));
-            tabs.forEach(t => document.getElementById(t).classList.remove('shadow-sm'));
-
-            if (mode === 'email') {
-                document.getElementById('form-email').classList.remove('view-hidden');
-                document.getElementById('tab-email').classList.add('bg-white', 'text-gray-900', 'shadow-sm');
-                document.getElementById('auth-title').innerText = "Email Access";
-            } else if (mode === 'mobile') {
-                document.getElementById('form-mobile').classList.remove('view-hidden');
-                document.getElementById('tab-mobile').classList.add('bg-white', 'text-gray-900', 'shadow-sm');
-                document.getElementById('auth-title').innerText = "OTP Access";
-            } else if (mode === 'otp-verify') {
-                document.getElementById('form-otp-verify').classList.remove('view-hidden');
-                document.getElementById('auth-title').innerText = "Verify OTP";
-            } else if (mode === 'forgot') {
-                document.getElementById('form-forgot').classList.remove('view-hidden');
-                document.getElementById('auth-title').innerText = "Recover Access";
-            }
+        async function handleGoogleLogin() {
+            // Mock authentication for preview
+            finalizeAuth("Google User", "google-account@gmail.com", "G");
         }
 
-        function toggleSignup(show) {
-            const title = document.getElementById('auth-title');
-            const subtitle = document.getElementById('auth-subtitle');
-            const actionBtn = document.querySelector('#form-email button');
-            const toggleText = document.querySelector('#signup-toggle p');
-
-            if (show) {
-                title.innerText = "New Account";
-                subtitle.innerText = "Join Winpath for advanced health monitoring";
-                actionBtn.innerText = "Create Account";
-                toggleText.innerHTML = `Already have an account? <button onclick="toggleSignup(false)" class="text-brand-blue hover:underline ml-1">Sign In</button>`;
-            } else {
-                title.innerText = "Email Access";
-                subtitle.innerText = "Sign in to complete your diagnostic booking";
-                actionBtn.innerText = "Sign In";
-                toggleText.innerHTML = `Don't have an account? <button onclick="toggleSignup(true)" class="text-brand-blue hover:underline ml-1">Create Account</button>`;
-            }
+        function handleEmailAuth() {
+            const email = document.getElementById('email-input-field').value || "patient@winpath.in";
+            finalizeAuth("Winpath Patient", email, "W");
         }
 
-        /**
-         * Authentication Simulation
-         */
-        function simulateAuth(name, initial) {
-            const email = document.getElementById('email-input').value || "patient@winpath.in";
-            currentUser = {
-                name: name,
-                email: email,
-                initial: initial || name.charAt(0).toUpperCase()
-            };
-            
+        function handleMobileAuth() {
+            switchAuthMode('otp-verify');
+        }
+
+        function finalizeAuth(name, email, initial) {
+            currentUser = { name, email, initial };
             updateHeaderUI();
             switchView('home');
         }
@@ -525,6 +515,7 @@
             currentUser = null;
             updateHeaderUI();
             toggleProfileDropdown(false);
+            switchView('home');
         }
 
         function updateHeaderUI() {
@@ -532,7 +523,6 @@
             const userHeader = document.getElementById('user-header');
             const userInitial = document.getElementById('user-initial');
             const userEmailLabel = document.getElementById('user-display-email');
-
             if (currentUser) {
                 guestHeader.classList.add('view-hidden');
                 userHeader.classList.remove('view-hidden');
@@ -544,6 +534,26 @@
             }
         }
 
+        function switchAuthMode(mode) {
+            const forms = ['form-email', 'form-mobile'];
+            forms.forEach(f => document.getElementById(f).classList.add('view-hidden'));
+            if (mode === 'email') {
+                document.getElementById('form-email').classList.remove('view-hidden');
+                document.getElementById('tab-email').classList.add('bg-white', 'text-gray-900', 'shadow-sm');
+                document.getElementById('tab-mobile').classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
+            } else if (mode === 'mobile') {
+                document.getElementById('form-mobile').classList.remove('view-hidden');
+                document.getElementById('tab-mobile').classList.add('bg-white', 'text-gray-900', 'shadow-sm');
+                document.getElementById('tab-email').classList.remove('bg-white', 'text-gray-900', 'shadow-sm');
+            }
+        }
+
+        function toggleSignup(show) {
+            isSignupMode = show;
+            document.getElementById('email-action-btn').innerText = show ? "Create Account" : "Sign In";
+            document.getElementById('signup-toggle').innerHTML = show ? `Already have an account? <button onclick="toggleSignup(false)" class="text-brand-blue hover:underline ml-1">Sign In</button>` : `Don't have an account? <button onclick="toggleSignup(true)" class="text-brand-blue hover:underline ml-1">Create Account</button>`;
+        }
+
         function toggleProfileDropdown(force) {
             const dd = document.getElementById('profile-dropdown');
             if (force === false) dd.classList.add('view-hidden');
@@ -551,25 +561,16 @@
         }
 
         function handleCheckoutFlow() {
-            if (!currentUser) {
-                switchView('auth');
-            } else {
-                alert("Proceeding to test scheduling for " + currentUser.name);
-            }
+            if (!currentUser) switchView('auth');
+            else alert("Proceeding to test scheduling...");
         }
 
-        /**
-         * Cart Logic
-         */
         function toggleCart(show) {
             const panel = document.getElementById('cart-panel');
             const overlay = document.getElementById('cart-overlay');
             if (show) {
                 overlay.classList.remove('hidden');
-                setTimeout(() => {
-                    overlay.classList.add('opacity-100');
-                    panel.classList.remove('translate-x-full');
-                }, 10);
+                setTimeout(() => { overlay.classList.add('opacity-100'); panel.classList.remove('translate-x-full'); }, 10);
                 document.body.style.overflow = 'hidden';
             } else {
                 overlay.classList.remove('opacity-100');
@@ -600,7 +601,6 @@
             const badge = document.getElementById('cart-badge');
             const totalDisplay = document.getElementById('cart-total');
             const countLabel = document.getElementById('cart-count-label');
-
             if (cart.length === 0) {
                 itemsContainer.innerHTML = '';
                 itemsContainer.appendChild(emptyState);
@@ -613,21 +613,10 @@
                 badge.classList.remove('hidden');
                 badge.innerText = cart.length;
                 countLabel.innerText = `${cart.length} test${cart.length > 1 ? 's' : ''} selected`;
-
                 let total = 0;
                 itemsContainer.innerHTML = cart.map(item => {
-                    const priceNum = parseFloat(item.price.replace(',', ''));
-                    total += priceNum;
-                    return `
-                        <div class="flex justify-between items-start bg-gray-50/50 p-6 rounded-[2rem] border border-gray-100">
-                            <div class="pr-4">
-                                <h4 class="text-sm font-black text-gray-900 leading-tight">${item.name}</h4>
-                                <p class="text-brand-blue font-black text-sm mt-2 tracking-tighter">₹${item.price}</p>
-                            </div>
-                            <button onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')" class="p-2 text-gray-300 hover:text-red-500 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>`;
+                    total += parseFloat(item.price.replace(',', ''));
+                    return `<div class="flex justify-between items-start bg-gray-50/50 p-6 rounded-[2rem] border border-gray-100 text-left"><div class="pr-4"><h4 class="text-sm font-black text-gray-900 leading-tight">${item.name}</h4><p class="text-brand-blue font-black text-sm mt-2 tracking-tighter">₹${item.price}</p></div><button onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')" class="p-2 text-gray-300 hover:text-red-500 hover:bg-white rounded-xl transition-all shadow-sm shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>`;
                 }).join('');
                 totalDisplay.innerText = `₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
             }
@@ -637,24 +626,10 @@
             const container = document.getElementById('test-results');
             container.innerHTML = '';
             document.getElementById('test-count').innerText = `${tests.length} Matches`;
-
             tests.forEach(test => {
                 const card = document.createElement('div');
                 card.className = "test-card bg-white p-10 rounded-[3rem] shadow-sm flex flex-col h-full hover:shadow-2xl transition-all duration-700 group cursor-default text-left";
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-6">
-                        <h4 class="text-xl font-black text-gray-900 tracking-tight group-hover:text-brand-blue transition-colors">${test.name}</h4>
-                        <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span>
-                    </div>
-                    <p class="text-xs text-gray-400 font-medium italic mb-8 line-clamp-2">${test.desc}</p>
-                    <div class="bg-gray-50/80 p-5 rounded-2xl mb-10 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight">
-                        <span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50">Parameters</span>
-                        <p class="line-clamp-2 italic">${test.params}</p>
-                    </div>
-                    <button onclick="addToCart('${test.name.replace(/'/g, "\\'")}')" class="w-full brand-gradient-bg text-white text-[10px] font-black tracking-[0.2em] uppercase py-5 px-4 rounded-[1.5rem] hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                        Book Now
-                    </button>`;
+                card.innerHTML = `<div class="flex justify-between items-start mb-6"><h4 class="text-xl font-black text-gray-900 tracking-tight group-hover:text-brand-blue transition-colors text-left">${test.name}</h4><span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span></div><p class="text-xs text-gray-400 font-medium italic mb-8 line-clamp-2">${test.desc}</p><div class="bg-gray-50/80 p-5 rounded-2xl mb-10 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight"><span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50 text-left">Parameters</span><p class="line-clamp-2 italic text-left">${test.params}</p></div><button onclick="addToCart('${test.name.replace(/'/g, "\\'")}')" class="w-full brand-gradient-bg text-white text-[10px] font-black tracking-[0.2em] uppercase py-5 px-4 rounded-[1.5rem] hover:shadow-2xl transition-all active:scale-95 flex items-center justify-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>Book Now</button>`;
                 container.appendChild(card);
             });
         }
@@ -662,10 +637,7 @@
         function filterTests() {
             const query = document.getElementById('test-search').value.trim().toLowerCase();
             document.getElementById('search-clear').classList.toggle('hidden', query === '');
-            if (query === '') {
-                renderTests(rateCard.slice(0, 9), true);
-                return;
-            }
+            if (query === '') { renderTests(rateCard.slice(0, 9), true); return; }
             const keywords = query.split(/\s+/).filter(k => k.length > 0);
             const filtered = rateCard.filter(t => {
                 const searchSubject = `${t.name} ${t.params} ${t.desc}`.toLowerCase();
@@ -674,19 +646,10 @@
             renderTests(filtered, false);
         }
 
-        function clearSearch() {
-            document.getElementById('test-search').value = '';
-            filterTests();
-        }
+        function clearSearch() { document.getElementById('test-search').value = ''; filterTests(); }
 
-        // Close dropdown when clicking outside
-        window.addEventListener('click', (e) => {
-            if (!document.getElementById('user-header-container').contains(e.target)) {
-                toggleProfileDropdown(false);
-            }
-        });
-
-        window.addEventListener('load', updateCartUI);
+        window.addEventListener('click', (e) => { if (!document.getElementById('user-header-container').contains(e.target)) toggleProfileDropdown(false); });
+        window.addEventListener('load', () => { updateCartUI(); updateHeaderUI(); });
     </script>
 </body>
 </html>
