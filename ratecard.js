@@ -3,7 +3,7 @@
  * Includes detailed parameters and clinical descriptions for all tests.
  */
 
-const rateCard = [
+const ratecard = [
   {
     name: "1p/19q Co-Deletion, Tissue",
     price: "₹13,515.00",
