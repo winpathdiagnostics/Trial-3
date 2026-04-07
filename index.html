@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winpath Diagnostics | Precision Pathology</title>
     
+    <!-- Google Fonts: Outfit for a captivating, modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS for UI styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -21,7 +24,22 @@
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            'from': { 'box-shadow': '0 0 5px rgba(39, 187, 212, 0.2)' },
+                            'to': { 'box-shadow': '0 0 20px rgba(39, 187, 212, 0.6)' }
+                        }
                     }
                 }
             }
@@ -34,7 +52,7 @@
         ::-webkit-scrollbar-thumb { background: #27BBD4; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #5DCE9E; }
 
-        body { font-family: 'Inter', sans-serif; background-color: #ffffff; }
+        body { font-family: 'Outfit', sans-serif; background-color: #ffffff; }
         
         .brand-gradient-text {
             background: linear-gradient(to right, #2C5EB4, #27BBD4, #5DCE9E);
@@ -60,9 +78,23 @@
 
         .view-hidden { display: none; }
 
-        /* Cart Slide-out Animation */
         .cart-slide {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .iso-badge-glow {
+            box-shadow: 0 0 30px -5px rgba(44, 94, 180, 0.2);
+        }
+        
+        .letter-spacing-widest {
+            letter-spacing: 0.15em;
         }
     </style>
 </head>
@@ -71,8 +103,8 @@
     <!-- Floating Cart Trigger -->
     <div id="cart-trigger" class="fixed bottom-8 right-8 z-[60] cursor-pointer group" onclick="toggleCart(true)">
         <div class="absolute -inset-2 brand-gradient-bg rounded-full blur opacity-40 group-hover:opacity-70 transition duration-300"></div>
-        <div class="relative bg-white p-4 rounded-full shadow-2xl border border-gray-100 flex items-center justify-center">
-            <svg class="w-7 h-7 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="relative bg-white p-4 rounded-full shadow-2xl border border-gray-100 flex items-center justify-center text-brand-blue">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
             <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white hidden animate-bounce">0</span>
@@ -84,8 +116,8 @@
     <div id="cart-panel" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[80] shadow-2xl translate-x-full cart-slide flex flex-col">
         <div class="p-6 border-b flex justify-between items-center bg-gray-50/50">
             <div>
-                <h2 class="text-xl font-extrabold text-gray-900">Your Cart</h2>
-                <p id="cart-count-label" class="text-xs text-gray-500 font-medium uppercase tracking-wider">0 tests selected</p>
+                <h2 class="text-xl font-extrabold text-gray-900 uppercase tracking-tight">Your Cart</h2>
+                <p id="cart-count-label" class="text-[10px] text-gray-400 font-black uppercase tracking-widest">0 tests selected</p>
             </div>
             <button onclick="toggleCart(false)" class="p-2 text-gray-400 hover:text-brand-blue hover:bg-white rounded-lg transition-all shadow-sm">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -97,21 +129,21 @@
                 <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </div>
-                <p class="text-gray-400 font-medium">Your cart is empty.</p>
-                <button onclick="toggleCart(false)" class="mt-4 text-brand-blue font-bold text-sm hover:underline">Start adding tests</button>
+                <p class="text-gray-400 font-medium tracking-tight">Your cart is currently empty.</p>
+                <button onclick="toggleCart(false)" class="mt-4 text-brand-blue font-bold text-sm hover:underline">Browse Rate Card</button>
             </div>
         </div>
 
         <div id="cart-footer" class="p-6 border-t bg-gray-50 view-hidden">
             <div class="flex justify-between items-end mb-6">
                 <div>
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-gray-400">Estimated Total</span>
-                    <div id="cart-total" class="text-3xl font-extrabold brand-gradient-text">₹0.00</div>
+                    <span class="text-[10px] uppercase tracking-[0.2em] font-black text-gray-400">Total Estimate</span>
+                    <div id="cart-total" class="text-3xl font-black brand-gradient-text">₹0.00</div>
                 </div>
             </div>
-            <button class="w-full brand-gradient-bg text-white py-4 rounded-xl font-bold shadow-xl hover:shadow-cyan-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-                Checkout Now
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            <button class="w-full brand-gradient-bg text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl hover:shadow-cyan-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                Secure Booking
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </button>
         </div>
     </div>
@@ -120,14 +152,14 @@
     <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 h-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
             <div class="flex items-center cursor-pointer" onclick="switchView('home')">
-                <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath Diagnostics" class="h-10 w-auto object-contain">
+                <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-10 w-auto object-contain">
             </div>
-            <nav class="hidden md:flex space-x-8 items-center">
-                <a href="javascript:void(0)" onclick="switchView('home', 'home')" class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors">Home</a>
-                <a href="javascript:void(0)" onclick="switchView('home', 'about')" class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors">About Us</a>
+            <nav class="hidden md:flex space-x-10 items-center">
+                <a href="javascript:void(0)" onclick="switchView('home', 'home')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">Home</a>
+                <a href="javascript:void(0)" onclick="switchView('home', 'about')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">About</a>
                 <a href="javascript:void(0)" onclick="switchView('packages-page')" class="relative group">
-                    <span class="absolute -inset-1 brand-gradient-bg rounded-lg blur opacity-30 group-hover:opacity-70 transition duration-200"></span>
-                    <button class="relative px-6 py-2 bg-white border border-brand-cyan rounded-lg text-sm font-bold text-brand-blue hover:text-brand-dark transition-colors">
+                    <span class="absolute -inset-1 brand-gradient-bg rounded-lg blur opacity-20 group-hover:opacity-60 transition duration-200"></span>
+                    <button class="relative px-6 py-2.5 bg-white border border-brand-cyan rounded-lg text-[10px] font-black uppercase tracking-widest text-brand-blue hover:text-brand-dark transition-colors">
                         Test Packages
                     </button>
                 </a>
@@ -139,32 +171,166 @@
         <!-- Home View -->
         <div id="home-view">
             <main class="pt-20">
-                <section id="home" class="py-16 md:py-24 px-4 max-w-7xl mx-auto">
-                    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <!-- Hero Section -->
+                <section id="home" class="py-16 md:py-32 px-4 max-w-7xl mx-auto">
+                    <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
                         <div class="flex-1 text-center lg:text-left">
-                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/30 bg-brand-cyan/5 text-brand-blue font-semibold text-sm mb-6">
-                                <span class="w-2 h-2 rounded-full brand-gradient-bg animate-pulse"></span>
-                                Precision Diagnostics
+                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[10px] uppercase tracking-[0.2em] mb-8 shadow-sm">
+                                <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg animate-pulse"></span>
+                                Diagnostic Mastery
                             </div>
-                            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-gray-900 leading-tight">
-                                Accurate Results.<br>
-                                <span class="brand-gradient-text">Exceptional Care.</span>
+                            
+                            <!-- Updated High Impact Heading -->
+                            <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 leading-[1.05]">
+                                Precision Diagnostics,<br>
+                                <span class="brand-gradient-text tracking-tighter">Accurate Results.</span>
                             </h1>
-                            <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-2xl leading-relaxed">
-                                Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests.
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                                <button onclick="switchView('packages-page')" class="px-8 py-4 brand-gradient-bg text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-1">
-                                    Search All Tests
+
+                            <div class="text-3xl md:text-4xl font-extrabold text-brand-blue/90 mb-8 tracking-tight italic">
+                                Exceptional Care.
+                            </div>
+
+                            <!-- Modern Sub-Statement -->
+                            <div class="mb-12 group">
+                                <p class="text-lg md:text-xl text-gray-600 mb-10 leading-relaxed font-medium max-w-2xl">
+                                    Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests at <span class="brand-gradient-text font-black tracking-tighter">Winpath.</span>
+                                </p>
+                                
+                                <!-- Captivating ISO Compliance Block -->
+                                <div class="relative p-8 rounded-[2.5rem] glass-card iso-badge-glow overflow-hidden max-w-2xl border-l-[6px] border-brand-blue shadow-2xl transition-all duration-500 hover:shadow-cyan-500/10 group">
+                                    <div class="absolute -top-10 -left-10 w-40 h-40 brand-gradient-bg opacity-10 rounded-full blur-3xl group-hover:opacity-20 transition-opacity"></div>
+                                    <div class="relative z-10">
+                                        <div class="flex items-center gap-4 mb-4">
+                                            <span class="h-px w-10 brand-gradient-bg rounded-full"></span>
+                                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-brand-blue/60">Clinical Accreditation</span>
+                                        </div>
+                                        <p class="text-xl md:text-2xl text-gray-900 font-semibold leading-snug tracking-tight">
+                                            Our laboratory strictly adheres to <span class="bg-brand-blue text-white px-2 py-0.5 rounded-lg font-black tracking-tighter shadow-lg">ISO 15189:2022</span> standards, ensuring the <span class="italic text-brand-cyan underline decoration-brand-cyan/20 decoration-8 underline-offset-[-4px]">highest global benchmark</span> in diagnostic precision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Features Section -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 text-left">
+                                <div class="flex items-center gap-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-default">
+                                    <div class="w-14 h-14 rounded-2xl brand-gradient-bg flex items-center justify-center text-white shrink-0 animate-float shadow-lg shadow-cyan-500/20">
+                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest leading-none mb-1">24-Hour Results</h4>
+                                        <p class="text-xs text-gray-500 font-medium">Digital reports delivered in a day.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-default">
+                                    <div class="w-14 h-14 rounded-2xl bg-gray-900 flex items-center justify-center text-brand-cyan shrink-0 animate-float [animation-delay:0.5s] shadow-lg shadow-black/10">
+                                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-black text-gray-900 uppercase tracking-widest leading-none mb-1">Home Collection</h4>
+                                        <p class="text-xs text-gray-500 font-medium">Professional phlebotomy at your door.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                                <button onclick="switchView('packages-page')" class="px-12 py-6 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:-translate-y-1 active:scale-95">
+                                    Search Rate Card
                                 </button>
-                                <button class="px-8 py-4 bg-white text-brand-blue font-bold rounded-xl border-2 border-brand-blue/10 hover:border-brand-blue transition-colors">
-                                    Health Packages
+                                <button onclick="const el = document.getElementById('health-packages'); if(el) el.scrollIntoView({behavior: 'smooth'})" class="px-12 py-6 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue hover:shadow-xl transition-all active:scale-95">
+                                    View Packages
                                 </button>
                             </div>
                         </div>
-                        <div class="flex-1 relative w-full">
-                            <div class="absolute -inset-4 brand-gradient-bg rounded-3xl opacity-10 blur-2xl"></div>
-                            <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/Gemini_Generated_Image_6y9d06y9d06y9d06.png" class="relative rounded-3xl shadow-2xl w-full h-auto object-cover border border-white">
+
+                        <!-- Hero Image container -->
+                        <div class="flex-1 relative w-full group">
+                            <div class="absolute -inset-10 brand-gradient-bg rounded-full opacity-5 blur-[120px] animate-pulse-slow"></div>
+                            <div class="relative">
+                                <div class="absolute -inset-1.5 brand-gradient-bg rounded-[3rem] blur opacity-30 group-hover:opacity-50 transition duration-700"></div>
+                                <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/Gemini_Generated_Image_6y9d06y9d06y9d06.png" class="relative rounded-[3rem] shadow-2xl w-full h-auto object-cover border-[12px] border-white transform transition-transform duration-1000 group-hover:scale-[1.02]">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Health Check Up Packages Section -->
+                <section id="health-packages" class="py-24 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10">
+                        <div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20">
+                            <div class="max-w-3xl">
+                                <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-8">
+                                    <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                                    Preventive Screening
+                                </div>
+                                <h2 class="text-5xl md:text-7xl font-black text-gray-900 mb-10 leading-[0.9] tracking-tighter">
+                                    Health <span class="brand-gradient-text italic">Packages.</span>
+                                </h2>
+                                <p class="text-2xl text-gray-500 font-light leading-relaxed mb-10 tracking-tight">
+                                    Comprehensive clinical assessments designed for preventive health monitoring. Each package is processed in our state-of-the-art <span class="text-brand-blue font-bold">ISO 15189:2022 standards compliance laboratory in Bengaluru.</span>
+                                </p>
+                                <div class="flex items-start gap-8 p-10 glass-card rounded-[3rem] border-l-8 border-brand-cyan shadow-2xl relative overflow-hidden group">
+                                    <div class="mt-1 text-brand-cyan shrink-0">
+                                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-xl text-gray-800 font-medium italic leading-relaxed tracking-tight">
+                                        "Individual test packages are recommended by your doctor at the best possible price, helping avoid unnecessary tests and ensuring focused diagnostics."
+                                    </p>
+                                </div>
+                            </div>
+                            <button onclick="switchView('packages-page')" class="group flex items-center gap-6 bg-white px-10 py-5 rounded-[2rem] border border-gray-200 shadow-2xl hover:border-brand-cyan hover:shadow-cyan-500/10 transition-all">
+                                <span class="text-sm font-black text-gray-900 uppercase tracking-widest">Explore Full Menu</span>
+                                <div class="w-12 h-12 rounded-2xl brand-gradient-bg flex items-center justify-center text-white transition-transform group-hover:translate-x-3 shadow-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Interactive Highlights -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer" onclick="switchView('packages-page')">
+                                <div class="w-20 h-20 rounded-3xl bg-brand-cyan/10 flex items-center justify-center text-brand-cyan mb-10 group-hover:scale-110 transition-transform duration-500">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                </div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">TruHeart Gold</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Cardiovascular risk profiling including Advanced Lipid and Homocysteine levels.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-4xl font-black brand-gradient-text tracking-tighter">₹2,499</span>
+                                    <div class="w-14 h-14 rounded-full bg-brand-cyan/5 text-brand-cyan flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer ring-[12px] ring-brand-blue/5 scale-105 z-20" onclick="switchView('packages-page')">
+                                <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-brand-blue text-white text-[9px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-2xl">Elite Selection</div>
+                                <div class="w-20 h-20 rounded-3xl bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-10 group-hover:scale-110 transition-transform duration-500">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">Master Checkup</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Our signature senior screen covering 60+ parameters across all biological systems.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-4xl font-black brand-gradient-text tracking-tighter">₹4,500</span>
+                                    <div class="w-14 h-14 rounded-full bg-brand-blue/5 text-brand-blue flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="group relative bg-white p-12 rounded-[3.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 cursor-pointer" onclick="switchView('packages-page')">
+                                <div class="w-20 h-20 rounded-3xl bg-brand-green/10 flex items-center justify-center text-brand-green mb-10 group-hover:scale-110 transition-transform duration-500">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.183.394l-1.15.908a2 2 0 00-.72 1.912l.15 1.052a2 2 0 00.513 1.023l.915.914a2 2 0 001.415.586h10.35a2 2 0 001.415-.586l.914-.914a2 2 0 00.513-1.023l.15-1.052a2 2 0 00-.72-1.912l-1.15-.908z"></path></svg>
+                                </div>
+                                <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tighter">Fever Profile</h3>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed font-light">Rapid identification of infectious origins including Typhoid and Malaria markers.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-4xl font-black brand-gradient-text tracking-tighter">₹1,800</span>
+                                    <div class="w-14 h-14 rounded-full bg-brand-green/5 text-brand-green flex items-center justify-center group-hover:brand-gradient-bg group-hover:text-white transition-all duration-500 shadow-inner">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -174,59 +340,60 @@
         <!-- Search & Test View -->
         <div id="packages-page-view" class="view-hidden pt-28 pb-20 bg-gray-50 min-h-screen">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Diagnostic <span class="brand-gradient-text">Rate Card</span></h1>
-                    <p class="text-gray-500 max-w-xl mx-auto">Instant search for clinical parameters and health packages. Simply type keywords like "Hb", "Sugar", "Anemia", or "Lipid".</p>
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase leading-none">The <span class="brand-gradient-text">Menu.</span></h1>
+                    <p class="text-gray-400 max-w-xl mx-auto text-sm font-bold uppercase tracking-widest leading-loose">Search over 100+ clinical markers with a few keystrokes.</p>
                 </div>
 
                 <!-- Smart Search Bar -->
-                <div class="max-w-2xl mx-auto mb-16">
+                <div class="max-w-2xl mx-auto mb-20">
                     <div class="relative group">
-                        <div class="absolute -inset-1 brand-gradient-bg rounded-2xl blur opacity-20 group-focus-within:opacity-50 transition duration-300"></div>
-                        <div class="relative bg-white rounded-2xl shadow-xl flex items-center p-2">
-                            <div class="pl-4 text-brand-blue">
+                        <div class="absolute -inset-1 brand-gradient-bg rounded-[2rem] blur opacity-20 group-focus-within:opacity-50 transition duration-300"></div>
+                        <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-3 border border-gray-50">
+                            <div class="pl-6 text-brand-blue">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </div>
-                            <input type="text" id="test-search" placeholder="Search parameters (e.g. PBS, CBC, Sugar, Urea...)" 
-                                class="w-full px-4 py-4 text-lg focus:outline-none rounded-xl bg-transparent"
+                            <input type="text" id="test-search" placeholder="Type here (e.g. PBS, CBC, Liver, Cardiac...)" 
+                                class="w-full px-6 py-5 text-xl focus:outline-none rounded-2xl bg-transparent font-semibold tracking-tight"
                                 oninput="filterTests()">
-                            <button id="search-clear" class="pr-4 text-gray-300 hover:text-gray-500 hidden" onclick="clearSearch()">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                            <button id="search-clear" class="pr-6 text-gray-300 hover:text-gray-500 hidden transition-colors" onclick="clearSearch()">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
                             </button>
                         </div>
                     </div>
-                    <div class="mt-4 flex justify-between items-center px-2">
-                        <span id="results-title" class="text-xs font-bold text-gray-400 uppercase tracking-widest">Featured Tests</span>
-                        <span id="test-count" class="text-xs font-bold text-brand-blue bg-brand-blue/5 px-2 py-1 rounded">0 items found</span>
+                    <div class="mt-8 flex justify-between items-center px-6">
+                        <span id="results-title" class="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em]">Ready for Pickup</span>
+                        <span id="test-count" class="text-[10px] font-black text-brand-blue bg-brand-blue/5 px-4 py-1.5 rounded-full border border-brand-blue/10 uppercase tracking-widest">0 Matches</span>
                     </div>
                 </div>
 
                 <!-- Result Grid -->
-                <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
 
                 <!-- Empty State -->
-                <div id="no-results" class="view-hidden text-center py-24">
-                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div id="no-results" class="view-hidden text-center py-32">
+                    <div class="w-24 h-24 bg-gray-100 rounded-[2rem] flex items-center justify-center mx-auto mb-8 text-gray-300 shadow-inner">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 9.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900">No matching tests found</h3>
-                    <p class="text-gray-500">Please try different keywords or contact us for assistance.</p>
+                    <h3 class="text-3xl font-black text-gray-900 tracking-tight">No results matched.</h3>
+                    <p class="text-gray-500 mt-4 font-medium">Try broader keywords or a specific parameter name.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark py-12">
+    <footer class="bg-brand-dark py-24">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-10 mx-auto mb-6">
-            <p class="text-brand-cyan font-bold tracking-widest uppercase text-xs mb-8">Clinical Excellence Since 2012</p>
-            <p class="text-gray-500 text-xs">© 2026 Winpath Diagnostics. All rights reserved.</p>
+            <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mx-auto mb-10 grayscale brightness-200 opacity-60">
+            <p class="text-brand-cyan font-black tracking-[0.5em] uppercase text-[9px] mb-12 opacity-50">Scientific Integrity • Clinical Excellence</p>
+            <div class="h-px w-48 brand-gradient-bg mx-auto mb-12 opacity-10"></div>
+            <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Winpath Diagnostics. <br class="md:hidden"> Accredited Excellence. Bengaluru.</p>
         </div>
     </footer>
 
     <script>
-        // COMPREHENSIVE RATE CARD DATASET (100+ Tests)
+        // FULL DATASET
         const rateCard = [
             { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells to detect abnormalities.", params: "RBC morphology, WBC differential, Platelets, Malaria, Filaria" },
             { name: "CBC Haemogram (Complete Blood Count)", price: "400.00", desc: "Complete profiling of blood cells for general health screening.", params: "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, RDW, Differential Count" },
@@ -244,88 +411,11 @@
             { name: "CRP (C Reactive Protein)", price: "520.00", desc: "General marker for acute inflammation or infection.", params: "Quantitative CRP" },
             { name: "PSA Total (Prostate)", price: "1,200.00", desc: "Screening marker for prostate health in men.", params: "Total PSA" },
             { name: "Urine Routine Examination", price: "180.00", desc: "Full chemical and microscopic urine analysis.", params: "pH, Sugar, Protein, Pus cells, RBCs, Casts" },
-            { name: "TSH (Thyroid Stimulating Hormone)", price: "350.00", desc: "Sensitive screen for thyroid issues.", params: "Ultrasensitive TSH" },
-            { name: "CA 125", price: "1,450.00", desc: "Tumor marker for ovarian health monitoring.", params: "Ovarian Marker" },
-            { name: "1p/19q Co-Deletion (FISH)", price: "13,515.00", desc: "Advanced genetic marker for brain tumor diagnostics.", params: "FISH, Chromosome 1p, 19q" },
-            { name: "Beta Thalassemia Mutation Detection", price: "9,590.00", desc: "Genetic identification of thalassemia traits.", params: "HBB Gene, Thalassemia" },
-            { name: "MTB - GeneXpert XDR", price: "6,650.00", desc: "Molecular detection of Tuberculosis.", params: "TB Detection, RIF Resistance" },
-            { name: "Troponin I (hs-Trop I)", price: "1,850.00", desc: "High sensitivity marker for cardiac injury.", params: "hs-CRP, Cardiac" },
-            { name: "Electrolytes (Na, K, Cl)", price: "490.00", desc: "Measures minerals for fluid balance.", params: "Sodium, Potassium, Chloride" },
-            { name: "Testosterone Total", price: "750.00", desc: "Primary male sex hormone level.", params: "Hormone, Male Health" },
-            { name: "Creatinine", price: "150.00", desc: "Waste product marker for kidney filtration.", params: "Kidney, Creat" },
-            { name: "Total Cholesterol", price: "180.00", desc: "Measures overall cholesterol levels.", params: "Lipid, Heart" },
-            { name: "Uric Acid", price: "250.00", desc: "Marker for gout and kidney stones.", params: "Gout, Joint pain" },
-            { name: "Prolactin", price: "660.00", desc: "Hormone related to reproductive health.", params: "Fertility" },
-            { name: "Fever Profile - Mini", price: "1,800.00", desc: "Quick diagnostic screen for unexplained fever.", params: "CBC, Widal, Malaria, Urine" },
             { name: "TruHealth Master Checkup", price: "4,500.00", desc: "Senior health screen covering 60+ parameters.", params: "Comprehensive, LFT, KFT, CBC" },
-            { name: "D-Dimer (Quantitative)", price: "1,520.00", desc: "Screen for blood clots and thrombosis risk.", params: "Clotting, D-Dimer" },
-            { name: "HIV-DUO (4th Gen)", price: "760.00", desc: "Advanced early detection of HIV.", params: "p24 Antigen, HIV 1/2" },
-            { name: "HBsAg (Hepatitis B)", price: "600.00", desc: "Primary screening test for Hep B.", params: "Hepatitis" },
-            { name: "Ferritin", price: "1,000.00", desc: "Sensitive marker for iron deficiency storage.", params: "Iron stores" },
-            { name: "RA Factor (Rheumatoid)", price: "750.00", desc: "Screening for Rheumatoid Arthritis.", params: "Joint inflammation" },
-            { name: "ANA Screening", price: "990.00", desc: "Screening for autoimmune disorders.", params: "SLE, Autoimmune" },
-            { name: "Lipase", price: "750.00", desc: "Enzyme marker for pancreatic health.", params: "Pancreatitis" },
-            { name: "Stool Routine", price: "270.00", desc: "Screening for parasites and gastro infection.", params: "Ova, Cysts" },
-            { name: "HCV Antibody", price: "1,700.00", desc: "Screening for Hepatitis C.", params: "Hep C" },
-            { name: "Semen Analysis", price: "600.00", desc: "Assessment of male fertility factors.", params: "Count, Motility" },
-            { name: "Folic Acid", price: "1,450.00", desc: "Essential for blood cell formation.", params: "Serum Folate" },
-            { name: "Zinc", price: "2,300.00", desc: "Trace element vital for immunity.", params: "Zinc deficiency" },
-            { name: "HLA-B27", price: "2,500.00", desc: "Genetic marker for Ankylosing Spondylitis.", params: "Back pain genetic" },
-            { name: "Microalbumin - Urine", price: "600.00", desc: "Marker for early diabetic kidney damage.", params: "Kidney, Diabetes" },
-            { name: "Total Protein", price: "210.00", desc: "Measures protein levels in blood.", params: "Nutrition, Albumin" },
-            { name: "SGPT (ALT)", price: "210.00", desc: "Liver damage marker.", params: "Liver enzyme" },
-            { name: "SGOT (AST)", price: "200.00", desc: "Enzyme for liver and heart damage.", params: "Liver enzyme" },
-            { name: "Alkaline Phosphatase (ALP)", price: "220.00", desc: "Liver and bone health enzyme.", params: "Liver enzyme" },
-            { name: "Bilirubin (T/D/I)", price: "250.00", desc: "Bile pigment measurement.", params: "Jaundice" },
-            { name: "Amylase", price: "600.00", desc: "Pancreas function test.", params: "Pancreatitis" },
-            { name: "CEA (GI Marker)", price: "1,350.00", desc: "Marker for GI tract health.", params: "Colon marker" },
-            { name: "AFP (Liver Marker)", price: "1,020.00", desc: "Marker for liver and germ cell health.", params: "Liver tumor" },
-            { name: "Beta-2 Microglobulin", price: "1,200.00", desc: "Marker for kidney and blood cancers.", params: "B2M" },
-            { name: "VDRL (Syphilis)", price: "300.00", desc: "Venereal disease screening.", params: "Syphilis" },
-            { name: "hs-CRP", price: "850.00", desc: "Marker for low-grade heart inflammation.", params: "Heart risk" },
-            { name: "Apolipoprotein A1/B", price: "1,850.00", desc: "Detailed cardiac risk profiling.", params: "Advanced Lipid" },
-            { name: "CPK Total", price: "550.00", desc: "Muscle enzyme measurement.", params: "CK Total" },
-            { name: "LDH", price: "450.00", desc: "General tissue damage marker.", params: "Lactate" },
-            { name: "Calcium Total", price: "270.00", desc: "Vital for bones and nerves.", params: "Serum Calcium" },
-            { name: "Magnesium", price: "640.00", desc: "Essential mineral for nerve function.", params: "Serum Magnesium" },
-            { name: "Anti-CCP", price: "1,650.00", desc: "Specific marker for Arthritis.", params: "Rheumatoid specific" },
-            { name: "FSH", price: "630.00", desc: "Reproductive health indicator.", params: "Fertility, Menopause" },
-            { name: "LH", price: "650.00", desc: "Ovulation trigger hormone.", params: "Fertility" },
-            { name: "Estradiol (E2)", price: "750.00", desc: "Primary female sex hormone.", params: "Estrogen" },
-            { name: "Progesterone", price: "750.00", desc: "Pregnancy support hormone.", params: "Fertility" },
-            { name: "Beta HCG (Qualitative)", price: "450.00", desc: "Yes/No pregnancy test.", params: "Pregnancy test" },
-            { name: "Beta HCG (Quantitative)", price: "950.00", desc: "Accurate pregnancy monitoring.", params: "HCG concentration" },
-            { name: "Typhodot (IgM/IgG)", price: "750.00", desc: "Rapid typhoid screening.", params: "Typhoid fever" },
-            { name: "Chikungunya IgM", price: "900.00", desc: "Recent Chikungunya infection test.", params: "Viral fever" },
-            { name: "Procalcitonin", price: "3,120.00", desc: "Specific marker for bacterial sepsis.", params: "Sepsis" },
-            { name: "NT-Pro BNP", price: "3,010.00", desc: "Heart failure marker.", params: "Heart stress" },
-            { name: "Urine Culture", price: "900.00", desc: "Identifies bacteria causing UTI.", params: "UTI infection" },
-            { name: "Troponin T", price: "1,800.00", desc: "Heart attack marker.", params: "Cardiac injury" },
-            { name: "Bone Marrow Study", price: "3,675.00", desc: "Detailed blood cell production study.", params: "Leukemia screening" },
-            { name: "ANA Blot", price: "4,490.00", desc: "Specific autoimmune panel.", params: "DsDNA, Sm" },
-            { name: "ASO Titre", price: "650.00", desc: "Marker for recent Strep infection.", params: "Streptococcus" },
-            { name: "IgE Total", price: "800.00", desc: "Overall allergy marker.", params: "Allergy screen" },
-            { name: "X-Ray Chest AP", price: "350.00", desc: "Radiological imaging of chest.", params: "X-Ray, Lungs" },
-            { name: "X-Ray KNEE AP", price: "385.00", desc: "Radiological imaging of joint.", params: "X-Ray, Knee" },
-            { name: "S. Albumin", price: "240.00", desc: "Liver protein measurement.", params: "Nutrition" },
-            { name: "S. Phosphorus", price: "185.00", desc: "Mineral for bone health.", params: "Serum Phosphorus" },
-            { name: "Urine Sugar Fasting", price: "60.00", desc: "Checks sugar in urine.", params: "Diabetes urine" },
-            { name: "Glucose Challenge (GCT)", price: "400.00", desc: "Pregnancy diabetes screen.", params: "Gestation Diabetes" },
-            { name: "Free T3", price: "400.00", desc: "Active thyroid hormone.", params: "FT3" },
-            { name: "Free T4", price: "400.00", desc: "Active thyroid hormone.", params: "FT4" },
-            { name: "Anti-TPO", price: "1,200.00", desc: "Thyroid antibody marker.", params: "Hashimoto's" },
-            { name: "Insulin Fasting", price: "1,050.00", desc: "Checks insulin levels.", params: "Metabolic syndrome" },
-            { name: "Homocysteine", price: "1,470.00", desc: "Vascular risk factor.", params: "Stroke risk" },
-            { name: "GGT", price: "370.00", desc: "Liver marker for alcohol/bile.", params: "Gallbladder" },
-            { name: "Bence Jones Protein", price: "450.00", desc: "Marker for multiple myeloma.", params: "Urine protein" },
-            { name: "Cystatin C", price: "1,100.00", desc: "Advanced kidney function marker.", params: "Kidney" },
-            { name: "DHEAS", price: "1,350.00", desc: "Adrenal hormone marker.", params: "Hormone" },
-            { name: "Cortisol (Morning)", price: "750.00", desc: "Stress hormone measurement.", params: "Adrenal" },
-            { name: "TruHealth Body Watch", price: "12,500.00", desc: "Ultimate deep dive health screen.", params: "100+ parameters" },
-            { name: "Malaria Parasite Smear", price: "350.00", desc: "Visual check for malaria.", params: "MP" }
+            { name: "TruHeart Gold", price: "2,499.00", desc: "Targeted evaluation of cardiovascular risk factors.", params: "Lipid, Homocysteine, hs-CRP, CBC, Sugar" },
+            { name: "Fever Profile - Mini", price: "1,800.00", desc: "Quick diagnostic screen for unexplained fever.", params: "CBC, Widal, Malaria, Urine" }
         ];
 
-        // Cart State
         let cart = [];
 
         function switchView(viewId, sectionId) {
@@ -334,8 +424,12 @@
             if (viewId === 'home') {
                 hView.classList.remove('view-hidden');
                 pView.classList.add('view-hidden');
-                if (sectionId) document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-                else window.scrollTo(0, 0);
+                if (sectionId) {
+                    const el = document.getElementById(sectionId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    window.scrollTo(0, 0);
+                }
             } else {
                 hView.classList.add('view-hidden');
                 pView.classList.remove('view-hidden');
@@ -404,12 +498,12 @@
                     const priceNum = parseFloat(item.price.replace(',', ''));
                     total += priceNum;
                     return `
-                        <div class="flex justify-between items-start bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+                        <div class="flex justify-between items-start bg-gray-50/50 p-6 rounded-[2rem] border border-gray-100 group">
                             <div class="pr-4">
-                                <h4 class="text-sm font-bold text-gray-900 leading-tight">${item.name}</h4>
-                                <p class="text-brand-blue font-extrabold text-sm mt-1">₹${item.price}</p>
+                                <h4 class="text-sm font-black text-gray-900 leading-tight">${item.name}</h4>
+                                <p class="text-brand-blue font-black text-sm mt-2 tracking-tighter">₹${item.price}</p>
                             </div>
-                            <button onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')" class="p-2 text-gray-300 hover:text-red-500 transition-colors">
+                            <button onclick="removeFromCart('${item.name.replace(/'/g, "\\'")}')" class="p-2 text-gray-300 hover:text-red-500 hover:bg-white rounded-xl transition-all shadow-sm">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
                         </div>`;
@@ -425,29 +519,29 @@
             const titleDisplay = document.getElementById('results-title');
             
             container.innerHTML = '';
-            countDisplay.innerText = `${tests.length} tests found`;
-            titleDisplay.innerText = isFeatured ? "Featured Tests" : "Search Results";
+            countDisplay.innerText = `${tests.length} Matches`;
+            titleDisplay.innerText = isFeatured ? "Featured Selections" : "Search Results";
 
             if (tests.length === 0) noResults.classList.remove('view-hidden');
             else {
                 noResults.classList.add('view-hidden');
                 tests.forEach(test => {
                     const card = document.createElement('div');
-                    card.className = "test-card bg-white p-6 rounded-2xl shadow-sm flex flex-col h-full";
+                    card.className = "test-card bg-white p-10 rounded-[3rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 group cursor-default";
                     card.innerHTML = `
-                        <div class="flex justify-between items-start mb-3">
-                            <h4 class="text-md font-bold text-gray-900 leading-tight">${test.name}</h4>
-                            <span class="text-lg font-extrabold brand-gradient-text shrink-0 ml-4">₹${test.price}</span>
+                        <div class="flex justify-between items-start mb-6">
+                            <h4 class="text-xl font-black text-gray-900 leading-[1.1] tracking-tight group-hover:text-brand-blue transition-colors">${test.name}</h4>
+                            <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span>
                         </div>
-                        <p class="text-xs text-gray-500 italic mb-4 line-clamp-2">${test.desc}</p>
-                        <div class="bg-gray-50 p-3 rounded-lg mb-4 flex-grow text-[11px] text-gray-700">
-                            <span class="font-bold text-brand-blue uppercase block mb-1">Coverage:</span>
-                            <p class="line-clamp-2">${test.params}</p>
+                        <p class="text-xs text-gray-400 font-medium italic mb-8 leading-relaxed line-clamp-2">${test.desc}</p>
+                        <div class="bg-gray-50/80 p-5 rounded-2xl mb-10 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight">
+                            <span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50">Parameters</span>
+                            <p class="line-clamp-2 leading-relaxed opacity-80 italic">${test.params}</p>
                         </div>
                         <div class="mt-auto">
-                            <button onclick="addToCart('${test.name.replace(/'/g, "\\'")}')" class="w-full brand-gradient-bg text-white text-xs font-bold py-3.5 px-4 rounded-xl hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                Book Now
+                            <button onclick="addToCart('${test.name.replace(/'/g, "\\'")}')" class="w-full brand-gradient-bg text-white text-[10px] font-black tracking-[0.2em] uppercase py-5 px-4 rounded-[1.5rem] hover:shadow-2xl hover:shadow-cyan-500/30 transition-all active:scale-95 flex items-center justify-center gap-3">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                Add to Booking
                             </button>
                         </div>`;
                     container.appendChild(card);
@@ -475,7 +569,9 @@
             filterTests();
         }
 
-        window.addEventListener('load', updateCartUI);
+        window.addEventListener('load', () => {
+            updateCartUI();
+        });
     </script>
 </body>
 </html>
