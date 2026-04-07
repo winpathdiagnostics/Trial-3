@@ -89,12 +89,18 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        .iso-badge-glow {
-            box-shadow: 0 0 30px -5px rgba(44, 94, 180, 0.2);
+        .specialty-pill {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
         
-        .letter-spacing-widest {
-            letter-spacing: 0.15em;
+        .specialty-pill:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 15px 30px -10px rgba(44, 94, 180, 0.15);
         }
     </style>
 </head>
@@ -193,14 +199,12 @@
                                 <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed font-medium max-w-2xl">
                                     Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests at <span class="brand-gradient-text font-black tracking-tighter">Winpath.</span>
                                 </p>
-                                <!-- simplified ISO one-liner -->
                                 <div class="flex items-center justify-center lg:justify-start gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
                                     <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg"></span>
                                     Strictly Adhering to <span class="text-brand-blue">ISO 15189:2022</span> Standards
                                 </div>
                             </div>
                             
-                            <!-- Features Section -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 text-left">
                                 <div class="flex items-center gap-5 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:-translate-y-1 transition-all group cursor-default">
                                     <div class="w-14 h-14 rounded-2xl brand-gradient-bg flex items-center justify-center text-white shrink-0 animate-float shadow-lg shadow-cyan-500/20">
@@ -233,7 +237,6 @@
                             </div>
                         </div>
 
-                        <!-- Hero Image container -->
                         <div class="flex-1 relative w-full group">
                             <div class="absolute -inset-10 brand-gradient-bg rounded-full opacity-5 blur-[120px] animate-pulse-slow"></div>
                             <div class="relative">
@@ -244,9 +247,59 @@
                     </div>
                 </section>
 
+                <!-- Diagnostic Specialties Section (Resized & Simplified) -->
+                <section id="diagnostic-range" class="py-24 bg-white relative overflow-hidden">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+                        <div class="mb-16">
+                            <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-6">
+                                <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                                Laboratory Expertise
+                            </div>
+                            <h2 class="text-4xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter">
+                                Diagnostic <span class="brand-gradient-text italic">Specialties.</span>
+                            </h2>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            <!-- Specialty Pills without icons -->
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Hematology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Biochemistry</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Immunology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Microbiology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Clinical Pathology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Histopathology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Cytopathology</h4>
+                            </div>
+
+                            <div class="specialty-pill px-6 py-8 rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan">
+                                <h4 class="text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Molecular Diagnostics</h4>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Health Check Up Packages Section -->
                 <section id="health-packages" class="py-24 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
-                    <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10 text-left">
                         <div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20">
                             <div class="max-w-3xl">
                                 <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-8">
@@ -268,7 +321,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <button onclick="switchView('packages-page')" class="group flex items-center gap-6 bg-white px-10 py-5 rounded-[2rem] border border-gray-200 shadow-2xl hover:border-brand-cyan hover:shadow-cyan-500/10 transition-all">
+                            <button onclick="switchView('packages-page')" class="group flex items-center gap-6 bg-white px-10 py-5 rounded-[2rem] border border-gray-200 shadow-2xl hover:border-brand-cyan hover:shadow-cyan-500/10 transition-all shrink-0">
                                 <span class="text-sm font-black text-gray-900 uppercase tracking-widest">Explore Full Menu</span>
                                 <div class="w-12 h-12 rounded-2xl brand-gradient-bg flex items-center justify-center text-white transition-transform group-hover:translate-x-3 shadow-lg">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -382,7 +435,6 @@
     </footer>
 
     <script>
-        // FULL DATASET
         const rateCard = [
             { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells to detect abnormalities.", params: "RBC morphology, WBC differential, Platelets, Malaria, Filaria" },
             { name: "CBC Haemogram (Complete Blood Count)", price: "400.00", desc: "Complete profiling of blood cells for general health screening.", params: "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, RDW, Differential Count" },
@@ -516,14 +568,14 @@
                 noResults.classList.add('view-hidden');
                 tests.forEach(test => {
                     const card = document.createElement('div');
-                    card.className = "test-card bg-white p-10 rounded-[3rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-700 group cursor-default";
+                    card.className = "test-card bg-white p-10 rounded-[3rem] shadow-sm flex flex-col h-full hover:shadow-2xl transition-all duration-700 group cursor-default text-left";
                     card.innerHTML = `
                         <div class="flex justify-between items-start mb-6">
-                            <h4 class="text-xl font-black text-gray-900 leading-[1.1] tracking-tight group-hover:text-brand-blue transition-colors">${test.name}</h4>
+                            <h4 class="text-xl font-black text-gray-900 leading-[1.1] tracking-tight group-hover:text-brand-blue transition-colors text-left">${test.name}</h4>
                             <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span>
                         </div>
-                        <p class="text-xs text-gray-400 font-medium italic mb-8 leading-relaxed line-clamp-2">${test.desc}</p>
-                        <div class="bg-gray-50/80 p-5 rounded-2xl mb-10 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight">
+                        <p class="text-xs text-gray-400 font-medium italic mb-8 leading-relaxed line-clamp-2 text-left">${test.desc}</p>
+                        <div class="bg-gray-50/80 p-5 rounded-2xl mb-10 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight text-left">
                             <span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50">Parameters</span>
                             <p class="line-clamp-2 leading-relaxed opacity-80 italic">${test.params}</p>
                         </div>
