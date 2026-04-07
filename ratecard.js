@@ -4,7 +4,7 @@
  * Ensure this file is saved in the same directory as index.html.
  */
 
-const rateCard = [
+window.rateCard = [
     // Hematology & Basic Screens
     { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells to detect morphological abnormalities.", params: "RBC morphology, WBC differential, Platelet estimate, Parasites (Malaria/Filaria)" },
     { name: "CBC Haemogram (Complete Blood Count)", price: "400.00", desc: "Comprehensive blood profiling used as a primary diagnostic tool for various conditions.", params: "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, RDW, Neutrophils, Lymphocytes, Monocytes, Eosinophils, Basophils" },
@@ -137,3 +137,5 @@ const rateCard = [
     { name: "Fever Profile - Mini", price: "1,800.00", desc: "Quick diagnostic screen for unexplained fever.", params: "CBC, Widal, Malaria, Urine Routine" },
     { name: "PCOD / PCOS Profile", price: "3,500.00", desc: "Hormonal assessment for Polycystic Ovary Syndrome.", params: "FSH, LH, Prolactin, Testosterone, Insulin" }
 ];
+
+console.log("Winpath Rate Card Database successfully loaded.");
