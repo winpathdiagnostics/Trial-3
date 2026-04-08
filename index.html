@@ -125,7 +125,7 @@
                         <div class="flex-1 text-center lg:text-left">
                             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[10px] uppercase tracking-[0.2em] mb-8 shadow-sm">
                                 <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg animate-pulse"></span>
-                                Diagnostic Mastery
+                                Strictly Adhering to ISO 15189:2022 Standards
                             </div>
                             
                             <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 leading-[1.05]">
@@ -137,14 +137,10 @@
                                 Exceptional Care.
                             </div>
 
-                            <div class="mb-12">
+                            <div class="mb-12 text-left">
                                 <p class="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed font-medium max-w-2xl text-balance text-left">
                                     Access world-class laboratory services with home collection facilities. Search our extensive catalog of 100+ specialized tests at <span class="brand-gradient-text font-black tracking-tighter uppercase">Winpath.</span>
                                 </p>
-                                <div class="flex items-center justify-start gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400">
-                                    <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg"></span>
-                                    Strictly Adhering to <span class="text-brand-blue">ISO 15189:2022</span> Standards
-                                </div>
                             </div>
                             
                             <div class="flex flex-col sm:flex-row gap-5 justify-start">
@@ -289,8 +285,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start mb-20 text-left">
                 <!-- Branding Block -->
                 <div class="text-left">
-                    <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mb-8 grayscale brightness-200">
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm">A state-of-the-art diagnostic facility in Bengaluru committed to providing world-class medical precision and exceptional patient care since 2012.</p>
+                    <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mb-8 grayscale brightness-200 text-left">
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm text-left">
+                        A state-of-the-art diagnostic facility in Bengaluru committed to providing world-class medical precision and exceptional patient care since 2012.
+                    </p>
                 </div>
 
                 <!-- Quick Links -->
@@ -309,16 +307,20 @@
 
                 <!-- Accreditation -->
                 <div class="text-left bg-gray-900/50 p-8 rounded-[2rem] border border-gray-800">
-                    <h4 class="text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-6">Accreditation</h4>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6 font-medium">Adhering to strict <span class="text-white">ISO 15189:2022</span> quality control protocols to ensure zero-error reporting.</p>
+                    <h4 class="text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-left">Accreditation</h4>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-6 font-medium text-left">
+                        Adhering to strict <span class="text-white">ISO 15189:2022</span> quality control protocols to ensure zero-error reporting.
+                    </p>
                     <div class="flex items-center gap-4">
-                        <div class="px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg text-[10px] font-black text-brand-blue uppercase tracking-widest italic">Accuracy First</div>
-                        <div class="px-4 py-2 bg-brand-green/10 border border-brand-green/20 rounded-lg text-[10px] font-black text-brand-green uppercase tracking-widest italic">24H Results</div>
+                        <div class="px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg text-[10px] font-black text-brand-blue uppercase tracking-widest italic text-left">Accuracy First</div>
+                        <div class="px-4 py-2 bg-brand-green/10 border border-brand-green/20 rounded-lg text-[10px] font-black text-brand-green uppercase tracking-widest italic text-left">24H Results</div>
                     </div>
                 </div>
             </div>
             <div class="pt-12 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Winpath Diagnostics Private Limited. Bengaluru, Karnataka.</p>
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em] text-left">
+                    © 2026 Winpath Diagnostics Private Limited. Bengaluru, Karnataka.
+                </p>
                 <div class="flex items-center gap-2 font-black text-[9px] text-gray-600 uppercase tracking-widest"><span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span> System Operational</div>
             </div>
         </div>
@@ -384,7 +386,7 @@
                 card.className = "test-card bg-white p-10 rounded-[3rem] shadow-sm flex flex-col h-full hover:shadow-2xl transition-all duration-700 group cursor-default text-left";
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-6">
-                        <h4 class="text-xl font-black text-gray-900 tracking-tight group-hover:text-brand-blue transition-colors text-left">${test.name}</h4>
+                        <h4 class="text-xl font-black text-gray-900 tracking-tight group-hover:text-brand-blue transition-colors text-left text-left text-left">${test.name}</h4>
                         <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span>
                     </div>
                     <p class="text-xs text-gray-400 font-medium italic mb-8 line-clamp-2 text-left">${test.desc}</p>
