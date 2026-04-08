@@ -98,7 +98,7 @@
             box-shadow: 0 15px 30px -10px rgba(44, 94, 180, 0.15);
         }
 
-        /* Legal Content Styling */
+        /* Legal & Contact Content Styling */
         .legal-content h2 { @apply text-2xl font-black text-gray-900 mt-12 mb-6 uppercase tracking-tight border-b border-gray-100 pb-2; }
         .legal-content h3 { @apply text-lg font-bold text-brand-blue mt-8 mb-4 tracking-tight; }
         .legal-content p { @apply text-gray-600 leading-relaxed mb-4; }
@@ -118,6 +118,16 @@
             <nav class="hidden md:flex space-x-10 items-center h-full">
                 <a href="javascript:void(0)" onclick="switchView('home', 'home')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">Home</a>
                 <a href="javascript:void(0)" onclick="switchView('packages-page')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">Test Packages</a>
+                
+                <!-- Highlighted Contact Us Button with Enhanced Hover -->
+                <button onclick="switchView('contact')" class="relative group ml-2 active:scale-95 transition-all">
+                    <!-- Dynamic glow background -->
+                    <span class="absolute -inset-1.5 brand-gradient-bg rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-500"></span>
+                    <!-- Button core -->
+                    <div class="relative px-6 py-2.5 brand-gradient-bg text-white text-[11px] font-black uppercase tracking-[0.15em] rounded-xl shadow-lg shadow-cyan-500/10 group-hover:shadow-2xl group-hover:shadow-cyan-500/30 group-hover:-translate-y-0.5 transition-all duration-300">
+                        Contact Us
+                    </div>
+                </button>
             </nav>
         </div>
     </header>
@@ -152,7 +162,7 @@
                             
                             <div class="flex flex-col sm:flex-row gap-5 justify-start">
                                 <button onclick="switchView('packages-page')" class="px-12 py-6 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:-translate-y-1 active:scale-95">Search Rate Card</button>
-                                <button onclick="const el = document.getElementById('health-packages'); if(el) el.scrollIntoView({behavior: 'smooth'})" class="px-12 py-6 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue hover:shadow-xl transition-all active:scale-95 text-left text-left">View Packages</button>
+                                <button onclick="const el = document.getElementById('health-packages'); if(el) el.scrollIntoView({behavior: 'smooth'})" class="px-12 py-6 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue hover:shadow-xl transition-all active:scale-95 text-left text-left text-left">View Packages</button>
                             </div>
                         </div>
 
@@ -186,17 +196,17 @@
                     </div>
                 </section>
 
-                <!-- Featured Test Packages Section -->
+                <!-- Health Check Up Packages Section -->
                 <section id="health-packages" class="py-24 bg-gray-50/50 border-y border-gray-100 relative overflow-hidden">
-                    <div class="max-w-7xl mx-auto px-4 relative z-10">
-                        <div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20">
+                    <div class="max-w-7xl mx-auto px-4 relative z-10 text-left">
+                        <div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-20 text-left">
                             <div class="max-w-3xl text-left">
                                 <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-8">
                                     <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
                                     Preventive Screening
                                 </div>
                                 <h2 class="text-5xl md:text-7xl font-black text-gray-900 mb-10 leading-[0.9] tracking-tighter text-left">Health <span class="brand-gradient-text italic">Packages.</span></h2>
-                                <p class="text-2xl text-gray-500 font-light leading-relaxed mb-10 tracking-tight">
+                                <p class="text-2xl text-gray-500 font-light leading-relaxed mb-10 tracking-tight text-left">
                                     Comprehensive clinical assessments designed for preventive health monitoring. Each package is processed in our state-of-the-art <span class="text-brand-blue font-bold">ISO 15189:2022 standards compliance laboratory in Bengaluru.</span>
                                 </p>
                             </div>
@@ -216,37 +226,37 @@
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Mens Health Package</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Cardiac risk & prostate health.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹2,499</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left">₹2,499</span>
                             </div>
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Seniors Health Package</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Vital age-related monitoring.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹3,499</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left">₹3,499</span>
                             </div>
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">PCOS Health Package</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Reproductive endocrine balance.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹2,999</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left text-left">₹2,999</span>
                             </div>
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Diabetes Screening</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Intensive sugar & kidney check.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left text-left">₹999</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left text-left text-left">₹999</span>
                             </div>
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Heart Health Package</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Complete cardiovascular risk.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹2,199</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left text-left text-left text-left">₹2,199</span>
                             </div>
                             <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Full Body Checkup</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Essential baseline wellness.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹1,999</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left text-left text-left text-left text-left">₹1,999</span>
                             </div>
-                            <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left scale-105 ring-4 ring-brand-blue/5" onclick="switchView('packages-page')">
+                            <div class="group relative bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-50 hover:shadow-2xl transition-all duration-500 text-left scale-105 ring-4 ring-brand-blue/5 text-left" onclick="switchView('packages-page')">
                                 <h3 class="text-xl font-black text-gray-900 mb-2 leading-tight">Master Health Checkup</h3>
                                 <p class="text-[11px] text-gray-400 font-medium mb-6">Elite comprehensive profiling.</p>
-                                <span class="text-2xl font-black brand-gradient-text text-left">₹5,999</span>
+                                <span class="text-2xl font-black brand-gradient-text text-left text-left text-left text-left text-left text-left text-left text-left">₹5,999</span>
                             </div>
                         </div>
                     </div>
@@ -254,11 +264,58 @@
             </main>
         </div>
 
+        <!-- Contact Us View -->
+        <div id="contact-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4 text-center">Contact <span class="brand-gradient-text">Us.</span></h1>
+                    <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Get in touch with Bengaluru's trusted lab</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- WhatsApp Direct -->
+                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-black text-gray-900 mb-2">WhatsApp Us</h3>
+                        <p class="text-gray-500 mb-8 text-sm">Chat directly for bookings or inquiries.</p>
+                        <a href="https://wa.me/919380116362" target="_blank" class="w-full bg-brand-green text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl transition-all active:scale-95 text-center">Message on WhatsApp</a>
+                    </div>
+                    
+                    <!-- Call & Email -->
+                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 flex flex-col justify-between text-left">
+                        <div>
+                            <div class="mb-10 text-left text-left">
+                                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue block mb-2">Call Support</span>
+                                <a href="tel:+919380116362" class="text-2xl font-bold text-gray-900 hover:text-brand-blue transition-colors">+91 93801 16362</a>
+                            </div>
+                            <div class="mb-4 text-left">
+                                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue block mb-2">Email Us</span>
+                                <a href="mailto:winpathdiagnostics@gmail.com" class="text-xl font-bold text-gray-900 hover:text-brand-blue transition-colors break-all">winpathdiagnostics@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="pt-6 border-t border-gray-50 text-left">
+                            <p class="text-xs text-gray-400 font-medium">Available Monday — Saturday: 7 AM - 8 PM<br>Sunday: 7 AM - 1 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl text-center text-center">
+                    <h3 class="text-2xl font-black text-gray-900 mb-6 text-center">Laboratory Address</h3>
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto text-center">
+                        Winpath Diagnostics Private Limited<br>
+                        Bengaluru, Karnataka, India.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Privacy Policy View -->
         <div id="privacy-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4">Privacy <span class="brand-gradient-text">Policy.</span></h1>
+            <div class="max-w-4xl mx-auto px-6 text-left text-left">
+                <div class="text-center mb-16 text-center">
+                    <h1 class="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4 text-center text-center">Privacy <span class="brand-gradient-text">Policy.</span></h1>
                     <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Effective Date: April 8, 2026</p>
                 </div>
                 <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl legal-content text-left">
@@ -306,12 +363,12 @@
 
         <!-- Terms of Use View -->
         <div id="terms-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h1 class="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4">Terms <span class="brand-gradient-text">of Use.</span></h1>
+            <div class="max-w-4xl mx-auto px-6 text-left">
+                <div class="text-center mb-16 text-center">
+                    <h1 class="text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4 text-center">Terms <span class="brand-gradient-text">of Use.</span></h1>
                     <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Last Updated: April 8, 2026</p>
                 </div>
-                <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl legal-content text-left text-left">
+                <div class="bg-white rounded-[3rem] p-10 md:p-16 shadow-2xl legal-content text-left">
                     <h3>2.1 Acceptance of Terms</h3>
                     <p>By accessing the Winpath Diagnostics website and searching our Rate Card, you agree to comply with these terms. These services are intended for residents of India.</p>
 
@@ -338,21 +395,21 @@
 
         <!-- Search & Test View -->
         <div id="packages-page-view" class="view-hidden pt-28 pb-20 bg-gray-50 min-h-screen">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left text-left">
                 <div class="text-center mb-16 text-left">
-                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase leading-none text-balance">The <span class="brand-gradient-text italic">Menu.</span></h1>
+                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter uppercase leading-none text-balance text-left text-left">The <span class="brand-gradient-text italic">Menu.</span></h1>
                     <p class="text-gray-400 max-w-xl mx-auto text-sm font-bold uppercase tracking-widest leading-loose text-center">Search over 100+ clinical markers and specialized health packages.</p>
                 </div>
                 <div class="max-w-2xl mx-auto mb-20">
                     <div class="relative group">
                         <div class="absolute -inset-1 brand-gradient-bg rounded-[2rem] blur opacity-20 group-focus-within:opacity-50 transition duration-300"></div>
-                        <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-3 border border-gray-100">
+                        <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-3 border border-gray-100 text-left">
                             <div class="pl-6 text-brand-blue"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
                             <input type="text" id="test-search" placeholder="Search (e.g. Women, Heart, CBC, ESR...)" class="w-full px-6 py-5 text-xl focus:outline-none rounded-2xl bg-transparent font-semibold tracking-tight" oninput="filterTests()">
                             <button id="search-clear" class="pr-6 text-gray-300 hover:text-gray-500 hidden transition-colors" onclick="clearSearch()"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg></button>
                         </div>
                     </div>
-                    <div class="mt-8 flex justify-between items-center px-6"><span id="results-title" class="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em]">Available Tests</span><span id="test-count" class="text-[10px] font-black text-brand-blue bg-brand-blue/5 px-4 py-1.5 rounded-full border border-brand-blue/10 uppercase tracking-widest">0 Matches</span></div>
+                    <div class="mt-8 flex justify-between items-center px-6 text-left"><span id="results-title" class="text-[9px] font-black text-gray-400 uppercase tracking-[0.4em]">Available Tests</span><span id="test-count" class="text-[10px] font-black text-brand-blue bg-brand-blue/5 px-4 py-1.5 rounded-full border border-brand-blue/10 uppercase tracking-widest text-left">0 Matches</span></div>
                 </div>
                 <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
                 <div id="no-results" class="view-hidden text-center py-24"><h3 class="text-xl font-bold">No matching tests or packages found.</h3></div>
@@ -362,40 +419,42 @@
 
     <!-- COMPREHENSIVE FOOTER -->
     <footer class="bg-brand-dark py-24 border-t border-gray-800 text-left">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6 text-left">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 items-start mb-20">
-                <div class="text-left">
+                <div class="text-left text-left text-left">
                     <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-12 mb-8 grayscale brightness-200">
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm">A state-of-the-art diagnostic facility in Bengaluru committed to providing world-class medical precision and exceptional patient care since 2012.</p>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-sm text-left text-left">A state-of-the-art diagnostic facility in Bengaluru committed to providing world-class medical precision and exceptional patient care since 2012.</p>
                 </div>
-                <div class="grid grid-cols-2 gap-12 font-bold text-gray-500 text-sm">
-                    <ul class="space-y-4">
-                        <li><a href="#" onclick="switchView('home')" class="hover:text-brand-cyan">Home</a></li>
-                        <li><a href="#" onclick="switchView('packages-page')" class="hover:text-brand-cyan">Test Menu</a></li>
+                <div class="grid grid-cols-2 gap-12 font-bold text-gray-500 text-sm text-left">
+                    <ul class="space-y-4 text-left">
+                        <li><a href="#" onclick="switchView('home')" class="hover:text-brand-cyan text-left text-left">Home</a></li>
+                        <li><a href="#" onclick="switchView('packages-page')" class="hover:text-brand-cyan text-left text-left">Test Menu</a></li>
+                        <li><a href="#" onclick="switchView('contact')" class="hover:text-brand-cyan text-left text-left">Contact Us</a></li>
                     </ul>
-                    <ul class="space-y-4">
-                        <li><a href="javascript:void(0)" onclick="switchView('privacy')" class="hover:text-brand-cyan">Privacy Policy</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('terms')" class="hover:text-brand-cyan">Terms of Use</a></li>
-                        <li><a href="#" class="hover:text-brand-cyan">Contact Us</a></li>
+                    <ul class="space-y-4 text-left text-left">
+                        <li><a href="javascript:void(0)" onclick="switchView('privacy')" class="hover:text-brand-cyan text-left text-left text-left">Privacy Policy</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('terms')" class="hover:text-brand-cyan text-left text-left text-left">Terms of Use</a></li>
+                        <li><a href="https://wa.me/919380116362" target="_blank" class="hover:text-brand-cyan text-left text-left">WhatsApp</a></li>
                     </ul>
                 </div>
-                <div class="bg-gray-900/50 p-8 rounded-[2rem] border border-gray-800">
-                    <h4 class="text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-6">Accreditation</h4>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-6 font-medium">Adhering to strict <span class="text-white">ISO 15189:2022</span> quality control protocols to ensure zero-error reporting.</p>
-                    <div class="flex items-center gap-4">
-                        <div class="px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg text-[10px] font-black text-brand-blue uppercase tracking-widest italic">Accuracy First</div>
-                        <div class="px-4 py-2 bg-brand-green/10 border border-brand-green/20 rounded-lg text-[10px] font-black text-brand-green uppercase tracking-widest italic text-left">24H Results</div>
+                <div class="text-left bg-gray-900/50 p-8 rounded-[2rem] border border-gray-800 text-left text-left">
+                    <h4 class="text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-left text-left text-left">Accreditation</h4>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-6 font-medium text-left text-left text-left text-left">Adhering to strict <span class="text-white font-bold text-left">ISO 15189:2022</span> quality control protocols to ensure zero-error reporting.</p>
+                    <div class="flex items-center gap-4 text-left text-left text-left">
+                        <div class="px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg text-[10px] font-black text-brand-blue uppercase tracking-widest italic text-left">Accuracy First</div>
+                        <div class="px-4 py-2 bg-brand-green/10 border border-brand-green/20 rounded-lg text-[10px] font-black text-brand-green uppercase tracking-widest italic text-left text-left text-left text-left">24H Results</div>
                     </div>
                 </div>
             </div>
-            <div class="pt-12 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em]">© 2026 Winpath Diagnostics Private Limited. Bengaluru, Karnataka.</p>
-                <div class="flex items-center gap-2 font-black text-[9px] text-gray-600 uppercase tracking-widest"><span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span> System Operational</div>
+            <div class="pt-12 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6 text-left text-left">
+                <p class="text-gray-600 text-[10px] font-black uppercase tracking-[0.2em] text-left">© 2026 Winpath Diagnostics Private Limited. Bengaluru, Karnataka.</p>
+                <div class="flex items-center gap-2 font-black text-[9px] text-gray-600 uppercase tracking-widest text-left text-left"><span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span> System Operational</div>
             </div>
         </div>
     </footer>
 
     <script>
+        // COMPREHENSIVE RATE CARD DATA
         const rateCard = [
             { name: "Master Health Checkup", price: "5,999.00", desc: "Detailed, comprehensive testing aimed at busy professionals, covering multiple specialties.", params: "CBC, LFT, RFT, Lipid, Thyroid, HbA1c, Vit D, Vit B12, PSA/CA-125, Electrolytes, Urine" },
             { name: "Full Body Checkup", price: "1,999.00", desc: "Comprehensive baseline assessment of all major organ systems.", params: "CBC, Sugar, Lipid, LFT (Liver), RFT (Kidney), Urine Routine" },
@@ -407,11 +466,12 @@
             { name: "Heart Health Package", price: "2,199.00", desc: "Detailed cardiovascular assessment to identify risk factors.", params: "Lipid Profile, Homocysteine, hs-CRP (Cardiac), CBC" },
             { name: "CBC & Peripheral Smear", price: "650.00", desc: "Complete blood count with microscopic morphology analysis.", params: "CBC, RBC/WBC Morphology, Platelets" },
             { name: "CBC & ESR", price: "500.00", desc: "Basic screening for blood count and generalized inflammation.", params: "Hb, Counts, Differential, ESR" },
-            { name: "CBC, PBS and ESR", price: "800.00", desc: "Comprehensive hematology screen including morphology and inflammatory markers.", params: "CBC, Smear (PBS), ESR" }
+            { name: "CBC, PBS and ESR", price: "800.00", desc: "Comprehensive hematology screen including morphology and inflammatory markers.", params: "CBC, Smear (PBS), ESR" },
+            { name: "Peripheral Smear Examination (PBS)", price: "350.00", desc: "Detailed microscopic analysis of blood cells.", params: "RBC morphology, WBC differential, Platelets" }
         ];
 
         // Fill up database to ensure 100+ items
-        const routineTests = ["Peripheral Smear Examination (PBS)", "Thyroid Profile", "Lipid Profile - Maxi", "Liver Function Test", "Renal Function Test", "HbA1c", "Vitamin D Total", "Vitamin B12", "Iron Studies", "Dengue Profile", "Widal Test", "CRP (Quantitative)", "PSA Total", "Urine Routine", "Ferritin", "RA Factor", "HLA-B27"];
+        const routineTests = ["Thyroid Profile", "Lipid Profile - Maxi", "Liver Function Test", "Renal Function Test", "HbA1c", "Vitamin D Total", "Vitamin B12", "Iron Studies", "Dengue Profile", "Widal Test", "CRP (Quantitative)", "PSA Total", "Urine Routine", "Ferritin", "RA Factor", "HLA-B27"];
         routineTests.forEach((name, i) => {
             rateCard.push({
                 name: name,
@@ -431,10 +491,14 @@
         }
 
         function switchView(viewId, sectionId) {
-            const views = ['home-view', 'packages-page-view', 'privacy-view', 'terms-view'];
-            views.forEach(v => document.getElementById(v).classList.add('view-hidden'));
+            const views = ['home-view', 'packages-page-view', 'privacy-view', 'terms-view', 'contact-view'];
+            views.forEach(v => {
+                const el = document.getElementById(v);
+                if (el) el.classList.add('view-hidden');
+            });
             
-            const target = document.getElementById(viewId + '-view');
+            const targetId = viewId.includes('-view') ? viewId : viewId + '-view';
+            const target = document.getElementById(targetId);
             if (target) {
                 target.classList.remove('view-hidden');
                 window.scrollTo(0, 0); // Always scroll top for new views
@@ -459,12 +523,12 @@
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-6">
                         <h4 class="text-xl font-black text-gray-900 tracking-tight group-hover:text-brand-blue transition-colors text-left">${test.name}</h4>
-                        <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter">₹${test.price}</span>
+                        <span class="text-2xl font-black brand-gradient-text shrink-0 ml-4 tracking-tighter text-left">₹${test.price}</span>
                     </div>
-                    <p class="text-xs text-gray-400 font-medium italic mb-8 line-clamp-2 text-left">${test.desc}</p>
-                    <div class="bg-gray-50/80 p-5 rounded-2xl mb-2 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight text-left">
-                        <span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50 text-left">Parameters</span>
-                        <p class="line-clamp-2 italic text-left">${test.params}</p>
+                    <p class="text-xs text-gray-400 font-medium italic mb-8 line-clamp-2 text-left text-left">${test.desc}</p>
+                    <div class="bg-gray-50/80 p-5 rounded-2xl mb-2 flex-grow text-[11px] text-gray-600 font-semibold tracking-tight text-left text-left text-left">
+                        <span class="font-black text-brand-blue uppercase tracking-[0.2em] text-[8px] block mb-3 opacity-50 text-left text-left">Parameters</span>
+                        <p class="line-clamp-2 italic text-left text-left">${test.params}</p>
                     </div>`;
                 container.appendChild(card);
             });
