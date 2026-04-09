@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winpath Diagnostics | Precision Pathology</title>
-    <!-- Google Fonts: Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,22 +19,16 @@
                             dark: '#0B131D',
                         }
                     },
-                    fontFamily: {
-                        sans: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Outfit', 'Inter', 'sans-serif'] },
                     animation: {
                         'float': 'float 3s ease-in-out infinite',
                         'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        'pulse-slow': {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0.6' },
-                        }
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        'pulse-slow': { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0.6' } },
+                        'bounce-soft': { '0%, 100%': { transform: 'translateY(-8px)' }, '50%': { transform: 'translateY(0)' } }
                     }
                 }
             }
@@ -47,7 +39,6 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #27BBD4; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #5DCE9E; }
         
         body { font-family: 'Outfit', sans-serif; background-color: #ffffff; -webkit-tap-highlight-color: transparent; }
         
@@ -62,37 +53,35 @@
             background: linear-gradient(to right, #2C5EB4, #27BBD4, #5DCE9E);
         }
 
-        .test-card {
+        .mega-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #f1f5f9;
         }
 
-        .test-card:hover {
-            border-color: #27BBD4;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .group:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
+
+        .test-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #f1f5f9; cursor: pointer; }
+        .test-card:hover { border-color: #27BBD4; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
 
         .view-hidden { display: none; }
+        .floating-wa { position: fixed; bottom: 24px; right: 24px; z-index: 100; animation: float 3s ease-in-out infinite; }
+        
+        .back-btn { transition: transform 0.2s ease; }
+        .back-btn:hover { transform: translateX(-5px); }
 
         .specialty-pill {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
         }
-
         .specialty-pill:hover {
             transform: translateY(-5px);
             background: white;
             box-shadow: 0 15px 30px -10px rgba(44, 94, 180, 0.15);
-        }
-
-        .mobile-menu-open { overflow: hidden; }
-        
-        .floating-wa {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 100;
-            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
@@ -100,31 +89,79 @@
 <body class="text-gray-800 antialiased selection:bg-brand-cyan selection:text-white overflow-x-hidden">
 
     <!-- Floating WhatsApp CTA -->
-    <a href="https://wa.me/919380116362?text=Hello%20Winpath%20Diagnostics,%20I%20would%20like%20to%20book%20a%20test." target="_blank" class="floating-wa flex items-center gap-3 bg-brand-green text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition-transform">
-        <span class="text-[10px] font-black uppercase tracking-widest hidden sm:block">Book Home Collection</span>
+    <a href="https://wa.me/919380116362?text=Hello%20Winpath%20Team!%20I'd%20like%20to%20book%20a%20test." target="_blank" class="floating-wa flex items-center gap-3 bg-brand-green text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition-transform">
+        <span class="text-[10px] font-black uppercase tracking-widest hidden sm:block text-right leading-none">Book Home<br>Collection</span>
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0 5.495 0 12.05c0 2.096.547 4.142 1.588 5.945L0 24l6.105-1.604a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     </a>
 
     <!-- Navigation -->
     <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 h-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
-            <div class="flex items-center cursor-pointer" onclick="switchView('home')">
+            <div class="flex items-center cursor-pointer shrink-0" onclick="switchView('home')">
                 <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-8 sm:h-10 w-auto object-contain">
             </div>
 
-            <nav class="hidden md:flex space-x-10 items-center h-full">
-                <a href="javascript:void(0)" onclick="switchView('home')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">Home</a>
-                <a href="javascript:void(0)" onclick="switchView('about')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">About Us</a>
-                <a href="javascript:void(0)" onclick="switchView('packages-page')" class="text-sm font-bold text-gray-500 hover:text-brand-blue transition-colors uppercase tracking-widest">Test Packages</a>
-                <button onclick="switchView('contact')" class="relative group ml-2 active:scale-95 transition-all">
-                    <span class="absolute -inset-1.5 brand-gradient-bg rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-500"></span>
-                    <div class="relative px-6 py-2.5 brand-gradient-bg text-white text-[11px] font-black uppercase tracking-[0.15em] rounded-xl shadow-lg transition-all duration-300">
-                        Contact Us
+            <!-- Desktop Mega Menu -->
+            <nav class="hidden xl:flex space-x-8 items-center h-full">
+                <a href="javascript:void(0)" onclick="switchView('home')" class="text-[11px] font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors">Home</a>
+                
+                <div class="relative h-full flex items-center group">
+                    <button class="text-[11px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                        Health Risks <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="mega-menu absolute top-20 left-0 w-48 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-blue p-4 space-y-2 text-left">
+                        <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Heart')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Heart</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Thyroid')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Thyroid</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Liver')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Liver</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Kidney')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Kidney</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Diabetes')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Diabetes</a>
                     </div>
+                </div>
+
+                <div class="relative h-full flex items-center group">
+                    <button class="text-[11px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                        Health Conditions <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="mega-menu absolute top-20 left-1/2 -translate-x-1/2 w-[600px] bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-cyan p-8 grid grid-cols-3 gap-x-8 gap-y-4 text-left">
+                        <div class="space-y-2">
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Cardiovascular')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Cardiovascular</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Hypertension')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Hypertension</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Gut Health')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Gut Health</a>
+                        </div>
+                        <div class="space-y-2">
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Bone Health')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Bone Health</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Cancer')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Cancer</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Nutrition')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Nutrition</a>
+                        </div>
+                        <div class="space-y-2">
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Sexual Wellness')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Sexual Wellness</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Alcohol')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Alcohol Impact</a>
+                            <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Obesity')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue">Obesity</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative h-full flex items-center group">
+                    <button class="text-[11px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                        Health Check Packages <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="mega-menu absolute top-20 right-0 w-56 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-green p-4 space-y-2 text-right">
+                        <a href="javascript:void(0)" onclick="filterByCategory('package', 'LifeStyle')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">LifeStyle Packages</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('package', 'Men')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Men Health</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('package', 'Women')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Women Health</a>
+                        <a href="javascript:void(0)" onclick="filterByCategory('package', 'Senior')" class="block text-xs font-bold text-gray-600 hover:text-brand-blue py-1">Senior Citizens</a>
+                    </div>
+                </div>
+
+                <a href="javascript:void(0)" onclick="switchView('about')" class="text-[11px] font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors">About Us</a>
+                
+                <button onclick="switchView('contact')" class="relative group ml-2 active:scale-95 transition-all">
+                    <span class="absolute -inset-1.5 brand-gradient-bg rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity"></span>
+                    <div class="relative px-6 py-2.5 brand-gradient-bg text-white text-[10px] font-black uppercase tracking-widest rounded-xl shadow-lg">Contact Us</div>
                 </button>
             </nav>
 
-            <div class="md:hidden flex items-center">
+            <div class="xl:hidden flex items-center">
                 <button onclick="toggleMobileMenu()" class="p-2 text-brand-blue focus:outline-none">
                     <svg id="menu-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     <svg id="close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -132,13 +169,12 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl overflow-hidden transition-all duration-300">
-            <div class="px-6 py-8 space-y-6 flex flex-col items-center">
-                <a href="javascript:void(0)" onclick="switchView('home')" class="text-lg font-bold text-gray-900 uppercase tracking-widest">Home</a>
-                <a href="javascript:void(0)" onclick="switchView('about')" class="text-lg font-bold text-gray-900 uppercase tracking-widest">About Us</a>
-                <a href="javascript:void(0)" onclick="switchView('packages-page')" class="text-lg font-bold text-gray-900 uppercase tracking-widest">Test Packages</a>
-                <button onclick="switchView('contact')" class="w-full max-w-xs py-4 brand-gradient-bg text-white text-xs font-black uppercase tracking-widest rounded-2xl">Contact Us</button>
+        <div id="mobile-menu" class="hidden xl:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl overflow-y-auto max-h-[80vh]">
+            <div class="px-6 py-8 space-y-6 flex flex-col items-center uppercase font-black text-xs tracking-widest">
+                <a href="javascript:void(0)" onclick="switchView('home')">Home</a>
+                <a href="javascript:void(0)" onclick="switchView('packages-page')">Browse Tests</a>
+                <a href="javascript:void(0)" onclick="switchView('about')">About Us</a>
+                <button onclick="switchView('contact')" class="w-full py-4 brand-gradient-bg text-white rounded-2xl">Contact Us</button>
             </div>
         </div>
     </header>
@@ -147,420 +183,509 @@
         <!-- Home View -->
         <div id="home-view">
             <main class="pt-20">
-                <!-- Hero Section (Responsive Grid Order) -->
-                <section id="home" class="py-12 md:py-32 px-4 max-w-7xl mx-auto">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 lg:gap-x-24 text-center lg:text-left">
-                        
-                        <!-- Headline Block -->
+                <!-- Hero Section -->
+                <section class="py-12 md:py-32 px-4 max-w-7xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 text-center lg:text-left">
                         <div class="order-1 flex flex-col items-center lg:items-start">
-                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-6 sm:mb-8 shadow-sm">
+                            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.2em] mb-6 shadow-sm">
                                 <span class="w-1.5 h-1.5 rounded-full brand-gradient-bg animate-pulse"></span>
-                                ISO 15189:2022 Certified Excellence
+                                Strictly Adhering to ISO 15189:2022 Standards
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter mb-4 text-gray-900 leading-[1.1]">
-                                Precision Diagnostics, <br>
-                                <span class="brand-gradient-text">Accurate Results.</span>
+                                Precision Diagnostics, <br><span class="brand-gradient-text">Accurate Results.</span>
                             </h1>
-                            <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-blue/90 mb-2 lg:mb-8 tracking-tight italic">
-                                Exceptional Care.
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-blue/90 mb-8 tracking-tight italic">Exceptional Care.</div>
+                            <p class="text-base sm:text-lg text-gray-600 mb-8 font-medium max-w-2xl leading-relaxed">
+                                Bengaluru's trusted pathologist-led lab. Search our expanded catalog of <span class="text-brand-cyan font-bold">100+ clinical investigations</span> with direct booking support.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <a href="https://wa.me/919380116362" target="_blank" class="w-full sm:w-auto px-10 py-5 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-xl text-center active:scale-95 transition-all">Book on WhatsApp</a>
+                                <button onclick="switchView('packages-page')" class="w-full sm:w-auto px-10 py-5 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue active:scale-95 transition-all">Explore Catalog</button>
                             </div>
                         </div>
-
-                        <!-- Image Block -->
-                        <div class="order-2 lg:row-span-2 relative w-full group">
+                        <div class="order-2 relative w-full group">
                             <div class="absolute -inset-6 sm:-inset-10 brand-gradient-bg rounded-full opacity-5 blur-[80px] animate-pulse-slow"></div>
                             <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/Gemini_Generated_Image_6y9d06y9d06y9d06.png" class="relative rounded-[2rem] sm:rounded-[3rem] shadow-2xl w-full h-auto object-cover border-[8px] border-white transition-transform duration-1000 group-hover:scale-[1.02]">
                         </div>
+                    </div>
+                </section>
 
-                        <!-- Body & Buttons Block -->
-                        <div class="order-3 flex flex-col items-center lg:items-start">
-                            <p class="text-base sm:text-lg md:text-xl text-gray-600 mb-8 leading-relaxed font-medium max-w-2xl">
-                                Bengaluru's trusted pathologist-led lab. Access world-class clinical services with seamless <span class="text-brand-green font-bold underline decoration-brand-green/30">home collection.</span>
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full sm:w-auto">
-                                <a href="https://wa.me/919380116362" target="_blank" class="w-full sm:w-auto px-10 py-5 brand-gradient-bg text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-xl active:scale-95 text-center">Book on WhatsApp</a>
-                                <button onclick="switchView('packages-page')" class="w-full sm:w-auto px-10 py-5 bg-white text-brand-blue font-black uppercase tracking-widest text-[10px] rounded-2xl border-2 border-brand-blue/10 hover:border-brand-blue active:scale-95">View Test Menu</button>
+                <!-- Health Packages (Redesigned Section as per Screenshot) -->
+                <section class="py-20 sm:py-32 bg-white">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <div class="flex flex-col md:flex-row justify-between items-center md:items-end gap-8 mb-16">
+                            <div class="text-center md:text-left">
+                                <h2 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter">
+                                    Health <span class="brand-gradient-text italic">Packages.</span>
+                                </h2>
+                                <p class="text-lg md:text-2xl text-gray-400 font-medium mt-4">Pathologist-verified screening for a proactive lifestyle.</p>
+                            </div>
+                            <button onclick="switchView('packages-page')" class="px-10 py-5 bg-white border-2 border-brand-cyan/30 rounded-2xl shadow-[0_10px_40px_-10px_rgba(39,187,212,0.3)] text-[11px] font-black uppercase tracking-widest hover:border-brand-cyan hover:shadow-[0_10px_40px_-10px_rgba(39,187,212,0.6)] transition-all animate-bounce-soft hover:animate-none group">
+                                <span class="brand-gradient-text">Explore All 100+ Tests</span>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <!-- Women's Health -->
+                            <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-xl transition-all">
+                                <h3 class="text-2xl font-black text-gray-900 mb-2">Women's Health</h3>
+                                <p class="text-[11px] text-gray-400 font-medium leading-relaxed mb-8 italic">Specifically designed for women to monitor hormones and bone health.</p>
+                                <div class="text-3xl font-black text-brand-blue mb-8">₹2,499</div>
+                                <div class="mt-auto">
+                                    <button onclick="showTestDetail('p-3')" class="w-full py-4 bg-gray-50 text-brand-blue text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-gray-100 transition-all">Book on WhatsApp</button>
+                                </div>
+                            </div>
+                            <!-- Men's Health -->
+                            <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-xl transition-all">
+                                <h3 class="text-2xl font-black text-gray-900 mb-2">Men's Health</h3>
+                                <p class="text-[11px] text-gray-400 font-medium leading-relaxed mb-8 italic">Targeted screening for men focusing on cardiac and prostate health.</p>
+                                <div class="text-3xl font-black text-brand-blue mb-8">₹2,499</div>
+                                <div class="mt-auto">
+                                    <button onclick="showTestDetail('p-4')" class="w-full py-4 bg-gray-50 text-brand-blue text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-gray-100 transition-all">Book on WhatsApp</button>
+                                </div>
+                            </div>
+                            <!-- Seniors Health (Most Popular) -->
+                            <div class="relative bg-white p-10 rounded-[3rem] shadow-2xl border-2 border-brand-cyan/20 flex flex-col h-full transform scale-[1.03] z-10">
+                                <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 brand-gradient-bg rounded-full text-white text-[9px] font-black uppercase tracking-widest shadow-lg">Most Popular</div>
+                                <h3 class="text-2xl font-black text-gray-900 mb-2">Seniors Health</h3>
+                                <p class="text-[11px] text-gray-400 font-medium leading-relaxed mb-8 italic">Vital age-related monitoring for chronic conditions.</p>
+                                <div class="text-3xl font-black text-brand-blue mb-8">₹3,499</div>
+                                <div class="mt-auto">
+                                    <button onclick="showTestDetail('p-5')" class="w-full py-5 brand-gradient-bg text-white text-[10px] font-black uppercase tracking-widest rounded-2xl shadow-xl hover:scale-[1.02] transition-all">Book on WhatsApp</button>
+                                </div>
+                            </div>
+                            <!-- Full Body Checkup -->
+                            <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-xl transition-all">
+                                <h3 class="text-2xl font-black text-gray-900 mb-2">Full Body Checkup</h3>
+                                <p class="text-[11px] text-gray-400 font-medium leading-relaxed mb-8 italic">Comprehensive baseline assessment of all major organ systems.</p>
+                                <div class="text-3xl font-black text-brand-blue mb-8">₹1,999</div>
+                                <div class="mt-auto">
+                                    <button onclick="showTestDetail('p-2')" class="w-full py-4 bg-gray-50 text-brand-blue text-[10px] font-black uppercase tracking-widest rounded-2xl hover:bg-gray-100 transition-all">Book on WhatsApp</button>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
 
                 <!-- Diagnostic Specialties -->
-                <section class="py-20 bg-white border-t border-gray-50 text-center">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-6">Laboratory Expertise</div>
-                        <h2 class="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 mb-12 tracking-tighter">Diagnostic <span class="brand-gradient-text italic">Specialties.</span></h2>
-                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-blue/5 border-l-4 border-brand-blue"><h4 class="text-xs font-bold uppercase">Hematology</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-cyan/5 border-l-4 border-brand-cyan"><h4 class="text-xs font-bold uppercase">Biochemistry</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-green/5 border-l-4 border-brand-green"><h4 class="text-xs font-bold uppercase">Immunology</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-blue/5 border-l-4 border-brand-blue"><h4 class="text-xs font-bold uppercase">Microbiology</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-cyan/5 border-l-4 border-brand-cyan"><h4 class="text-xs font-bold uppercase">Histopathology</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-green/5 border-l-4 border-brand-green"><h4 class="text-xs font-bold uppercase">Cytopathology</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-blue/5 border-l-4 border-brand-blue"><h4 class="text-xs font-bold uppercase">Molecular</h4></div>
-                            <div class="specialty-pill p-6 rounded-[1.5rem] bg-brand-cyan/5 border-l-4 border-brand-cyan"><h4 class="text-xs font-bold uppercase">Pathology</h4></div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Health Packages -->
-                <section id="health-packages" class="py-20 bg-gray-50/50 border-y border-gray-100">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-16">
-                            <div class="max-w-3xl text-left">
-                                <h2 class="text-3xl sm:text-5xl md:text-7xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tighter">Health <span class="brand-gradient-text italic">Packages.</span></h2>
-                                <p class="text-lg sm:text-2xl text-gray-500 font-light leading-relaxed">Pathologist-verified screening for a proactive lifestyle.</p>
-                            </div>
-                            <button onclick="switchView('packages-page')" class="w-full sm:w-auto bg-white px-10 py-5 rounded-2xl border border-gray-200 shadow-xl hover:border-brand-cyan transition-all text-sm font-black uppercase tracking-widest">Explore All 100+ Tests</button>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <!-- Package 1 -->
-                            <div class="group bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-2xl transition-all relative">
-                                <h3 class="text-xl font-black mb-1">Women's Health</h3>
-                                <p class="text-[10px] text-gray-400 font-medium mb-4 italic">Specifically designed for women to monitor hormones and bone health.</p>
-                                <div class="text-2xl font-black brand-gradient-text mb-6">₹2,499</div>
-                                <a href="https://wa.me/919380116362?text=Hello,%20I%20want%20to%20book%20the%20Women's%20Health%20Package." class="block w-full text-center py-3 bg-brand-blue/5 text-brand-blue text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-blue hover:text-white transition-colors">Book via WhatsApp</a>
-                            </div>
-                            <!-- Package 2 -->
-                            <div class="group bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-2xl transition-all">
-                                <h3 class="text-xl font-black mb-1">Men's Health</h3>
-                                <p class="text-[10px] text-gray-400 font-medium mb-4 italic">Targeted screening for men focusing on cardiac and prostate health.</p>
-                                <div class="text-2xl font-black brand-gradient-text mb-6">₹2,499</div>
-                                <a href="https://wa.me/919380116362?text=Hello,%20I%20want%20to%20book%20the%20Men's%20Health%20Package." class="block w-full text-center py-3 bg-brand-blue/5 text-brand-blue text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-blue hover:text-white transition-colors">Book via WhatsApp</a>
-                            </div>
-                            <!-- Package 3 (Most Popular) -->
-                            <div class="group bg-white p-8 rounded-[2rem] shadow-2xl border-2 border-brand-cyan/30 hover:shadow-2xl transition-all relative">
-                                <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-cyan text-white text-[8px] font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-lg">Most Popular</span>
-                                <h3 class="text-xl font-black mb-1">Seniors Health</h3>
-                                <p class="text-[10px] text-gray-400 font-medium mb-4 italic">Vital age-related monitoring for chronic conditions.</p>
-                                <div class="text-2xl font-black brand-gradient-text mb-6">₹3,499</div>
-                                <a href="https://wa.me/919380116362?text=Hello,%20I%20want%20to%20book%20the%20Seniors%20Health%20Package." class="block w-full text-center py-3 brand-gradient-bg text-white text-[10px] font-bold uppercase tracking-widest rounded-xl shadow-lg hover:scale-[1.02] transition-transform">Book via WhatsApp</a>
-                            </div>
-                            <!-- Package 4 -->
-                            <div class="group bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 hover:shadow-2xl transition-all">
-                                <h3 class="text-xl font-black mb-1">Full Body Checkup</h3>
-                                <p class="text-[10px] text-gray-400 font-medium mb-4 italic">Comprehensive baseline assessment of all major organ systems.</p>
-                                <div class="text-2xl font-black brand-gradient-text mb-6">₹1,999</div>
-                                <a href="https://wa.me/919380116362?text=Hello,%20I%20want%20to%20book%20the%20Full%20Body%20Checkup." class="block w-full text-center py-3 bg-brand-blue/5 text-brand-blue text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-blue hover:text-white transition-colors">Book via WhatsApp</a>
-                            </div>
+                <section class="py-20 bg-gray-50 border-t border-gray-100">
+                    <div class="max-w-7xl mx-auto px-4 text-center">
+                        <div class="inline-flex items-center gap-3 px-4 py-1 bg-brand-blue/10 text-brand-blue rounded-full text-[9px] font-black uppercase tracking-[0.3em] mb-6 uppercase tracking-widest">Laboratory Expertise</div>
+                        <h2 class="text-3xl sm:text-4xl md:text-6xl font-black text-gray-900 mb-16 tracking-tighter uppercase leading-none italic">Diagnostic <span class="brand-gradient-text">Specialties.</span></h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Hematology</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Biochemistry</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Immunology</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Microbiology</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-tight">Clinical<br>Pathology</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-green/5 border-l-4 border-brand-green flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Cytopathology</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-blue/5 border-l-4 border-brand-blue flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight leading-tight">Molecular<br>Diagnostics</h4></div>
+                            <div class="specialty-pill px-6 py-6 sm:py-8 rounded-[1.5rem] sm:rounded-[2rem] bg-brand-cyan/5 border-l-4 border-brand-cyan flex items-center justify-center text-center"><h4 class="text-sm sm:text-base md:text-lg font-bold text-gray-900 uppercase tracking-tight">Serology</h4></div>
                         </div>
                     </div>
                 </section>
             </main>
         </div>
 
-        <!-- About Us View -->
-        <div id="about-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[10px] uppercase tracking-widest mb-8">The Winpath Story</div>
-                <h1 class="text-4xl sm:text-6xl font-black text-gray-900 tracking-tighter uppercase mb-12">Clinical Integrity. <br><span class="brand-gradient-text">Personal Care.</span></h1>
-                
-                <div class="prose prose-lg text-gray-600 space-y-8 font-medium leading-relaxed">
-                    <p>Winpath Diagnostics was founded on a singular premise: <span class="font-black text-gray-900 text-xl tracking-tight leading-tight">that every sample represents a person awaiting an answer.</span> I started this lab because I believe healthcare deserves a personal touch that corporate diagnostics often lacks.</p>
-                    
-                    <div class="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 my-12">
-                        <h2 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">Meet Your Pathologist</h2>
-                        <div class="flex flex-col sm:flex-row gap-8 items-start">
-                            <div class="flex-1">
-                                <h3 class="text-brand-blue font-black text-lg mb-1">Dr. Joswin Rakesh Dsa</h3>
-                                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">MBBS (KSHEMA), MD Pathology (KMC Manipal)</p>
-                                <p class="text-sm leading-relaxed text-gray-500 mb-6">As a <strong>first-generation doctor</strong>, my journey into medicine was fueled by a desire to make a difference. After pursuing my MBBS from <strong>KS Hegde Medical Academy (KSHEMA), Mangalore</strong> and completing my postgraduation in Pathology from the prestigious <strong>Kasturba Medical College (KMC), Manipal</strong>, I saw the need for a lab that prioritizes accuracy over volume.</p>
-                                <div class="flex gap-4">
-                                    <div class="px-4 py-2 bg-white rounded-xl border border-gray-100 text-[10px] font-black uppercase tracking-widest text-brand-cyan">Self-Funded</div>
-                                    <div class="px-4 py-2 bg-white rounded-xl border border-gray-100 text-[10px] font-black uppercase tracking-widest text-brand-blue">Independent</div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Catalog View -->
+        <div id="packages-page-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen px-4">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 text-left">
+                    <div>
+                        <h1 class="text-4xl sm:text-7xl font-black text-gray-900 tracking-tighter uppercase leading-none" id="menu-title">Test <span class="brand-gradient-text italic">Menu.</span></h1>
+                        <p class="text-gray-400 font-bold uppercase tracking-[0.3em] text-[9px] mt-4" id="menu-subtitle">Browsing 100+ clinical investigations</p>
                     </div>
-
-                    <p>Unlike many modern facilities, Winpath is <strong>completely self-funded and doctor-owned</strong>. We aren't answerable to corporate boards or investors—we are answerable only to you. This independence allows us to maintain the rigorous <strong>ISO 15189:2022 standards</strong> without compromise.</p>
-                    
-                    <p>When you get a report from Winpath, you aren't just getting data. You are getting a document verified by a specialist who is personally invested in your health journey.</p>
+                    <button onclick="clearFilter()" id="clear-btn" class="hidden px-8 py-3 bg-white border border-gray-200 rounded-xl text-[9px] font-black uppercase tracking-widest text-brand-blue hover:border-brand-blue shadow-sm transition-all">Reset All</button>
                 </div>
-                
-                <div class="mt-16 p-10 brand-gradient-bg rounded-[3rem] text-white text-center">
-                    <h2 class="text-3xl font-black mb-4">Ready to experience <br>better diagnostics?</h2>
-                    <p class="text-white/80 font-medium mb-8">Book a home collection or visit us today.</p>
-                    <a href="https://wa.me/919380116362" target="_blank" class="inline-block px-12 py-5 bg-white text-brand-blue font-black uppercase tracking-widest text-[11px] rounded-2xl shadow-xl hover:scale-105 transition-transform">WhatsApp Booking</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Test Menu View -->
-        <div id="packages-page-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h1 class="text-4xl sm:text-7xl font-black text-gray-900 tracking-tighter uppercase mb-4">Test <span class="brand-gradient-text italic">Menu.</span></h1>
-                    <p class="text-gray-400 font-bold uppercase tracking-[0.3em] text-[10px]">Over 100+ Parameters available</p>
-                </div>
-                
-                <div class="max-w-2xl mx-auto mb-16 relative group">
+                <div class="max-w-2xl mb-16 relative group">
                     <div class="absolute -inset-1 brand-gradient-bg rounded-[2rem] blur opacity-20 group-focus-within:opacity-50 transition"></div>
                     <div class="relative bg-white rounded-[2rem] shadow-2xl flex items-center p-2 border border-gray-100">
                         <div class="pl-6 text-brand-blue"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div>
-                        <input type="text" id="test-search" placeholder="Search for CBC, Vitamin D, Thyroid..." class="w-full px-6 py-5 text-xl outline-none rounded-2xl bg-transparent font-semibold tracking-tight" oninput="filterTests()">
+                        <input type="text" id="test-search" placeholder="Search parameters (e.g. CBC, Lipid, Diabetes)..." class="w-full px-6 py-5 text-xl outline-none rounded-2xl bg-transparent font-semibold tracking-tight text-left" oninput="filterTests()">
                     </div>
                 </div>
-
                 <div id="test-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
             </div>
         </div>
 
-        <!-- Contact View -->
-        <div id="contact-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen">
-            <div class="max-w-4xl mx-auto px-6 text-center">
-                <h1 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tighter uppercase mb-4">Contact <span class="brand-gradient-text">Us.</span></h1>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px] mb-16">Serving Bengaluru with Excellence</p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 text-center">
-                        <div class="w-16 h-16 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0 5.495 0 12.05c0 2.096.547 4.142 1.588 5.945L0 24l6.105-1.604a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-black mb-2">WhatsApp Us</h3>
-                        <p class="text-sm text-gray-500 mb-8">Fastest way to book home collection.</p>
-                        <a href="https://wa.me/919380116362" target="_blank" class="block w-full bg-brand-green text-white py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-lg">Chat with us</a>
-                    </div>
-                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 text-left flex flex-col justify-between">
-                        <div class="space-y-6">
-                            <div><span class="text-[9px] font-black uppercase tracking-widest text-brand-blue block mb-1">Call Support</span><a href="tel:+919380116362" class="text-xl font-bold">+91 93801 16362</a></div>
-                            <div><span class="text-[9px] font-black uppercase tracking-widest text-brand-blue block mb-1">Email Us</span><a href="mailto:winpathdiagnostics@gmail.com" class="text-lg font-bold break-all">winpathdiagnostics@gmail.com</a></div>
-                        </div>
-                        <div class="pt-6 border-t border-gray-50 mt-10"><p class="text-[11px] text-gray-400 font-medium leading-relaxed">Mon - Sat: 7 AM - 8 PM<br>Sun: 7 AM - 1 PM</p></div>
+        <div id="test-detail-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen text-left">
+            <div class="max-w-4xl mx-auto px-6">
+                <button onclick="goBack()" class="back-btn flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-blue mb-12">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Back to Catalog
+                </button>
+                <div id="detail-content" class="text-left"></div>
+            </div>
+        </div>
+
+        <!-- Privacy & Terms View -->
+        <div id="privacy-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6">
+            <div class="max-w-3xl mx-auto text-left">
+                <h1 class="text-4xl font-black text-slate-900 mb-12 brand-gradient-text uppercase tracking-widest">Privacy Policy.</h1>
+                <div class="space-y-6 text-slate-900 font-medium leading-relaxed">
+                    <p>At Winpath Diagnostics, we recognize that health information is the most sensitive form of personal data. As an ISO 15189:2022 certified laboratory, we are committed to data integrity and patient confidentiality.</p>
+                    <h3 class="text-lg font-black mt-8">1.1 Data Collection & Usage</h3>
+                    <p>We collect essential information to facilitate diagnostic processing, including Identity Details, Contact Information, and Clinical History. This data is exclusively used for medical reporting.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="terms-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6 text-left">
+            <div class="max-w-3xl mx-auto text-left">
+                <h1 class="text-4xl font-black text-slate-900 mb-12 brand-gradient-text uppercase tracking-widest">Terms of Use.</h1>
+                <div class="space-y-6 text-slate-900 font-medium leading-relaxed">
+                    <p>By accessing the Winpath Diagnostics website and services, you agree to comply with our clinical protocols.</p>
+                    <h3 class="text-lg font-black mt-8">2.1 Clinical Disclaimer</h3>
+                    <p>Information provided here is for diagnostic assistance. Full interpretation should be performed by a qualified medical professional.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6 text-left">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl sm:text-6xl font-black text-gray-900 tracking-tighter uppercase mb-12 leading-none">Clinical Integrity. <br><span class="brand-gradient-text">Personal Care.</span></h1>
+                <div class="prose prose-lg text-gray-600 space-y-8 font-medium leading-relaxed text-left">
+                    <p>Winpath Diagnostics was founded on the belief that <span class="font-black text-gray-900 italic">"Every sample represents a person awaiting an answer."</span></p>
+                    <div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 my-12 text-left">
+                        <h2 class="text-2xl font-black text-gray-900 mb-6 tracking-tight">Meet Your Pathologist</h2>
+                        <h3 class="text-brand-blue font-black text-lg mb-1">Dr. Joswin Rakesh Dsa</h3>
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-6">MBBS (KSHEMA), MD Pathology (KMC Manipal)</p>
+                        <p class="text-sm leading-relaxed text-gray-500 mb-8">As a first-generation doctor, Dr. Joswin is dedicated to bridging the gap between clinical data and patient care. Under his oversight, Winpath ensures every diagnostic result meets world-class accuracy benchmarks.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Privacy & Terms (Simplified) -->
-        <div id="privacy-view" class="view-hidden pt-32 pb-20 bg-gray-50 px-4">
-            <div class="max-w-4xl mx-auto bg-white rounded-[3rem] p-10 sm:p-16 shadow-2xl">
-                <h1 class="text-4xl font-black mb-8 brand-gradient-text uppercase">Privacy Policy.</h1>
-                <p class="text-gray-600 leading-relaxed mb-6">As an ISO 15189:2022 certified laboratory, we are committed to data integrity. Your health information is stored securely and never shared with unauthorized third parties.</p>
-                <h3 class="font-bold text-gray-900 mb-2">1.1 Data We Collect</h3>
-                <ul class="list-disc list-inside text-gray-500 text-sm space-y-1"><li>Identity (Name, Age)</li><li>Contact Info</li><li>Clinical History</li></ul>
-            </div>
-        </div>
-
-        <div id="terms-view" class="view-hidden pt-32 pb-20 bg-gray-50 px-4">
-            <div class="max-w-4xl mx-auto bg-white rounded-[3rem] p-10 sm:p-16 shadow-2xl">
-                <h1 class="text-4xl font-black mb-8 brand-gradient-text uppercase">Terms of Use.</h1>
-                <p class="text-gray-600 leading-relaxed">Interpretation of all laboratory reports must be done by a qualified medical professional. Our reports provide clinical data intended for diagnostic aid.</p>
+        <div id="contact-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tighter uppercase mb-16">Contact <span class="brand-gradient-text italic">Us.</span></h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100">
+                        <div class="w-16 h-16 bg-green-50 text-brand-green rounded-2xl flex items-center justify-center mb-8"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0 5.495 0 12.05c0 2.096.547 4.142 1.588 5.945L0 24l6.105-1.604a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+                        <h3 class="text-xl font-black mb-2 text-gray-900 text-left uppercase tracking-tight">WhatsApp Us</h3>
+                        <p class="text-sm text-gray-500 mb-8 leading-relaxed italic text-left">Direct clinical support. Our fastest booking route.</p>
+                        <a href="https://wa.me/919380116362" target="_blank" class="block w-full bg-brand-green text-white py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] text-center shadow-lg active:scale-95 transition-all">Book on WhatsApp</a>
+                    </div>
+                    <div class="bg-white rounded-[3rem] p-10 shadow-xl border border-gray-100 flex flex-col justify-between">
+                        <div class="space-y-8">
+                            <div class="text-left"><span class="text-[9px] font-black uppercase text-brand-blue block mb-1">Support Call</span><a href="tel:+919380116362" class="text-xl font-bold text-gray-900 tracking-tight">+91 93801 16362</a></div>
+                            <div class="text-left"><span class="text-[9px] font-black uppercase text-brand-blue block mb-1">Email Support</span><a href="mailto:winpathdiagnostics@gmail.com" class="text-lg font-bold text-gray-900 break-all tracking-tight">winpathdiagnostics@gmail.com</a></div>
+                        </div>
+                        <div class="pt-6 border-t border-gray-50 mt-10"><p class="text-[11px] text-gray-400 font-medium italic text-left">Mon — Sat: 7 AM - 8 PM<br>Sun: 7 AM - 1 PM</p></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-brand-dark py-20 border-t border-gray-800 text-left">
+    <footer class="bg-brand-dark py-20 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-20 text-left">
                 <div>
                     <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-10 mb-8 grayscale brightness-200">
-                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm">Bengaluru's premier pathologist-led diagnostic center. Excellence in clinical testing since 2012.</p>
+                    <p class="text-gray-500 text-sm font-medium leading-relaxed max-w-sm italic">Bengaluru's premier pathologist-led diagnostic center.</p>
                 </div>
                 <div class="grid grid-cols-2 gap-8 font-bold text-gray-500 text-xs tracking-widest uppercase">
                     <ul class="space-y-4">
-                        <li><a href="#" onclick="switchView('home')" class="hover:text-brand-cyan transition-colors">Home</a></li>
-                        <li><a href="#" onclick="switchView('about')" class="hover:text-brand-cyan transition-colors">About</a></li>
-                        <li><a href="#" onclick="switchView('packages-page')" class="hover:text-brand-cyan transition-colors">Tests</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('home')" class="hover:text-brand-cyan transition-colors">Home</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('about')" class="hover:text-brand-cyan transition-colors">About Us</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('packages-page')" class="hover:text-brand-cyan transition-colors">Test Menu</a></li>
                     </ul>
                     <ul class="space-y-4">
-                        <li><a href="#" onclick="switchView('privacy')" class="hover:text-brand-cyan transition-colors">Privacy</a></li>
-                        <li><a href="https://wa.me/919380116362" class="hover:text-brand-green transition-colors">WhatsApp</a></li>
+                        <li><a href="https://wa.me/919380116362" target="_blank" class="text-brand-green hover:text-white transition-colors">WhatsApp</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('privacy')" class="hover:text-brand-cyan transition-colors">Privacy</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('terms')" class="hover:text-brand-cyan transition-colors">Terms</a></li>
                     </ul>
                 </div>
                 <div class="bg-gray-900/50 p-8 rounded-[2.5rem] border border-gray-800">
-                    <h4 class="text-brand-cyan text-[9px] font-black uppercase tracking-[0.3em] mb-4">Quality Standard</h4>
-                    <p class="text-gray-400 text-[10px] leading-relaxed mb-6">Strict ISO 15189:2022 protocols for absolute precision in reporting.</p>
+                    <h4 class="text-brand-cyan text-[9px] font-black uppercase tracking-[0.3em] mb-4">Accreditation</h4>
+                    <p class="text-gray-400 text-[10px] leading-relaxed mb-6 font-medium italic italic">Strict ISO 15189:2022 protocols for precision in clinical reporting.</p>
                     <div class="flex gap-2">
-                        <div class="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded text-[8px] font-black text-brand-blue uppercase">Pathologist Led</div>
-                        <div class="px-3 py-1 bg-brand-green/10 border border-brand-green/20 rounded text-[8px] font-black text-brand-green uppercase">Verified</div>
+                        <div class="px-3 py-1 bg-brand-blue/10 border border-brand-blue/20 rounded text-[8px] font-black text-brand-blue uppercase tracking-widest">ISO 15189</div>
+                        <div class="px-3 py-1 bg-brand-green/10 border border-brand-green/20 rounded text-[8px] font-black text-brand-green uppercase tracking-widest">Verified</div>
                     </div>
                 </div>
             </div>
             <div class="pt-12 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-gray-600 text-[9px] font-black uppercase tracking-widest">© 2026 Winpath Diagnostics. Bengaluru, KA.</p>
-                <div class="flex items-center gap-2 font-black text-[9px] text-gray-600 uppercase tracking-widest"><span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span> System Operational</div>
+                <p class="text-gray-600 text-[9px] font-black uppercase tracking-[0.2em]">© 2026 Winpath Diagnostics. Bengaluru, KA.</p>
+                <div class="flex items-center gap-2 font-black text-[9px] text-gray-600 uppercase tracking-widest"><span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span> Network Operational</div>
             </div>
         </div>
     </footer>
 
     <script>
-        const rateCard = [
-            { name: "Complete Blood Count (CBC)", price: "450.00", desc: "Measures red/white cells and platelets for anemia, infection, and more.", params: "Hb, RBC, WBC, Platelets, Differential Count, MCV, MCH, MCHC" },
-            { name: "Blood Glucose (Fasting)", price: "150.00", desc: "Fundamental screening for diabetes and metabolic health.", params: "Sugar (Fasting)" },
-            { name: "Blood Glucose (Post Prandial)", price: "150.00", desc: "Measured 2 hours after a meal to assess insulin response.", params: "Sugar (PP)" },
-            { name: "HbA1c (Glycated Hemoglobin)", price: "600.00", desc: "Gives a 3-month average of your blood sugar levels.", params: "HbA1c, Estimated Average Glucose" },
-            { name: "Lipid Profile (Standard)", price: "850.00", desc: "Assesses cardiac health and cholesterol levels.", params: "Total Cholesterol, HDL, LDL, VLDL, Triglycerides" },
-            { name: "Liver Function Test (LFT)", price: "950.00", desc: "Evaluates liver enzymes, proteins, and bilirubin levels.", params: "SGOT, SGPT, Bilirubin, Albumin, Globulin, Alkaline Phosphatase" },
-            { name: "Renal Function Test (RFT)", price: "950.00", desc: "Assesses kidney filtration and electrolyte balance.", params: "Creatinine, Urea, Uric Acid, BUN, Electrolytes" },
-            { name: "Thyroid Profile (Total T3, T4, TSH)", price: "750.00", desc: "Comprehensive screen for thyroid dysfunction.", params: "T3, T4, TSH" },
-            { name: "Vitamin D (25-Hydroxy)", price: "1,450.00", desc: "Critical for bone health, immunity, and overall well-being.", params: "Vitamin D3 Total" },
-            { name: "Vitamin B12 (Cyanocobalamin)", price: "1,200.00", desc: "Essential for nerve function and red blood cell production.", params: "Vitamin B12" },
-            { name: "Iron Profile", price: "1,100.00", desc: "Assesses body's iron stores and carrying capacity.", params: "Iron, TIBC, UIBC, Transferrin Saturation" },
-            { name: "Urine Routine & Microscopy", price: "250.00", desc: "Screens for UTIs, kidney disorders, and diabetes.", params: "Physical, Chemical & Microscopic Exam" },
-            { name: "C-Reactive Protein (CRP)", price: "550.00", desc: "Marker for systemic inflammation and infection.", params: "CRP Quantitative" },
-            { name: "Erythrocyte Sedimentation Rate (ESR)", price: "200.00", desc: "General marker for non-specific inflammation.", params: "ESR (Westergren Method)" },
-            { name: "Serum Calcium", price: "300.00", desc: "Vital for bone, heart, and nerve function.", params: "Total Calcium" },
-            { name: "Serum Electrolytes", price: "650.00", desc: "Measures sodium, potassium, and chloride levels.", params: "Na+, K+, Cl-" },
-            { name: "Uric Acid", price: "280.00", desc: "Screens for gout and kidney stones.", params: "Serum Uric Acid" },
-            { name: "PSA (Prostate Specific Antigen)", price: "1,200.00", desc: "Screening marker for prostate health in men.", params: "PSA Total" },
-            { name: "Prolactin", price: "750.00", desc: "Hormonal evaluation for reproductive health.", params: "Serum Prolactin" },
-            { name: "Beta HCG (Quantitative)", price: "950.00", desc: "Pregnancy confirmation and monitoring.", params: "Beta HCG" },
-            { name: "HIV 1 & 2 Antibody", price: "650.00", desc: "Confidential screening for HIV infection.", params: "HIV 1 & 2 Ab (4th Gen)" },
-            { name: "HBsAg (Hepatitis B)", price: "450.00", desc: "Screening for Hepatitis B virus infection.", params: "HBsAg (Qualitative)" },
-            { name: "Dengue NS1 Antigen", price: "850.00", desc: "Rapid detection of early-stage Dengue infection.", params: "Dengue NS1 Ag" },
-            { name: "Malaria Parasite (Rapid)", price: "400.00", desc: "Quick screen for malarial infection.", params: "MP (Antigen Test)" },
-            { name: "Serum Ferritin", price: "850.00", desc: "Measures iron stores in the body.", params: "Ferritin" },
-            { name: "FSH (Follicle Stimulating Hormone)", price: "700.00", desc: "Assesses reproductive function and fertility.", params: "Serum FSH" },
-            { name: "LH (Luteinizing Hormone)", price: "700.00", desc: "Critical hormone for reproductive cycle monitoring.", params: "Serum LH" },
-            { name: "Serum Albumin", price: "250.00", desc: "Marker for nutritional status and liver/kidney health.", params: "Albumin" },
-            { name: "Total Protein", price: "250.00", desc: "Measures total protein in blood.", params: "Albumin, Globulin, A/G Ratio" },
-            { name: "Troponin I (High Sensitivity)", price: "1,800.00", desc: "Emergency marker for cardiac muscle damage.", params: "hs-Troponin I" },
-            { name: "Stool Routine", price: "250.00", desc: "Screens for digestive health and parasites.", params: "Physical, Chemical & Microscopic" },
-            { name: "Serum Magnesium", price: "600.00", desc: "Assesses bone and muscle health.", params: "Magnesium" },
-            { name: "Serum Phosphorus", price: "300.00", desc: "Vital for energy production and bone health.", params: "Inorganic Phosphorus" },
-            { name: "Amylase", price: "850.00", desc: "Evaluates pancreatic health.", params: "Serum Amylase" },
-            { name: "Lipase", price: "950.00", desc: "Specific marker for pancreatic inflammation.", params: "Serum Lipase" },
-            { name: "RA Factor (Qualitative)", price: "550.00", desc: "Screening for Rheumatoid Arthritis.", params: "Rheumatoid Factor" },
-            { name: "ASO Titre", price: "650.00", desc: "Detects past streptococcal infection.", params: "Anti-Streptolysin O" },
-            { name: "VDRL (RPR)", price: "350.00", desc: "Syphilis screening test.", params: "VDRL" },
-            { name: "Widal Test (Slide)", price: "350.00", desc: "Screening for Typhoid fever.", params: "Typhi O, Typhi H" },
-            { name: "Peripheral Blood Smear", price: "350.00", desc: "Detailed microscopic cell morphology analysis.", params: "Pathologist Review" },
-            { name: "Reticulocyte Count", price: "450.00", desc: "Assesses bone marrow activity.", params: "Retic Count" },
-            { name: "Blood Grouping & Rh Factor", price: "250.00", desc: "Determination of blood type.", params: "ABO, Rh Type" },
-            { name: "Creatinine Clearance", price: "1,200.00", desc: "Calculated GFR for kidney health.", params: "Serum & 24H Urine Creatinine" },
-            { name: "Prothrombin Time (PT/INR)", price: "650.00", desc: "Assesses blood clotting function.", params: "PT, INR, Ratio" },
-            { name: "APTT", price: "750.00", desc: "Detailed clotting pathway evaluation.", params: "APTT" },
-            { name: "Microalbumin (Urine)", price: "750.00", desc: "Early detection of diabetic kidney disease.", params: "Urine Microalbumin/Creatinine Ratio" },
-            { name: "Anti-TPO Antibodies", price: "1,800.00", desc: "Evaluates autoimmune thyroid disorders.", params: "Anti-TPO" },
-            { name: "Cortisol (Morning)", price: "850.00", desc: "Measures stress hormone levels.", params: "Serum Cortisol" },
-            { name: "Serum Insulin (Fasting)", price: "950.00", desc: "Assesses insulin resistance and metabolic health.", params: "Fasting Insulin" },
-            { name: "G6PD (Qualitative)", price: "650.00", desc: "Screens for enzyme deficiency.", params: "G6PD" },
-            { name: "GTT (3 Samples)", price: "600.00", desc: "Glucose Tolerance Test for gestational diabetes.", params: "Fasting, 1hr, 2hr Glucose" },
-            { name: "Alpha Fetoprotein (AFP)", price: "1,100.00", desc: "Tumor marker for liver and germ cell health.", params: "AFP" },
-            { name: "CA-125", price: "1,450.00", desc: "Tumor marker for ovarian health monitoring.", params: "Cancer Antigen 125" },
-            { name: "CEA", price: "1,100.00", desc: "Tumor marker for colorectal health.", params: "Carcinoembryonic Antigen" },
-            { name: "CA-19.9", price: "1,450.00", desc: "Tumor marker for pancreatic health.", params: "Cancer Antigen 19.9" },
-            { name: "CA-15.3", price: "1,450.00", desc: "Tumor marker for breast health monitoring.", params: "Cancer Antigen 15.3" },
-            { name: "BUN (Blood Urea Nitrogen)", price: "300.00", desc: "Alternative marker for kidney function.", params: "BUN" },
-            { name: "Bilirubin (Total, Direct, Indirect)", price: "350.00", desc: "Specific evaluation for jaundice.", params: "Total, Direct, Indirect Bilirubin" },
-            { name: "LDH (Lactate Dehydrogenase)", price: "650.00", desc: "Marker for tissue damage and cellular activity.", params: "LDH" },
-            { name: "CPK (Creatine Phosphokinase)", price: "750.00", desc: "Assesses muscle and heart enzyme activity.", params: "CPK Total" },
-            { name: "CPK-MB", price: "950.00", desc: "Specific marker for heart muscle activity.", params: "CPK-MB" },
-            { name: "GGT", price: "600.00", desc: "Liver enzyme marker for biliary/alcohol health.", params: "Gamma GT" },
-            { name: "Serum Bicarbonate", price: "450.00", desc: "Assesses acid-base balance.", params: "HCO3-" },
-            { name: "Transferrin", price: "1,200.00", desc: "Iron transport protein evaluation.", params: "Serum Transferrin" },
-            { name: "TIBC", price: "500.00", desc: "Total Iron Binding Capacity.", params: "TIBC" },
-            { name: "Semen Analysis", price: "850.00", desc: "Evaluates male reproductive health.", params: "Count, Motility, Morphology" },
-            { name: "Culture and Sensitivity (Urine)", price: "950.00", desc: "Identifies bacteria and effective antibiotics.", params: "Urine Culture" },
-            { name: "Culture and Sensitivity (Pus/Swab)", price: "1,100.00", desc: "Identifies site-specific bacterial infection.", params: "Swab Culture" },
-            { name: "Acid Fast Bacilli (AFB) Stain", price: "450.00", desc: "Microscopic screen for TB bacilli.", params: "AFB Stain" },
-            { name: "Gram Stain", price: "350.00", desc: "Basic identification of bacterial types.", params: "Gram Stain" },
-            { name: "Mantoux Test", price: "450.00", desc: "Skin test for TB exposure (Requires 48-72h wait).", params: "PPD Injection & Reading" },
-            { name: "Anaemia Profile (Basic)", price: "1,500.00", desc: "Basic screening for nutritional anemia.", params: "CBC, Ferritin, Vit B12" },
-            { name: "Metabolic Profile", price: "2,200.00", desc: "Overview of metabolism and organ health.", params: "Lipid, LFT, RFT, Glucose" },
-            { name: "FNAC (Fine Needle Aspiration)", price: "1,800.00", desc: "Microscopic diagnosis of lumps/swellings.", params: "Pathologist Aspiration & Review" },
-            { name: "Cytopathology (Fluid)", price: "1,200.00", desc: "Microscopic analysis of body fluids.", params: "Centrifugation & Microscopy" },
-            { name: "Pap Smear (Conventional)", price: "950.00", desc: "Screening for cervical health.", params: "Pap Smear Microscopy" },
-            { name: "Histopathology (Small Biopsy)", price: "1,500.00", desc: "Definitive tissue diagnosis.", params: "Pathologist Tissue Review" },
-            { name: "Histopathology (Large Specimen)", price: "2,500.00", desc: "Complex tissue analysis.", params: "Gross & Microscopic Review" },
-            { name: "HCV Antibody", price: "850.00", desc: "Screening for Hepatitis C infection.", params: "Anti-HCV" },
-            { name: "H. Pylori (Antibody)", price: "950.00", desc: "Screens for gastric infection.", params: "Anti-H. Pylori IgG" },
-            { name: "Cardiac Risk Marker (Basic)", price: "1,800.00", desc: "Screening for inflammatory cardiac risk.", params: "hs-CRP, Lipid Profile" },
-            { name: "Vitamin B9 (Folic Acid)", price: "1,200.00", desc: "Nutritional marker for cell health.", params: "Serum Folate" },
-            { name: "Direct Coomb's Test", price: "650.00", desc: "Assesses autoimmune hemolytic anemia.", params: "DCT" },
-            { name: "Indirect Coomb's Test", price: "750.00", desc: "Prenatal screen for blood antibodies.", params: "ICT" },
-            { name: "Bleeding & Clotting Time", price: "350.00", desc: "Manual bedside clotting assessment.", params: "BT, CT" },
-            { name: "Fluid Biochemistry", price: "850.00", desc: "Chemical analysis of pleural/ascitic fluid.", params: "Protein, Sugar, LDH, Amylase" },
-            { name: "D-Dimer", price: "1,800.00", desc: "Marker for blood clots and thrombosis.", params: "D-Dimer (Quantitative)" },
-            { name: "Thyroglobulin", price: "2,200.00", desc: "Post-surgery thyroid health monitoring.", params: "Thyroglobulin & Anti-Tg" },
-            { name: "Serum Copper", price: "1,500.00", desc: "Assesses copper metabolism.", params: "Serum Copper" },
-            { name: "Serum Ceruloplasmin", price: "1,800.00", desc: "Wilson's disease screening marker.", params: "Ceruloplasmin" },
-            { name: "Serum Lithium", price: "850.00", desc: "Drug monitoring for lithium therapy.", params: "Serum Lithium" },
-            { name: "Phenytoin Level", price: "1,200.00", desc: "Drug monitoring for epilepsy therapy.", params: "Serum Phenytoin" },
-            { name: "Digoxin Level", price: "1,800.00", desc: "Drug monitoring for cardiac therapy.", params: "Serum Digoxin" },
-            { name: "Serum Valproate", price: "1,200.00", desc: "Drug monitoring for seizure control.", params: "Valproic Acid" },
-            { name: "Microfilaria Screen", price: "450.00", desc: "Detection of filarial parasites (Night sample preferred).", params: "Peripheral Smear (Night)" },
-            { name: "Urine Culture (Rapid)", price: "650.00", desc: "Initial screen for bacterial growth.", params: "Screening Culture" },
-            { name: "S. Electrolytes with Calcium", price: "850.00", desc: "Expanded mineral balance screen.", params: "Na+, K+, Cl-, Ca2+" },
-            { name: "Comprehensive Lipid Profile", price: "1,200.00", desc: "Includes advanced ratios and Apo-B indicators.", params: "Standard Lipid + Ratios" },
-            { name: "Pathologist Consultation", price: "500.00", desc: "Personalized report interpretation by Dr. Joswin.", params: "Clinical Correlation Review" }
+        // =====================================================================
+        // 1. HEALTH PACKAGES
+        // =====================================================================
+        const healthPackages = [
+            // --- LIFESTYLE & GENERAL WELLNESS ---
+            { id: 'p-1', name: "Master Health Checkup", price: "5,999", isPackage: true, desc: "Our gold-standard clinical audit.", importance: "A complete clinical audit of major organ systems. Highly recommended once a year for proactive health management of heart, liver, kidney, and metabolic status.", params: "CBC, LFT, RFT, Lipid, HbA1c, Vitamin D, Vitamin B12, Urine Routine, Thyroid, Fasting Sugar", category: { package: 'LifeStyle' } },
+            { id: 'p-2', name: "Full Body Checkup", price: "1,999", isPackage: true, desc: "Essential baseline organ health screen.", importance: "Perfect for routine monitoring of metabolic health, liver, and kidney functions at an accessible price for the entire family.", params: "CBC, Sugar, Lipid Profile, LFT, RFT, Urine Routine", category: { package: 'LifeStyle' } },
+            
+            // --- GENDER SPECIFIC ---
+            { id: 'p-3', name: "Women's Health Package", price: "2,499", isPackage: true, desc: "Hormonal & nutritional focus.", importance: "Specifically designed for women to monitor reproductive health, hormonal balance, bone density markers, and iron levels.", params: "CBC, Thyroid Profile, Iron, Calcium, Vitamin D", category: { package: 'Women' } },
+            { id: 'p-4', name: "Men's Health Package", price: "2,499", isPackage: true, desc: "Heart risk & prostate focus.", importance: "Targeted screening for cardiac risks, liver function, and age-related markers including prostate health indicators.", params: "CBC, Lipid Profile, LFT, PSA Total, Vitamin B12", category: { package: 'Men' } },
+            
+            // --- SENIORS & SPECIALIZED ---
+            { id: 'p-5', name: "Seniors Health Screen", price: "3,499", isPackage: true, desc: "Age-related chronic monitoring.", importance: "Targets age-related risks including chronic inflammation, blood sugar stability, renal filtration, and bone mineral loss.", params: "CBC, HbA1c, Cardiac Profile, RFT, Vitamin D", category: { package: 'Senior' } },
+            { id: 'p-6', name: "PCOS Screen", price: "2,999", isPackage: true, desc: "Reproductive hormonal panel.", importance: "Clinical evaluation of hormonal imbalance and insulin resistance associated with PCOS symptoms.", params: "FSH, LH, Prolactin, Insulin (F), Testosterone", category: { package: 'Women' } }
         ];
+
+        // =====================================================================
+        // 2. STANDALONE CLINICAL INVESTIGATIONS 
+        // =====================================================================
+        let investigations = [
+            // --- HEMATOLOGY & COAGULATION ---
+            { id: 'i-1', name: "Complete Blood Count (CBC)", price: "450", params: "Hb, WBC, Platelets, DC, Indices", category: { risk: 'General' } },
+            { id: 'i-2', name: "Erythrocyte Sedimentation Rate (ESR)", price: "200", params: "ESR", category: { condition: 'Fever' } },
+            { id: 'i-3', name: "Blood Grouping & Rh Factor", price: "250", params: "ABO, Rh Type", category: { risk: 'General' } },
+            { id: 'i-4', name: "Peripheral Blood Smear", price: "350", params: "Morphology Analysis", category: { risk: 'General' } },
+            { id: 'i-5', name: "Reticulocyte Count", price: "450", params: "Retic Count", category: { risk: 'General' } },
+            { id: 'i-6', name: "Prothrombin Time (PT/INR)", price: "650", params: "PT, INR", category: { risk: 'Heart' } },
+            { id: 'i-7', name: "APTT", price: "750", params: "Activated Partial Thromboplastin Time", category: { risk: 'Heart' } },
+            { id: 'i-8', name: "Fibrinogen", price: "850", params: "Plasma Fibrinogen", category: { risk: 'Heart' } },
+            { id: 'i-9', name: "D-Dimer", price: "1800", params: "D-Dimer Quantitative", category: { risk: 'Lungs' } },
+            { id: 'i-10', name: "AEC (Absolute Eosinophil Count)", price: "250", params: "Eosinophil Count", category: { risk: 'Lungs' } },
+
+            // --- DIABETES & METABOLIC ---
+            { id: 'i-11', name: "Glucose Fasting (FBS)", price: "150", params: "Sugar (F)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-12', name: "Glucose Post Prandial (PPBS)", price: "150", params: "Sugar (PP)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-13', name: "Glucose Random (RBS)", price: "150", params: "Sugar (Random)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-14', name: "HbA1c", price: "600", params: "Glycated Hemoglobin", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-15', name: "Insulin Fasting", price: "950", params: "Fasting Insulin", category: { risk: 'Diabetes', condition: 'Obesity' } },
+            { id: 'i-16', name: "Insulin PP", price: "950", params: "Post Prandial Insulin", category: { risk: 'Diabetes', condition: 'Obesity' } },
+            { id: 'i-17', name: "C-Peptide", price: "1200", params: "C-Peptide Fasting", category: { risk: 'Diabetes' } },
+            { id: 'i-18', name: "Glucose Tolerance Test (GTT)", price: "600", params: "GTT (3 Samples)", category: { risk: 'Diabetes' } },
+
+            // --- CARDIAC & LIPIDS ---
+            { id: 'i-19', name: "Lipid Profile", price: "850", params: "Cholesterol, Triglycerides, HDL, LDL, VLDL", category: { risk: 'Heart', condition: 'Cardiovascular' } },
+            { id: 'i-20', name: "Cholesterol (Total)", price: "250", params: "Total Cholesterol", category: { risk: 'Heart' } },
+            { id: 'i-21', name: "Triglycerides", price: "350", params: "Serum Triglycerides", category: { risk: 'Heart' } },
+            { id: 'i-22', name: "CRP (High Sensitivity)", price: "950", params: "hs-CRP", category: { risk: 'Heart', condition: 'Cardiovascular' } },
+            { id: 'i-23', name: "Troponin I", price: "1800", params: "hs-Troponin I", category: { risk: 'Heart' } },
+            { id: 'i-24', name: "Troponin T", price: "1800", params: "hs-Troponin T", category: { risk: 'Heart' } },
+            { id: 'i-25', name: "CPK Total", price: "650", params: "Creatine Phosphokinase", category: { risk: 'Heart' } },
+            { id: 'i-26', name: "CPK-MB", price: "850", params: "CPK-MB Isoenzyme", category: { risk: 'Heart' } },
+            { id: 'i-27', name: "Homocysteine", price: "1500", params: "Homocysteine Levels", category: { risk: 'Heart' } },
+
+            // --- LIVER FUNCTION (HEPATIC) ---
+            { id: 'i-28', name: "Liver Function Test (LFT)", price: "950", params: "SGOT, SGPT, Bilirubin, ALP, Proteins", category: { risk: 'Liver', condition: 'Gut Health' } },
+            { id: 'i-29', name: "Bilirubin Total & Direct", price: "350", params: "Total, Direct, Indirect Bilirubin", category: { risk: 'Liver' } },
+            { id: 'i-30', name: "SGOT (AST)", price: "250", params: "AST", category: { risk: 'Liver' } },
+            { id: 'i-31', name: "SGPT (ALT)", price: "250", params: "ALT", category: { risk: 'Liver' } },
+            { id: 'i-32', name: "Alkaline Phosphatase (ALP)", price: "300", params: "Serum ALP", category: { risk: 'Liver' } },
+            { id: 'i-33', name: "GGT", price: "550", params: "Gamma GT", category: { risk: 'Liver', condition: 'Alcohol' } },
+            { id: 'i-34', name: "Total Protein & A/G Ratio", price: "350", params: "Protein, Albumin, Globulin", category: { risk: 'Liver', condition: 'Nutrition' } },
+
+            // --- RENAL FUNCTION (KIDNEY) & ELECTROLYTES ---
+            { id: 'i-35', name: "Renal Function Test (RFT)", price: "950", params: "Creatinine, Urea, Uric Acid, BUN, Electrolytes", category: { risk: 'Kidney', condition: 'Hypertension' } },
+            { id: 'i-36', name: "Serum Creatinine", price: "250", params: "Creatinine", category: { risk: 'Kidney' } },
+            { id: 'i-37', name: "Blood Urea Nitrogen (BUN)", price: "300", params: "BUN", category: { risk: 'Kidney' } },
+            { id: 'i-38', name: "Uric Acid", price: "250", params: "Uric Acid", category: { risk: 'Kidney' } },
+            { id: 'i-39', name: "Serum Electrolytes", price: "650", params: "Sodium, Potassium, Chloride", category: { risk: 'Kidney' } },
+            { id: 'i-40', name: "Calcium (Total)", price: "300", params: "Serum Calcium", category: { condition: 'Bone Health' } },
+            { id: 'i-41', name: "Phosphorus", price: "300", params: "Inorganic Phosphorus", category: { condition: 'Bone Health' } },
+            { id: 'i-42', name: "Magnesium", price: "550", params: "Serum Magnesium", category: { risk: 'Kidney' } },
+            { id: 'i-43', name: "Creatinine Clearance", price: "1200", params: "Blood & 24H Urine Creatinine", category: { risk: 'Kidney' } },
+
+            // --- THYROID & ENDOCRINOLOGY ---
+            { id: 'i-44', name: "Thyroid Profile (Total)", price: "750", params: "T3, T4, TSH", category: { risk: 'Thyroid' } },
+            { id: 'i-45', name: "Thyroid Profile (Free)", price: "1100", params: "FT3, FT4, TSH", category: { risk: 'Thyroid' } },
+            { id: 'i-46', name: "TSH (Ultrasensitive)", price: "450", params: "Thyroid Stimulating Hormone", category: { risk: 'Thyroid' } },
+            { id: 'i-47', name: "Anti-TPO Antibodies", price: "1600", params: "Microsomal Antibody", category: { risk: 'Thyroid' } },
+            { id: 'i-48', name: "Anti-Thyroglobulin (Anti-Tg)", price: "1600", params: "Anti-Tg", category: { risk: 'Thyroid' } },
+            { id: 'i-49', name: "Prolactin", price: "750", params: "Serum Prolactin", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+            { id: 'i-50', name: "FSH", price: "700", params: "Follicle Stimulating Hormone", category: { risk: 'Infertility' } },
+            { id: 'i-51', name: "LH", price: "700", params: "Luteinizing Hormone", category: { risk: 'Infertility' } },
+            { id: 'i-52', name: "Testosterone (Total)", price: "950", params: "Total Testosterone", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+            { id: 'i-53', name: "Testosterone (Free)", price: "1400", params: "Free Testosterone", category: { risk: 'Infertility' } },
+            { id: 'i-54', name: "Cortisol (Morning)", price: "850", params: "8 AM Cortisol", category: { condition: 'Sleep Disorder' } },
+            { id: 'i-55', name: "Cortisol (Evening)", price: "850", params: "4 PM Cortisol", category: { condition: 'Sleep Disorder' } },
+            { id: 'i-56', name: "Beta HCG (Quantitative)", price: "950", params: "Serum Beta HCG", category: { risk: 'General' } },
+
+            // --- VITAMINS & NUTRITION ---
+            { id: 'i-57', name: "Vitamin D (25-Hydroxy)", price: "1450", params: "25-OH Vitamin D", category: { condition: 'Bone Health' } },
+            { id: 'i-58', name: "Vitamin B12", price: "1200", params: "Cyanocobalamin", category: { condition: 'Nutrition' } },
+            { id: 'i-59', name: "Vitamin B9 (Folic Acid)", price: "1200", params: "Folate Levels", category: { condition: 'Nutrition' } },
+            { id: 'i-60', name: "Iron Profile", price: "1100", params: "Iron, TIBC, UIBC, Transferrin Saturation", category: { condition: 'Nutrition' } },
+            { id: 'i-61', name: "Ferritin", price: "850", params: "Serum Ferritin", category: { condition: 'Nutrition' } },
+            { id: 'i-62', name: "Transferrin", price: "950", params: "Serum Transferrin", category: { condition: 'Nutrition' } },
+
+            // --- IMMUNOLOGY, ARTHRITIS & INFLAMMATION ---
+            { id: 'i-63', name: "CRP (Standard)", price: "550", params: "C-Reactive Protein", category: { condition: 'Fever' } },
+            { id: 'i-64', name: "RA Factor (Quantitative)", price: "650", params: "Rheumatoid Factor", category: { condition: 'Bone Health' } },
+            { id: 'i-65', name: "Anti-CCP", price: "1500", params: "Cyclic Citrullinated Peptide", category: { condition: 'Bone Health' } },
+            { id: 'i-66', name: "ANA (Anti-Nuclear Antibody)", price: "1100", params: "ANA IFA Method", category: { risk: 'General' } },
+            { id: 'i-67', name: "ANA Profile (Immunoblot)", price: "3500", params: "17 Antigen Panel", category: { risk: 'General' } },
+            { id: 'i-68', name: "ASO Titre", price: "650", params: "Anti-Streptolysin O", category: { risk: 'Heart' } },
+            { id: 'i-69', name: "HLA-B27", price: "1800", params: "HLA-B27 Antigen", category: { condition: 'Bone Health' } },
+
+            // --- INFECTIOUS DISEASES & SEROLOGY ---
+            { id: 'i-70', name: "Dengue NS1 Antigen", price: "850", params: "NS1 Ag", category: { condition: 'Fever' } },
+            { id: 'i-71', name: "Dengue IgM/IgG Antibodies", price: "1100", params: "Dengue Serology", category: { condition: 'Fever' } },
+            { id: 'i-72', name: "Malaria Antigen (Rapid)", price: "400", params: "Pf/Pv Antigen", category: { condition: 'Fever' } },
+            { id: 'i-73', name: "Widal Test", price: "350", params: "Typhoid Screen", category: { condition: 'Fever' } },
+            { id: 'i-74', name: "Typhidot (IgM/IgG)", price: "650", params: "Salmonella Antibodies", category: { condition: 'Fever' } },
+            { id: 'i-75', name: "HBsAg (Hepatitis B)", price: "450", params: "Hepatitis B Surface Antigen", category: { risk: 'Liver' } },
+            { id: 'i-76', name: "Anti-HCV (Hepatitis C)", price: "850", params: "HCV Antibodies", category: { risk: 'Liver' } },
+            { id: 'i-77', name: "HIV 1&2 Antibody", price: "650", params: "4th Generation Screen", category: { condition: 'Sexual Wellness' } },
+            { id: 'i-78', name: "VDRL / RPR", price: "350", params: "Syphilis Screen", category: { condition: 'Sexual Wellness' } },
+            { id: 'i-79', name: "H. Pylori IgG", price: "950", params: "Helicobacter Pylori Ab", category: { condition: 'Gut Health' } },
+            { id: 'i-80', name: "Mantoux Test", price: "350", params: "TB Skin Test (Requires 48H reading)", category: { risk: 'Lungs' } },
+            { id: 'i-81', name: "Chikungunya IgM", price: "950", params: "Chikungunya Antibodies", category: { condition: 'Fever' } },
+            { id: 'i-82', name: "Leptospira IgM", price: "850", params: "Leptospirosis Screen", category: { condition: 'Fever' } },
+            { id: 'i-83', name: "Microfilaria Screen", price: "450", params: "Filaria Smear (Night Sample)", category: { condition: 'Fever' } },
+
+            // --- ONCOLOGY (TUMOR MARKERS) ---
+            { id: 'i-84', name: "PSA Total", price: "1200", params: "Prostate Antigen", category: { risk: 'Cancer' } },
+            { id: 'i-85', name: "CEA", price: "1100", params: "Carcinoembryonic Antigen", category: { risk: 'Cancer', condition: 'Gut Health' } },
+            { id: 'i-86', name: "CA-125", price: "1450", params: "Ovarian Cancer Marker", category: { risk: 'Cancer' } },
+            { id: 'i-87', name: "CA-15.3", price: "1450", params: "Breast Cancer Marker", category: { risk: 'Cancer' } },
+            { id: 'i-88', name: "CA-19.9", price: "1450", params: "Pancreatic Cancer Marker", category: { risk: 'Cancer', condition: 'Gut Health' } },
+            { id: 'i-89', name: "Alpha Fetoprotein (AFP)", price: "1100", params: "Liver/Germ Cell Marker", category: { risk: 'Cancer', risk: 'Liver' } },
+
+            // --- CLINICAL PATHOLOGY (URINE & STOOL) ---
+            { id: 'i-90', name: "Urine Routine & Microscopic", price: "250", params: "Physical, Chemical & Microscopic Exam", category: { risk: 'Kidney' } },
+            { id: 'i-91', name: "Urine Microalbumin", price: "750", params: "ACR Ratio", category: { risk: 'Kidney', condition: 'Hypertension' } },
+            { id: 'i-92', name: "24-Hour Urine Protein", price: "850", params: "Total Protein Excretion", category: { risk: 'Kidney' } },
+            { id: 'i-93', name: "Urine Culture & Sensitivity", price: "850", params: "Bacterial Culture", category: { risk: 'Kidney' } },
+            { id: 'i-94', name: "Stool Routine", price: "250", params: "Ova, Cyst, Microscopy", category: { condition: 'Gut Health' } },
+            { id: 'i-95', name: "Stool Occult Blood", price: "350", params: "Hidden Blood Detection", category: { condition: 'Gut Health' } },
+            { id: 'i-96', name: "Stool Hanging Drop", price: "350", params: "Cholera Screen", category: { condition: 'Gut Health' } },
+            { id: 'i-97', name: "Semen Analysis", price: "850", params: "Count, Motility, Morphology", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+
+            // --- SPECIALIZED BIOCHEMISTRY & DRUGS ---
+            { id: 'i-98', name: "Amylase", price: "750", params: "Serum Amylase", category: { condition: 'Gut Health' } },
+            { id: 'i-99', name: "Lipase", price: "950", params: "Serum Lipase", category: { condition: 'Gut Health' } },
+            { id: 'i-100', name: "LDH (Lactate Dehydrogenase)", price: "650", params: "Total LDH", category: { risk: 'Lungs' } },
+            { id: 'i-101', name: "G6PD", price: "850", params: "Glucose-6-Phosphate Dehydrogenase", category: { risk: 'General' } },
+            { id: 'i-102', name: "Serum Copper", price: "1200", params: "Copper Levels", category: { risk: 'General' } },
+            { id: 'i-103', name: "Serum Zinc", price: "1200", params: "Zinc Levels", category: { risk: 'General' } },
+            { id: 'i-104', name: "Ceruloplasmin", price: "1500", params: "Wilson's Disease Screen", category: { risk: 'Liver' } },
+            { id: 'i-105', name: "Phenytoin Level", price: "1200", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-106', name: "Valproic Acid Level", price: "1200", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-107', name: "Lithium Level", price: "850", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-108', name: "Digoxin Level", price: "1800", params: "Drug Monitoring", category: { risk: 'Heart' } }
+        ];
+
+        const rateCard = [...healthPackages, ...investigations];
+        let navHistory = ['home'];
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const menuIcon = document.getElementById('menu-icon');
             const closeIcon = document.getElementById('close-icon');
             const isOpen = !menu.classList.contains('hidden');
-
-            if (isOpen) {
-                menu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            } else {
-                menu.classList.remove('hidden');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-            }
+            menu.classList.toggle('hidden', isOpen);
+            menuIcon.classList.toggle('hidden', !isOpen);
+            closeIcon.classList.toggle('hidden', isOpen);
         }
 
-        function switchView(viewId) {
-            const views = ['home-view', 'packages-page-view', 'privacy-view', 'terms-view', 'contact-view', 'about-view'];
-            views.forEach(v => {
-                const el = document.getElementById(v);
-                if(el) el.classList.add('view-hidden');
-            });
-
+        function switchView(viewId, pushToHistory = true) {
+            const views = ['home-view', 'packages-page-view', 'contact-view', 'about-view', 'test-detail-view', 'privacy-view', 'terms-view'];
+            views.forEach(v => document.getElementById(v).classList.add('view-hidden'));
             const target = document.getElementById(viewId + '-view');
             if (target) {
                 target.classList.remove('view-hidden');
+                if (pushToHistory) navHistory.push(viewId);
                 window.scrollTo(0, 0);
             }
-            
-            // Close mobile menu
-            const menu = document.getElementById('mobile-menu');
-            if (!menu.classList.contains('hidden')) toggleMobileMenu();
-            
-            if (viewId === 'packages-page') filterTests();
+            if (!document.getElementById('mobile-menu').classList.contains('hidden')) toggleMobileMenu();
+        }
+
+        function goBack() {
+            if (navHistory.length > 1) {
+                navHistory.pop();
+                const prev = navHistory.pop();
+                switchView(prev, true);
+            } else { switchView('home'); }
+        }
+
+        function filterByCategory(type, value) {
+            switchView('packages-page');
+            document.getElementById('menu-title').innerHTML = `${value} <span class="brand-gradient-text italic">Tests.</span>`;
+            document.getElementById('menu-subtitle').innerText = `Browsing specialized screenings for ${value}`;
+            document.getElementById('clear-btn').classList.remove('hidden');
+            const filtered = rateCard.filter(t => t.category && t.category[type] === value);
+            renderTests(filtered);
+        }
+
+        function clearFilter() {
+            document.getElementById('test-search').value = "";
+            document.getElementById('clear-btn').classList.add('hidden');
+            document.getElementById('menu-title').innerHTML = `Test <span class="brand-gradient-text italic">Menu.</span>`;
+            document.getElementById('menu-subtitle').innerText = "Browsing 100+ investigations";
+            filterTests();
+        }
+
+        function showTestDetail(testId) {
+            const test = rateCard.find(t => t.id === testId);
+            if (!test) return;
+            const content = document.getElementById('detail-content');
+            const waMsg = encodeURIComponent(`Hello Winpath! I'd like to book the ${test.name}.\n\nName:\nArea:`);
+
+            let bodyHtml = "";
+            if (test.isPackage) {
+                bodyHtml = `
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="text-[10px] font-black uppercase text-brand-blue tracking-[0.2em] mb-4 underline underline-offset-4 decoration-brand-cyan">Clinical Importance</h3>
+                            <p class="text-xl text-gray-600 font-medium leading-relaxed">${test.importance}</p>
+                        </div>
+                        <div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100">
+                            <h3 class="text-[10px] font-black uppercase text-brand-blue tracking-[0.2em] mb-6">Tested Parameters</h3>
+                            <p class="text-lg font-bold text-gray-900 italic leading-relaxed tracking-tight underline decoration-brand-cyan/20 underline-offset-8">${test.params}</p>
+                        </div>
+                    </div>`;
+            } else {
+                bodyHtml = `<div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100"><p class="text-lg text-gray-500 font-medium leading-relaxed">This standalone investigation is processed using ISO 15189:2022 standardized protocols. Results will be delivered within 24 hours.</p></div>`;
+            }
+
+            content.innerHTML = `
+                <div class="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <h2 class="text-4xl sm:text-6xl font-black text-gray-900 mb-8 tracking-tighter uppercase leading-tight">${test.name}</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        <div class="lg:col-span-2">${bodyHtml}</div>
+                        <div>
+                            <div class="bg-white p-8 rounded-[3rem] shadow-2xl border border-gray-100 sticky top-28">
+                                <div class="text-5xl font-black brand-gradient-text tracking-tighter mb-8">₹${test.price}</div>
+                                <a href="https://wa.me/919380116362?text=${waMsg}" target="_blank" class="block w-full py-5 brand-gradient-bg text-white text-[10px] font-black uppercase tracking-widest rounded-2xl text-center shadow-xl hover:scale-[1.02] active:scale-95 transition-all">Book on WhatsApp</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            switchView('test-detail');
         }
 
         function renderTests(tests) {
             const container = document.getElementById('test-results');
-            container.innerHTML = '';
-            
-            tests.forEach(test => {
+            container.innerHTML = tests.length > 0 ? '' : '<p class="col-span-full py-20 text-center font-bold text-gray-400">No clinical parameters matched your search</p>';
+            const sorted = [...tests].sort((a,b) => (b.isPackage ? 1 : 0) - (a.isPackage ? 1 : 0));
+            sorted.forEach(test => {
                 const card = document.createElement('div');
-                card.className = "test-card bg-white p-8 rounded-[2rem] shadow-sm flex flex-col h-full";
-                const waLink = `https://wa.me/919380116362?text=I%20want%20to%20book%20the%20${encodeURIComponent(test.name)}%20test.`;
-                
+                const isPkg = test.isPackage;
+                card.className = `test-card p-8 rounded-[2.5rem] shadow-sm flex flex-col h-full ${isPkg ? 'bg-brand-blue/5 border-brand-blue/20' : 'bg-white'}`;
+                card.onclick = () => showTestDetail(test.id);
                 card.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <h4 class="text-lg font-black text-gray-900 leading-tight">${test.name}</h4>
-                        <span class="text-xl font-black brand-gradient-text ml-4">₹${test.price}</span>
+                    <div class="flex justify-between items-start mb-6">
+                        <h4 class="text-lg font-black text-gray-900 leading-tight text-left">${test.name}</h4>
+                        <span class="text-xl font-black brand-gradient-text ml-4 shrink-0">₹${test.price}</span>
                     </div>
-                    <p class="text-[11px] text-gray-400 italic mb-6 line-clamp-2">${test.desc}</p>
-                    <div class="bg-gray-50 p-4 rounded-xl flex-grow mb-6">
-                        <span class="text-[8px] font-black text-brand-blue uppercase tracking-widest block mb-2 opacity-50">Parameters</span>
-                        <p class="text-[10px] text-gray-600 font-semibold italic">${test.params}</p>
-                    </div>
-                    <a href="${waLink}" target="_blank" class="w-full py-3 bg-brand-blue/5 text-brand-blue text-[9px] font-black uppercase tracking-widest rounded-xl text-center hover:bg-brand-blue hover:text-white transition-colors">Book via WhatsApp</a>
+                    ${isPkg ? `<p class="text-[10px] text-brand-blue font-black uppercase tracking-widest mb-4 text-left">Health Package</p><div class="bg-gray-50/80 p-5 rounded-2xl flex-grow mb-6 text-left"><span class="text-[8px] font-black text-brand-blue uppercase block mb-2 opacity-50">Parameters</span><p class="text-[10px] text-gray-600 font-semibold italic line-clamp-2">${test.params}</p></div>` : '<div class="flex-grow"></div>'}
+                    <div class="text-[9px] font-black text-brand-blue uppercase tracking-widest flex items-center justify-center gap-2">View & Book &rarr;</div>
                 `;
                 container.appendChild(card);
             });
         }
 
         function filterTests() {
-            const query = document.getElementById('test-search').value.trim().toLowerCase();
-            const filtered = query === "" 
-                ? rateCard.slice(0, 15) // Show top 15 by default
-                : rateCard.filter(t => t.name.toLowerCase().includes(query) || t.params.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query));
-            renderTests(filtered);
+            const query = document.getElementById('test-search').value.toLowerCase();
+            if(query === "") { renderTests(rateCard.slice(0, 18)); }
+            else { renderTests(rateCard.filter(t => t.name.toLowerCase().includes(query) || t.params.toLowerCase().includes(query))); }
         }
 
-        window.addEventListener('load', () => { filterTests(); });
+        window.onload = () => { filterTests(); };
     </script>
 </body>
 </html>
