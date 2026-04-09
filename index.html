@@ -94,22 +94,40 @@
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 0 5.495 0 12.05c0 2.096.547 4.142 1.588 5.945L0 24l6.105-1.604a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     </a>
 
-    <!-- Navigation -->
-    <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100 h-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+    <!-- Two-Tier Navigation Header -->
+    <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 flex flex-col">
+        <!-- Top Bar: Logo & Actions -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-20 flex justify-between items-center">
             <div class="flex items-center cursor-pointer shrink-0" onclick="switchView('home')">
                 <img src="https://raw.githubusercontent.com/winpathdiagnostics/Trial-3/main/WINPATH-LOGO-OG2.png" alt="Winpath" class="h-8 sm:h-10 w-auto object-contain">
             </div>
 
-            <!-- Desktop Mega Menu -->
-            <nav class="hidden xl:flex space-x-8 items-center h-full">
-                <a href="javascript:void(0)" onclick="switchView('home')" class="text-sm font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors">Home</a>
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-4">
+                <button onclick="switchView('contact')" class="hidden sm:block relative group active:scale-95 transition-all">
+                    <span class="absolute -inset-1.5 brand-gradient-bg rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity"></span>
+                    <div class="relative px-6 py-2.5 brand-gradient-bg text-white text-sm font-black uppercase tracking-widest rounded-xl shadow-lg">Contact Us</div>
+                </button>
+                <!-- Mobile Toggle -->
+                <div class="xl:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="p-2 text-brand-blue focus:outline-none">
+                        <svg id="menu-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg id="close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Nav Bar (Desktop Only) -->
+        <div class="hidden xl:flex w-full h-16 border-t border-gray-50 bg-gray-50/30">
+            <nav class="max-w-7xl mx-auto px-8 w-full flex justify-center space-x-12 items-center h-full">
+                <a href="javascript:void(0)" onclick="switchView('home')" class="text-sm font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors h-full flex items-center">Home</a>
                 
                 <div class="relative h-full flex items-center group">
-                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue h-full">
                         Health Risks <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="mega-menu absolute top-20 left-0 w-48 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-blue p-4 space-y-2 text-left">
+                    <div class="mega-menu absolute top-full left-0 w-48 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-blue p-4 space-y-2 text-left">
                         <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Heart')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">Heart</a>
                         <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Thyroid')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">Thyroid</a>
                         <a href="javascript:void(0)" onclick="filterByCategory('risk', 'Liver')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">Liver</a>
@@ -119,10 +137,10 @@
                 </div>
 
                 <div class="relative h-full flex items-center group">
-                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue h-full">
                         Health Conditions <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="mega-menu absolute top-20 left-1/2 -translate-x-1/2 w-[600px] bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-cyan p-8 grid grid-cols-3 gap-x-8 gap-y-4 text-left">
+                    <div class="mega-menu absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-cyan p-8 grid grid-cols-3 gap-x-8 gap-y-4 text-left">
                         <div class="space-y-2">
                             <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Cardiovascular')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue">Cardiovascular</a>
                             <a href="javascript:void(0)" onclick="filterByCategory('condition', 'Hypertension')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue">Hypertension</a>
@@ -142,10 +160,10 @@
                 </div>
 
                 <div class="relative h-full flex items-center group">
-                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue">
+                    <button class="text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-1 group-hover:text-brand-blue h-full">
                         Health Check Packages <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div class="mega-menu absolute top-20 right-0 w-56 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-green p-4 space-y-2 text-right">
+                    <div class="mega-menu absolute top-full right-0 w-56 bg-white shadow-2xl rounded-b-2xl border-t-2 border-brand-green p-4 space-y-2 text-right">
                         <a href="javascript:void(0)" onclick="filterByCategory('package', 'LifeStyle')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">LifeStyle Packages</a>
                         <a href="javascript:void(0)" onclick="filterByCategory('package', 'Men')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">Men Health</a>
                         <a href="javascript:void(0)" onclick="filterByCategory('package', 'Women')" class="block text-sm font-bold text-gray-600 hover:text-brand-blue py-1">Women Health</a>
@@ -153,22 +171,11 @@
                     </div>
                 </div>
 
-                <a href="javascript:void(0)" onclick="switchView('about')" class="text-sm font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors">About Us</a>
-                
-                <button onclick="switchView('contact')" class="relative group ml-2 active:scale-95 transition-all">
-                    <span class="absolute -inset-1.5 brand-gradient-bg rounded-xl blur-md opacity-20 group-hover:opacity-60 transition-opacity"></span>
-                    <div class="relative px-6 py-2.5 brand-gradient-bg text-white text-sm font-black uppercase tracking-widest rounded-xl shadow-lg">Contact Us</div>
-                </button>
+                <a href="javascript:void(0)" onclick="switchView('about')" class="text-sm font-black text-gray-500 hover:text-brand-blue uppercase tracking-widest transition-colors h-full flex items-center">About Us</a>
             </nav>
-
-            <div class="xl:hidden flex items-center">
-                <button onclick="toggleMobileMenu()" class="p-2 text-brand-blue focus:outline-none">
-                    <svg id="menu-icon" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    <svg id="close-icon" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
         </div>
 
+        <!-- Mobile Menu Drawer (Remains attached to top-20) -->
         <div id="mobile-menu" class="hidden xl:hidden absolute top-20 left-0 w-full bg-white border-b border-gray-100 shadow-xl overflow-y-auto max-h-[80vh]">
             <div class="px-6 py-8 space-y-6 flex flex-col items-center uppercase font-black text-base tracking-widest">
                 <a href="javascript:void(0)" onclick="switchView('home')">Home</a>
@@ -179,10 +186,11 @@
         </div>
     </header>
 
+    <!-- Adjust padding-top on all main views to account for the taller header -->
     <div id="main-content">
         <!-- Home View -->
         <div id="home-view">
-            <main class="pt-20">
+            <main class="pt-28 xl:pt-40">
                 <!-- Hero Section -->
                 <section class="py-12 md:py-32 px-4 max-w-7xl mx-auto">
                     <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 text-center lg:text-left">
@@ -288,12 +296,12 @@
         </div>
 
         <!-- Catalog View -->
-        <div id="packages-page-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen px-4">
+        <div id="packages-page-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-gray-50 min-h-screen px-4">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 text-left">
                     <div>
                         <h1 class="text-4xl sm:text-7xl font-black text-gray-900 tracking-tighter uppercase leading-none" id="menu-title">Test <span class="brand-gradient-text italic">Menu.</span></h1>
-                        <p class="text-gray-400 font-bold uppercase tracking-[0.3em] text-[9px] mt-4" id="menu-subtitle">Browsing 100+ clinical investigations</p>
+                        <p class="text-gray-400 font-bold uppercase tracking-[0.3em] text-[9px] mt-4" id="menu-subtitle">Browsing 100+ investigations</p>
                     </div>
                     <button onclick="clearFilter()" id="clear-btn" class="hidden px-8 py-3 bg-white border border-gray-200 rounded-xl text-[9px] font-black uppercase tracking-widest text-brand-blue hover:border-brand-blue shadow-sm transition-all">Reset All</button>
                 </div>
@@ -308,7 +316,8 @@
             </div>
         </div>
 
-        <div id="test-detail-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen text-left">
+        <!-- Detail View -->
+        <div id="test-detail-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-white min-h-screen text-left">
             <div class="max-w-4xl mx-auto px-6">
                 <button onclick="goBack()" class="back-btn flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand-blue mb-12">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -319,7 +328,7 @@
         </div>
 
         <!-- Privacy & Terms View -->
-        <div id="privacy-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6">
+        <div id="privacy-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-white min-h-screen px-6">
             <div class="max-w-3xl mx-auto text-left">
                 <h1 class="text-4xl font-black text-slate-900 mb-12 brand-gradient-text uppercase tracking-widest">Privacy Policy.</h1>
                 <div class="space-y-6 text-slate-900 font-medium leading-relaxed">
@@ -330,7 +339,7 @@
             </div>
         </div>
 
-        <div id="terms-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6 text-left">
+        <div id="terms-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-white min-h-screen px-6 text-left">
             <div class="max-w-3xl mx-auto text-left">
                 <h1 class="text-4xl font-black text-slate-900 mb-12 brand-gradient-text uppercase tracking-widest">Terms of Use.</h1>
                 <div class="space-y-6 text-slate-900 font-medium leading-relaxed">
@@ -342,7 +351,7 @@
         </div>
 
         <!-- ABOUT US VIEW -->
-        <div id="about-view" class="view-hidden pt-32 pb-20 bg-white min-h-screen px-6">
+        <div id="about-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-white min-h-screen px-6">
             <div class="max-w-4xl mx-auto text-left">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 text-brand-blue font-bold text-[10px] uppercase tracking-widest mb-8">The Winpath Story</div>
                 <h1 class="text-4xl sm:text-6xl font-black text-gray-900 tracking-tighter uppercase mb-12">Clinical Integrity. <br><span class="brand-gradient-text">Personal Care.</span></h1>
@@ -376,7 +385,6 @@
                     <h2 class="text-3xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tighter">Strategic <span class="brand-gradient-text italic">Roadmap.</span></h2>
                     <p class="text-gray-500 text-sm mb-12 max-w-2xl leading-relaxed">The milestones that define our commitment to precision and the goals we are building towards for our patients.</p>
                     
-                    <!-- The container where the interactive roadmap will be injected -->
                     <div id="roadmap-container" class="relative border-l-2 border-brand-cyan/20 ml-3 sm:ml-5 space-y-8 pb-4">
                         <!-- JS renders goals here -->
                     </div>
@@ -390,7 +398,7 @@
             </div>
         </div>
 
-        <div id="contact-view" class="view-hidden pt-32 pb-20 bg-gray-50 min-h-screen px-6">
+        <div id="contact-view" class="view-hidden pt-32 xl:pt-48 pb-20 bg-gray-50 min-h-screen px-6">
             <div class="max-w-4xl mx-auto text-center">
                 <h1 class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tighter uppercase mb-16 text-center">Contact <span class="brand-gradient-text italic">Us.</span></h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
