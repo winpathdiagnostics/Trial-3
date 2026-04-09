@@ -4,138 +4,157 @@
  * Ensure this file is saved in the same directory as index.html.
  */
 
-window.rateCard = [
-    // Hematology & Basic Screens
-    { name: "Peripheral Smear Examination (PBS), EDTA Blood", price: "350.00", desc: "Detailed microscopic analysis of blood cells to detect morphological abnormalities.", params: "RBC morphology, WBC differential, Platelet estimate, Parasites (Malaria/Filaria)" },
-    { name: "CBC Haemogram (Complete Blood Count)", price: "400.00", desc: "Comprehensive blood profiling used as a primary diagnostic tool for various conditions.", params: "Hb, WBC, RBC, Platelets, PCV, MCV, MCH, MCHC, RDW, Neutrophils, Lymphocytes, Monocytes, Eosinophils, Basophils" },
-    { name: "ESR (Erythrocyte Sedimentation Rate)", price: "150.00", desc: "Non-specific marker used to detect inflammation associated with infections or tumors.", params: "Westergren method" },
-    { name: "Blood Grouping (ABO & Rh Typing)", price: "300.00", desc: "Determination of blood group and Rh factor for transfusions or pregnancy.", params: "ABO, Rh Factor" },
-    { name: "Hb Electrophoresis (HPLC)", price: "1,400.00", desc: "Gold standard screening for Thalassemia and other Hemoglobin variants.", params: "HbA, HbA2, HbF, Variant Hemoglobins" },
-    { name: "Absolute Eosinophil Count (AEC)", price: "240.00", desc: "Specific count of eosinophils to identify allergic reactions or parasitic infections.", params: "Absolute count" },
-    { name: "Platelet Count", price: "195.00", desc: "Specific count of platelets to assess clotting ability.", params: "Platelet Count" },
-    { name: "Reticulocyte Count", price: "450.00", desc: "Measures the rate of new red blood cell production by the bone marrow.", params: "Retic Count, Immature Reticulocyte Fraction" },
-
-    // Diabetic & Metabolic
-    { name: "HbA1c (Glycated Haemoglobin)", price: "700.00", desc: "Average blood sugar levels over the past 2-3 months.", params: "HbA1c percentage, Estimated Average Glucose (eAG)" },
-    { name: "Glucose Fasting (FBS)", price: "80.00", desc: "Blood sugar level after an 8-10 hour fast.", params: "Fasting Sugar" },
-    { name: "Glucose Post Prandial (PPBS)", price: "80.00", desc: "Blood sugar level 2 hours after a meal.", params: "PP Sugar" },
-    { name: "Glucose Random (RBS)", price: "80.00", desc: "Blood sugar level measured at any time.", params: "Random Sugar" },
-    { name: "Insulin - Fasting", price: "1,050.00", desc: "Measures the amount of insulin in the blood after fasting.", params: "Serum Insulin" },
-    { name: "C-Peptide", price: "1,200.00", desc: "Evaluates the production of insulin by the pancreas.", params: "Serum C-Peptide" },
-    { name: "HOMA-IR (Insulin Resistance)", price: "1,500.00", desc: "Calculated index to assess the risk of type 2 diabetes.", params: "Glucose, Insulin, Resistance Index" },
-
-    // Lipid Profile (Cardiac Risk)
-    { name: "Lipid Profile - Maxi", price: "1,450.00", desc: "Comprehensive assessment of cholesterol and cardiovascular health risk.", params: "Total Cholesterol, Triglycerides, HDL (Good), LDL (Bad), VLDL, Total Cholesterol/HDL Ratio" },
-    { name: "Total Cholesterol", price: "180.00", desc: "Measures the total amount of cholesterol in the blood.", params: "Serum Cholesterol" },
-    { name: "Triglycerides", price: "380.00", desc: "Measures the main form of fat stored in the body.", params: "Serum Triglycerides" },
-    { name: "HDL (Good) Cholesterol", price: "350.00", desc: "High-density lipoprotein that helps remove bad cholesterol.", params: "HDL-C" },
-    { name: "LDL (Bad) Cholesterol", price: "350.00", desc: "Low-density lipoprotein associated with plaque buildup.", params: "LDL-C" },
-    { name: "Apolipoprotein A1 & B", price: "1,850.00", desc: "Advanced cardiac risk markers.", params: "Apo A1, Apo B, Ratio" },
-
-    // Liver Function (LFT)
-    { name: "Liver Function Test (LFT) - Maxi", price: "1,610.00", desc: "Detailed screening for liver inflammation and health.", params: "Bilirubin T/D/I, SGOT, SGPT, ALP, Total Protein, Albumin, Globulin, GGT" },
-    { name: "SGPT (ALT)", price: "210.00", desc: "Primary liver enzyme marker for cellular damage.", params: "Alanine Aminotransferase" },
-    { name: "SGOT (AST)", price: "200.00", desc: "Enzyme found in liver and heart; marker for tissue damage.", params: "Aspartate Aminotransferase" },
-    { name: "Bilirubin Total, Direct & Indirect", price: "250.00", desc: "Measures bile pigments to detect jaundice or liver issues.", params: "Total Bilirubin, Direct Bilirubin, Indirect Bilirubin" },
-    { name: "Alkaline Phosphatase (ALP)", price: "220.00", desc: "Enzyme related to liver, bile ducts, and bone health.", params: "Serum ALP" },
-    { name: "Gamma GT (GGTP)", price: "370.00", desc: "Highly sensitive marker for bile duct obstruction and alcohol use.", params: "GGT" },
-    { name: "Serum Albumin", price: "240.00", desc: "Protein made by the liver; monitors nutritional status.", params: "Albumin" },
-
-    // Renal & Kidney Function (KFT)
-    { name: "Renal Function Test (RFT) - Maxi", price: "1,150.00", desc: "Profiling of kidney efficiency and electrolyte balance.", params: "Urea, Creatinine, Uric Acid, Calcium, Phosphorus, Sodium, Potassium, Chloride" },
-    { name: "Creatinine", price: "150.00", desc: "Waste product filtered by kidneys; primary marker for kidney function.", params: "Serum Creatinine, eGFR" },
-    { name: "Urea", price: "160.00", desc: "Waste product from protein breakdown.", params: "Serum Urea, BUN (Blood Urea Nitrogen)" },
-    { name: "Uric Acid", price: "250.00", desc: "Marker for gout and kidney stones.", params: "Serum Uric Acid" },
-    { name: "Electrolytes", price: "490.00", desc: "Measures essential minerals for fluid balance.", params: "Sodium, Potassium, Chloride" },
-    { name: "Total Calcium", price: "270.00", desc: "Vital for bone health, heart, and nerves.", params: "Serum Calcium" },
-    { name: "Phosphorus", price: "185.00", desc: "Mineral that works with calcium for bone health.", params: "Inorganic Phosphorus" },
-
-    // Vitamins & Minerals
-    { name: "Vitamin D Total (25-OH)", price: "1,780.00", desc: "Assessment of Vitamin D storage for bone and immune health.", params: "25-Hydroxy Vitamin D" },
-    { name: "Vitamin B12 (Cyanocobalamin)", price: "1,350.00", desc: "Essential for nerve tissue health and RBC production.", params: "Serum Vitamin B12" },
-    { name: "Iron Studies", price: "810.00", desc: "Evaluates iron levels, transport, and storage capacity.", params: "Iron, TIBC, UIBC, % Transferrin Saturation" },
-    { name: "Ferritin", price: "1,000.00", desc: "Most sensitive marker for iron deficiency storage.", params: "Serum Ferritin" },
-    { name: "Folic Acid (Vitamin B9)", price: "1,450.00", desc: "Essential for DNA synthesis and red blood cell formation.", params: "Serum Folate" },
-    { name: "Zinc", price: "2,300.00", desc: "Trace element vital for immunity and wound healing.", params: "Serum Zinc" },
-    { name: "Magnesium", price: "640.00", desc: "Mineral essential for muscle and nerve function.", params: "Serum Magnesium" },
-
-    // Thyroid & Hormones
-    { name: "Thyroid Profile (Total T3, T4, TSH)", price: "600.00", desc: "Standard screening for thyroid gland activity.", params: "Total T3, Total T4, TSH" },
-    { name: "TSH (Thyroid Stimulating Hormone)", price: "350.00", desc: "Sensitive marker for hyper or hypothyroidism.", params: "Ultrasensitive TSH" },
-    { name: "Free T3 & Free T4", price: "800.00", desc: "Unbound, active forms of thyroid hormones.", params: "FT3, FT4" },
-    { name: "Prolactin", price: "660.00", desc: "Hormone related to reproductive health and pituitary function.", params: "Serum Prolactin" },
-    { name: "Testosterone Total", price: "750.00", desc: "Primary male sex hormone level.", params: "Total Testosterone" },
-    { name: "Testosterone Free", price: "1,800.00", desc: "Measures active testosterone not bound to proteins.", params: "Free Testosterone" },
-    { name: "AMH (Anti Mullerian Hormone)", price: "2,800.00", desc: "Assessment of ovarian reserve and fertility.", params: "Serum AMH" },
-    { name: "FSH (Follicle Stimulating Hormone)", price: "630.00", desc: "Regulates reproductive processes.", params: "Serum FSH" },
-    { name: "LH (Luteinizing Hormone)", price: "650.00", desc: "Triggers ovulation and testosterone production.", params: "Serum LH" },
-    { name: "Estradiol (E2)", price: "750.00", desc: "Primary estrogen hormone measurement.", params: "Serum E2" },
-    { name: "Progesterone", price: "750.00", desc: "Hormone essential for menstrual cycle and pregnancy.", params: "Serum Progesterone" },
-    { name: "Beta HCG (Quantitative)", price: "950.00", desc: "Confirmation and monitoring of pregnancy.", params: "Total Beta HCG" },
-
-    // Infectious Disease & Inflammation
-    { name: "Dengue Profile (IgM & NS1)", price: "600.00", desc: "Rapid detection of early and mid-stage dengue infection.", params: "NS1 Antigen, Dengue IgM Antibody" },
-    { name: "Widal Test (Typhoid)", price: "360.00", desc: "Agglutination test for Enteric fever.", params: "S. Typhi O, S. Typhi H, S. Paratyphi" },
-    { name: "Typhodot (IgM/IgG)", price: "750.00", desc: "Rapid screening for Typhoid antibodies.", params: "Typhoid IgM, IgG" },
-    { name: "CRP (C Reactive Protein)", price: "520.00", desc: "General marker for acute inflammation or infection.", params: "Quantitative CRP" },
-    { name: "hs-CRP (High Sensitivity CRP)", price: "850.00", desc: "Marker for low-grade inflammation and cardiac risk.", params: "hs-CRP" },
-    { name: "HIV-DUO (4th Gen)", price: "760.00", desc: "Highly sensitive early detection of HIV p24 antigen and antibodies.", params: "p24 Antigen, HIV 1/2 Antibodies" },
-    { name: "HBsAg (Hepatitis B Surface Antigen)", price: "600.00", desc: "Primary screening test for Hepatitis B virus.", params: "HBsAg" },
-    { name: "HCV (Hepatitis C Virus) Antibody", price: "1,700.00", desc: "Screening for Hepatitis C viral infection.", params: "Anti-HCV" },
-    { name: "VDRL (RPR)", price: "300.00", desc: "Screening test for Syphilis.", params: "Rapid Plasma Reagin" },
-    { name: "Malaria Parasite Smear", price: "350.00", desc: "Visual microscopic identification of malaria parasites.", params: "MP Slide (Thick and Thin)" },
-    { name: "Procalcitonin", price: "3,120.00", desc: "Specific marker for bacterial sepsis.", params: "Serum Procalcitonin" },
-    { name: "Chikungunya IgM", price: "900.00", desc: "Antibody test for recent Chikungunya infection.", params: "IgM Antibody" },
-
-    // Cardiac & Specialized
-    { name: "Troponin I (High Sensitivity)", price: "1,850.00", desc: "Gold standard marker for cardiac muscle injury.", params: "hs-Trop I" },
-    { name: "D-Dimer (Quantitative)", price: "1,520.00", desc: "Detection of blood clots and thrombosis risk.", params: "D-Dimer" },
-    { name: "NT-Pro BNP", price: "3,010.00", desc: "Marker for heart failure and cardiac stress.", params: "B-type Natriuretic Peptide" },
-    { name: "Homocysteine", price: "1,470.00", desc: "Amino acid marker related to heart disease and stroke risk.", params: "Serum Homocysteine" },
-    { name: "CPK Total", price: "550.00", desc: "Measures creatine phosphokinase to check for muscle damage.", params: "CK Total" },
-    { name: "LDH (Lactate Dehydrogenase)", price: "450.00", desc: "Marker for general tissue damage or hemolysis.", params: "Serum LDH" },
-    { name: "Amylase", price: "600.00", desc: "Enzyme marker for pancreatic health.", params: "Serum Amylase" },
-    { name: "Lipase", price: "750.00", desc: "Specific enzyme marker for acute pancreatitis.", params: "Serum Lipase" },
-
-    // Cancer Markers
-    { name: "PSA Total (Prostate Specific Antigen)", price: "1,200.00", desc: "Screening marker for prostate health in men.", params: "Total PSA" },
-    { name: "CA 125", price: "1,450.00", desc: "Tumor marker primarily used for monitoring ovarian cancer.", params: "Cancer Antigen 125" },
-    { name: "CEA (Carcino Embryonic Antigen)", price: "1,350.00", desc: "General tumor marker for colon and GI cancers.", params: "Serum CEA" },
-    { name: "AFP (Alpha Feto Protein)", price: "1,020.00", desc: "Marker for liver cancer and germ cell tumors.", params: "Serum AFP" },
-    { name: "CA 19.9", price: "1,760.00", desc: "Tumor marker for pancreatic and gallbladder cancers.", params: "Cancer Antigen 19.9" },
-    { name: "Beta-2 Microglobulin", price: "1,200.00", desc: "Marker for certain blood cancers and kidney function.", params: "Serum B2M" },
-
-    // Autoimmune & Immunology
-    { name: "ANA Screening (IF)", price: "990.00", desc: "Screening for Antinuclear Antibodies related to autoimmune disease.", params: "Antinuclear Antibodies" },
-    { name: "ANA Blot (16 Antigens)", price: "4,490.00", desc: "Detailed profile to identify specific autoimmune markers.", params: "dsDNA, Sm, RNP, SSA, SSB, Scl-70, etc." },
-    { name: "RA Factor (Rheumatoid Factor)", price: "750.00", desc: "Screening for Rheumatoid Arthritis.", params: "Quantitative RA Factor" },
-    { name: "Anti-CCP Antibody", price: "1,650.00", desc: "Highly specific marker for Rheumatoid Arthritis.", params: "ACCP" },
-    { name: "ASO Titre", price: "650.00", desc: "Marker for recent streptococcal infection.", params: "Antistreptolysin O" },
-
-    // Urine, Stool & Others
-    { name: "Urine Routine Examination (Automated)", price: "180.00", desc: "Physical, chemical, and microscopic analysis of urine.", params: "pH, Sugar, Protein, Pus cells, RBCs, Casts, Crystals" },
-    { name: "Stool Routine & Microscopy", price: "270.00", desc: "Screening for parasites and gastrointestinal infections.", params: "Ova, Cysts, Occult Blood" },
-    { name: "Microalbumin - Urine", price: "600.00", desc: "Early detection marker for diabetic kidney damage.", params: "Albumin/Creatinine Ratio" },
-    { name: "Urine Culture & Sensitivity", price: "900.00", desc: "Identification of bacteria in urine and effective antibiotics.", params: "Culture, Antibiotic Panel" },
-    { name: "Semen Analysis", price: "600.00", desc: "Evaluation of male fertility factors.", params: "Count, Motility, Morphology, Volume" },
-
-    // Genetic & Molecular
-    { name: "1p/19q Co-Deletion (FISH)", price: "13,515.00", desc: "Advanced genetic marker for brain tumor classification.", params: "Chromosome 1p, Chromosome 19q" },
-    { name: "Beta Thalassemia Mutation Detection", price: "9,590.00", desc: "Genetic identification of thalassemia traits.", params: "HBB Gene Analysis" },
-    { name: "MTB - GeneXpert XDR Rapid Plus", price: "6,650.00", desc: "Molecular detection of Tuberculosis and drug resistance.", params: "TB Detection, RIF Resistance" },
-    { name: "HLA-B27 (Flow Cytometry)", price: "2,500.00", desc: "Genetic marker associated with Ankylosing Spondylitis.", params: "HLA-B27" },
-
-    // Radiology (X-Ray)
-    { name: "X-Ray Chest AP & LAT VIEW", price: "660.00", desc: "Digital radiological imaging of the chest cavity.", params: "AP View, Lateral View" },
-    { name: "X-Ray KNEE AP & LAT", price: "385.00", desc: "Radiological imaging of the knee joint.", params: "Knee AP, Knee Lateral" },
-    { name: "X-Ray Spine Cervical AP & LAT", price: "550.00", desc: "Radiological imaging of the neck region.", params: "Spine AP/Lateral" },
-
-    // Health Packages
-    { name: "TruHealth Master Checkup", price: "4,500.00", desc: "Comprehensive senior health screen covering major organ systems.", params: "60+ Parameters: CBC, LFT, KFT, Lipid, HbA1c, Urine, Thyroid" },
-    { name: "TruHeart Gold", price: "2,499.00", desc: "Targeted evaluation of cardiovascular risk factors.", params: "Lipid, Homocysteine, hs-CRP, CBC, Sugar" },
-    { name: "TruHealth Body Watch - Lifestyle Check", price: "12,500.00", desc: "Deep health assessment for busy professionals.", params: "100+ Parameters including Vitamins and Cancer Markers" },
-    { name: "Fever Profile - Mini", price: "1,800.00", desc: "Quick diagnostic screen for unexplained fever.", params: "CBC, Widal, Malaria, Urine Routine" },
-    { name: "PCOD / PCOS Profile", price: "3,500.00", desc: "Hormonal assessment for Polycystic Ovary Syndrome.", params: "FSH, LH, Prolactin, Testosterone, Insulin" }
-];
-
 console.log("Winpath Rate Card Database successfully loaded.");
+   // =====================================================================
+        // 1. HEALTH PACKAGES
+        // =====================================================================
+        const healthPackages = [
+            // --- LIFESTYLE & GENERAL WELLNESS ---
+            { id: 'p-1', name: "Master Health Checkup", price: "5,999", isPackage: true, desc: "Our gold-standard clinical audit.", importance: "A complete clinical audit of major organ systems. Highly recommended once a year for proactive health management of heart, liver, kidney, and metabolic status.", params: "CBC, LFT, RFT, Lipid, HbA1c, Vitamin D, Vitamin B12, Urine Routine, Thyroid, Fasting Sugar", category: { package: 'LifeStyle' } },
+            { id: 'p-2', name: "Full Body Checkup", price: "1,999", isPackage: true, desc: "Essential baseline organ health screen.", importance: "Perfect for routine monitoring of metabolic health, liver, and kidney functions at an accessible price for the entire family.", params: "CBC, Sugar, Lipid Profile, LFT, RFT, Urine Routine", category: { package: 'LifeStyle' } },
+            
+            // --- GENDER SPECIFIC ---
+            { id: 'p-3', name: "Women's Health Package", price: "2,499", isPackage: true, desc: "Hormonal & nutritional focus.", importance: "Specifically designed for women to monitor reproductive health, hormonal balance, bone density markers, and iron levels.", params: "CBC, Thyroid Profile, Iron, Calcium, Vitamin D", category: { package: 'Women' } },
+            { id: 'p-4', name: "Men's Health Package", price: "2,499", isPackage: true, desc: "Heart risk & prostate focus.", importance: "Targeted screening for cardiac risks, liver function, and age-related markers including prostate health indicators.", params: "CBC, Lipid Profile, LFT, PSA Total, Vitamin B12", category: { package: 'Men' } },
+            
+            // --- SENIORS & SPECIALIZED ---
+            { id: 'p-5', name: "Seniors Health Screen", price: "3,499", isPackage: true, desc: "Age-related chronic monitoring.", importance: "Targets age-related risks including chronic inflammation, blood sugar stability, renal filtration, and bone mineral loss.", params: "CBC, HbA1c, Cardiac Profile, RFT, Vitamin D", category: { package: 'Senior' } },
+            { id: 'p-6', name: "PCOS Screen", price: "2,999", isPackage: true, desc: "Reproductive hormonal panel.", importance: "Clinical evaluation of hormonal imbalance and insulin resistance associated with PCOS symptoms.", params: "FSH, LH, Prolactin, Insulin (F), Testosterone", category: { package: 'Women' } }
+        ];
+
+        // =====================================================================
+        // 2. STANDALONE CLINICAL INVESTIGATIONS 
+        // =====================================================================
+        let investigations = [
+            // --- HEMATOLOGY & COAGULATION ---
+            { id: 'i-1', name: "Complete Blood Count (CBC)", price: "450", params: "Hb, WBC, Platelets, DC, Indices", category: { risk: 'General' } },
+            { id: 'i-2', name: "Erythrocyte Sedimentation Rate (ESR)", price: "200", params: "ESR", category: { condition: 'Fever' } },
+            { id: 'i-3', name: "Blood Grouping & Rh Factor", price: "250", params: "ABO, Rh Type", category: { risk: 'General' } },
+            { id: 'i-4', name: "Peripheral Blood Smear", price: "350", params: "Morphology Analysis", category: { risk: 'General' } },
+            { id: 'i-5', name: "Reticulocyte Count", price: "450", params: "Retic Count", category: { risk: 'General' } },
+            { id: 'i-6', name: "Prothrombin Time (PT/INR)", price: "650", params: "PT, INR", category: { risk: 'Heart' } },
+            { id: 'i-7', name: "APTT", price: "750", params: "Activated Partial Thromboplastin Time", category: { risk: 'Heart' } },
+            { id: 'i-8', name: "Fibrinogen", price: "850", params: "Plasma Fibrinogen", category: { risk: 'Heart' } },
+            { id: 'i-9', name: "D-Dimer", price: "1800", params: "D-Dimer Quantitative", category: { risk: 'Lungs' } },
+            { id: 'i-10', name: "AEC (Absolute Eosinophil Count)", price: "250", params: "Eosinophil Count", category: { risk: 'Lungs' } },
+
+            // --- DIABETES & METABOLIC ---
+            { id: 'i-11', name: "Glucose Fasting (FBS)", price: "150", params: "Sugar (F)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-12', name: "Glucose Post Prandial (PPBS)", price: "150", params: "Sugar (PP)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-13', name: "Glucose Random (RBS)", price: "150", params: "Sugar (Random)", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-14', name: "HbA1c", price: "600", params: "Glycated Hemoglobin", category: { risk: 'Diabetes', condition: 'Diabetes' } },
+            { id: 'i-15', name: "Insulin Fasting", price: "950", params: "Fasting Insulin", category: { risk: 'Diabetes', condition: 'Obesity' } },
+            { id: 'i-16', name: "Insulin PP", price: "950", params: "Post Prandial Insulin", category: { risk: 'Diabetes', condition: 'Obesity' } },
+            { id: 'i-17', name: "C-Peptide", price: "1200", params: "C-Peptide Fasting", category: { risk: 'Diabetes' } },
+            { id: 'i-18', name: "Glucose Tolerance Test (GTT)", price: "600", params: "GTT (3 Samples)", category: { risk: 'Diabetes' } },
+
+            // --- CARDIAC & LIPIDS ---
+            { id: 'i-19', name: "Lipid Profile", price: "850", params: "Cholesterol, Triglycerides, HDL, LDL, VLDL", category: { risk: 'Heart', condition: 'Cardiovascular' } },
+            { id: 'i-20', name: "Cholesterol (Total)", price: "250", params: "Total Cholesterol", category: { risk: 'Heart' } },
+            { id: 'i-21', name: "Triglycerides", price: "350", params: "Serum Triglycerides", category: { risk: 'Heart' } },
+            { id: 'i-22', name: "CRP (High Sensitivity)", price: "950", params: "hs-CRP", category: { risk: 'Heart', condition: 'Cardiovascular' } },
+            { id: 'i-23', name: "Troponin I", price: "1800", params: "hs-Troponin I", category: { risk: 'Heart' } },
+            { id: 'i-24', name: "Troponin T", price: "1800", params: "hs-Troponin T", category: { risk: 'Heart' } },
+            { id: 'i-25', name: "CPK Total", price: "650", params: "Creatine Phosphokinase", category: { risk: 'Heart' } },
+            { id: 'i-26', name: "CPK-MB", price: "850", params: "CPK-MB Isoenzyme", category: { risk: 'Heart' } },
+            { id: 'i-27', name: "Homocysteine", price: "1500", params: "Homocysteine Levels", category: { risk: 'Heart' } },
+
+            // --- LIVER FUNCTION (HEPATIC) ---
+            { id: 'i-28', name: "Liver Function Test (LFT)", price: "950", params: "SGOT, SGPT, Bilirubin, ALP, Proteins", category: { risk: 'Liver', condition: 'Gut Health' } },
+            { id: 'i-29', name: "Bilirubin Total & Direct", price: "350", params: "Total, Direct, Indirect Bilirubin", category: { risk: 'Liver' } },
+            { id: 'i-30', name: "SGOT (AST)", price: "250", params: "AST", category: { risk: 'Liver' } },
+            { id: 'i-31', name: "SGPT (ALT)", price: "250", params: "ALT", category: { risk: 'Liver' } },
+            { id: 'i-32', name: "Alkaline Phosphatase (ALP)", price: "300", params: "Serum ALP", category: { risk: 'Liver' } },
+            { id: 'i-33', name: "GGT", price: "550", params: "Gamma GT", category: { risk: 'Liver', condition: 'Alcohol' } },
+            { id: 'i-34', name: "Total Protein & A/G Ratio", price: "350", params: "Protein, Albumin, Globulin", category: { risk: 'Liver', condition: 'Nutrition' } },
+
+            // --- RENAL FUNCTION (KIDNEY) & ELECTROLYTES ---
+            { id: 'i-35', name: "Renal Function Test (RFT)", price: "950", params: "Creatinine, Urea, Uric Acid, BUN, Electrolytes", category: { risk: 'Kidney', condition: 'Hypertension' } },
+            { id: 'i-36', name: "Serum Creatinine", price: "250", params: "Creatinine", category: { risk: 'Kidney' } },
+            { id: 'i-37', name: "Blood Urea Nitrogen (BUN)", price: "300", params: "BUN", category: { risk: 'Kidney' } },
+            { id: 'i-38', name: "Uric Acid", price: "250", params: "Uric Acid", category: { risk: 'Kidney' } },
+            { id: 'i-39', name: "Serum Electrolytes", price: "650", params: "Sodium, Potassium, Chloride", category: { risk: 'Kidney' } },
+            { id: 'i-40', name: "Calcium (Total)", price: "300", params: "Serum Calcium", category: { condition: 'Bone Health' } },
+            { id: 'i-41', name: "Phosphorus", price: "300", params: "Inorganic Phosphorus", category: { condition: 'Bone Health' } },
+            { id: 'i-42', name: "Magnesium", price: "550", params: "Serum Magnesium", category: { risk: 'Kidney' } },
+            { id: 'i-43', name: "Creatinine Clearance", price: "1200", params: "Blood & 24H Urine Creatinine", category: { risk: 'Kidney' } },
+
+            // --- THYROID & ENDOCRINOLOGY ---
+            { id: 'i-44', name: "Thyroid Profile (Total)", price: "750", params: "T3, T4, TSH", category: { risk: 'Thyroid' } },
+            { id: 'i-45', name: "Thyroid Profile (Free)", price: "1100", params: "FT3, FT4, TSH", category: { risk: 'Thyroid' } },
+            { id: 'i-46', name: "TSH (Ultrasensitive)", price: "450", params: "Thyroid Stimulating Hormone", category: { risk: 'Thyroid' } },
+            { id: 'i-47', name: "Anti-TPO Antibodies", price: "1600", params: "Microsomal Antibody", category: { risk: 'Thyroid' } },
+            { id: 'i-48', name: "Anti-Thyroglobulin (Anti-Tg)", price: "1600", params: "Anti-Tg", category: { risk: 'Thyroid' } },
+            { id: 'i-49', name: "Prolactin", price: "750", params: "Serum Prolactin", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+            { id: 'i-50', name: "FSH", price: "700", params: "Follicle Stimulating Hormone", category: { risk: 'Infertility' } },
+            { id: 'i-51', name: "LH", price: "700", params: "Luteinizing Hormone", category: { risk: 'Infertility' } },
+            { id: 'i-52', name: "Testosterone (Total)", price: "950", params: "Total Testosterone", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+            { id: 'i-53', name: "Testosterone (Free)", price: "1400", params: "Free Testosterone", category: { risk: 'Infertility' } },
+            { id: 'i-54', name: "Cortisol (Morning)", price: "850", params: "8 AM Cortisol", category: { condition: 'Sleep Disorder' } },
+            { id: 'i-55', name: "Cortisol (Evening)", price: "850", params: "4 PM Cortisol", category: { condition: 'Sleep Disorder' } },
+            { id: 'i-56', name: "Beta HCG (Quantitative)", price: "950", params: "Serum Beta HCG", category: { risk: 'General' } },
+
+            // --- VITAMINS & NUTRITION ---
+            { id: 'i-57', name: "Vitamin D (25-Hydroxy)", price: "1450", params: "25-OH Vitamin D", category: { condition: 'Bone Health' } },
+            { id: 'i-58', name: "Vitamin B12", price: "1200", params: "Cyanocobalamin", category: { condition: 'Nutrition' } },
+            { id: 'i-59', name: "Vitamin B9 (Folic Acid)", price: "1200", params: "Folate Levels", category: { condition: 'Nutrition' } },
+            { id: 'i-60', name: "Iron Profile", price: "1100", params: "Iron, TIBC, UIBC, Transferrin Saturation", category: { condition: 'Nutrition' } },
+            { id: 'i-61', name: "Ferritin", price: "850", params: "Serum Ferritin", category: { condition: 'Nutrition' } },
+            { id: 'i-62', name: "Transferrin", price: "950", params: "Serum Transferrin", category: { condition: 'Nutrition' } },
+
+            // --- IMMUNOLOGY, ARTHRITIS & INFLAMMATION ---
+            { id: 'i-63', name: "CRP (Standard)", price: "550", params: "C-Reactive Protein", category: { condition: 'Fever' } },
+            { id: 'i-64', name: "RA Factor (Quantitative)", price: "650", params: "Rheumatoid Factor", category: { condition: 'Bone Health' } },
+            { id: 'i-65', name: "Anti-CCP", price: "1500", params: "Cyclic Citrullinated Peptide", category: { condition: 'Bone Health' } },
+            { id: 'i-66', name: "ANA (Anti-Nuclear Antibody)", price: "1100", params: "ANA IFA Method", category: { risk: 'General' } },
+            { id: 'i-67', name: "ANA Profile (Immunoblot)", price: "3500", params: "17 Antigen Panel", category: { risk: 'General' } },
+            { id: 'i-68', name: "ASO Titre", price: "650", params: "Anti-Streptolysin O", category: { risk: 'Heart' } },
+            { id: 'i-69', name: "HLA-B27", price: "1800", params: "HLA-B27 Antigen", category: { condition: 'Bone Health' } },
+
+            // --- INFECTIOUS DISEASES & SEROLOGY ---
+            { id: 'i-70', name: "Dengue NS1 Antigen", price: "850", params: "NS1 Ag", category: { condition: 'Fever' } },
+            { id: 'i-71', name: "Dengue IgM/IgG Antibodies", price: "1100", params: "Dengue Serology", category: { condition: 'Fever' } },
+            { id: 'i-72', name: "Malaria Antigen (Rapid)", price: "400", params: "Pf/Pv Antigen", category: { condition: 'Fever' } },
+            { id: 'i-73', name: "Widal Test", price: "350", params: "Typhoid Screen", category: { condition: 'Fever' } },
+            { id: 'i-74', name: "Typhidot (IgM/IgG)", price: "650", params: "Salmonella Antibodies", category: { condition: 'Fever' } },
+            { id: 'i-75', name: "HBsAg (Hepatitis B)", price: "450", params: "Hepatitis B Surface Antigen", category: { risk: 'Liver' } },
+            { id: 'i-76', name: "Anti-HCV (Hepatitis C)", price: "850", params: "HCV Antibodies", category: { risk: 'Liver' } },
+            { id: 'i-77', name: "HIV 1&2 Antibody", price: "650", params: "4th Generation Screen", category: { condition: 'Sexual Wellness' } },
+            { id: 'i-78', name: "VDRL / RPR", price: "350", params: "Syphilis Screen", category: { condition: 'Sexual Wellness' } },
+            { id: 'i-79', name: "H. Pylori IgG", price: "950", params: "Helicobacter Pylori Ab", category: { condition: 'Gut Health' } },
+            { id: 'i-80', name: "Mantoux Test", price: "350", params: "TB Skin Test (Requires 48H reading)", category: { risk: 'Lungs' } },
+            { id: 'i-81', name: "Chikungunya IgM", price: "950", params: "Chikungunya Antibodies", category: { condition: 'Fever' } },
+            { id: 'i-82', name: "Leptospira IgM", price: "850", params: "Leptospirosis Screen", category: { condition: 'Fever' } },
+            { id: 'i-83', name: "Microfilaria Screen", price: "450", params: "Filaria Smear (Night Sample)", category: { condition: 'Fever' } },
+
+            // --- ONCOLOGY (TUMOR MARKERS) ---
+            { id: 'i-84', name: "PSA Total", price: "1200", params: "Prostate Antigen", category: { risk: 'Cancer' } },
+            { id: 'i-85', name: "CEA", price: "1100", params: "Carcinoembryonic Antigen", category: { risk: 'Cancer', condition: 'Gut Health' } },
+            { id: 'i-86', name: "CA-125", price: "1450", params: "Ovarian Cancer Marker", category: { risk: 'Cancer' } },
+            { id: 'i-87', name: "CA-15.3", price: "1450", params: "Breast Cancer Marker", category: { risk: 'Cancer' } },
+            { id: 'i-88', name: "CA-19.9", price: "1450", params: "Pancreatic Cancer Marker", category: { risk: 'Cancer', condition: 'Gut Health' } },
+            { id: 'i-89', name: "Alpha Fetoprotein (AFP)", price: "1100", params: "Liver/Germ Cell Marker", category: { risk: 'Cancer', risk: 'Liver' } },
+
+            // --- CLINICAL PATHOLOGY (URINE & STOOL) ---
+            { id: 'i-90', name: "Urine Routine & Microscopic", price: "250", params: "Physical, Chemical & Microscopic Exam", category: { risk: 'Kidney' } },
+            { id: 'i-91', name: "Urine Microalbumin", price: "750", params: "ACR Ratio", category: { risk: 'Kidney', condition: 'Hypertension' } },
+            { id: 'i-92', name: "24-Hour Urine Protein", price: "850", params: "Total Protein Excretion", category: { risk: 'Kidney' } },
+            { id: 'i-93', name: "Urine Culture & Sensitivity", price: "850", params: "Bacterial Culture", category: { risk: 'Kidney' } },
+            { id: 'i-94', name: "Stool Routine", price: "250", params: "Ova, Cyst, Microscopy", category: { condition: 'Gut Health' } },
+            { id: 'i-95', name: "Stool Occult Blood", price: "350", params: "Hidden Blood Detection", category: { condition: 'Gut Health' } },
+            { id: 'i-96', name: "Stool Hanging Drop", price: "350", params: "Cholera Screen", category: { condition: 'Gut Health' } },
+            { id: 'i-97', name: "Semen Analysis", price: "850", params: "Count, Motility, Morphology", category: { risk: 'Infertility', condition: 'Sexual Wellness' } },
+
+            // --- SPECIALIZED BIOCHEMISTRY & DRUGS ---
+            { id: 'i-98', name: "Amylase", price: "750", params: "Serum Amylase", category: { condition: 'Gut Health' } },
+            { id: 'i-99', name: "Lipase", price: "950", params: "Serum Lipase", category: { condition: 'Gut Health' } },
+            { id: 'i-100', name: "LDH (Lactate Dehydrogenase)", price: "650", params: "Total LDH", category: { risk: 'Lungs' } },
+            { id: 'i-101', name: "G6PD", price: "850", params: "Glucose-6-Phosphate Dehydrogenase", category: { risk: 'General' } },
+            { id: 'i-102', name: "Serum Copper", price: "1200", params: "Copper Levels", category: { risk: 'General' } },
+            { id: 'i-103', name: "Serum Zinc", price: "1200", params: "Zinc Levels", category: { risk: 'General' } },
+            { id: 'i-104', name: "Ceruloplasmin", price: "1500", params: "Wilson's Disease Screen", category: { risk: 'Liver' } },
+            { id: 'i-105', name: "Phenytoin Level", price: "1200", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-106', name: "Valproic Acid Level", price: "1200", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-107', name: "Lithium Level", price: "850", params: "Drug Monitoring", category: { risk: 'General' } },
+            { id: 'i-108', name: "Digoxin Level", price: "1800", params: "Drug Monitoring", category: { risk: 'Heart' } }
+        ];
